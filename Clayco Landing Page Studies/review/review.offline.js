@@ -760,7 +760,8 @@ const frame = $('preview');
 const REVIEW_VERSION = '20261019-review-ready-2';
 const keys = MOTION_SECTIONS.map(s=>s.id);
 const query = new URLSearchParams(location.search);
-let designId = DESIGNS[query.get('design')] ? query.get('design') : 'dohyoung-task-first';
+// The review opens on Sam Alcarez's first option unless the link names a design.
+let designId = DESIGNS[query.get('design')] ? query.get('design') : 'sam-alcarez-original';
 let settings = Object.fromEntries(keys.map(id=>[id,'o']));
 const initialMix = query.get('mix');
 if (initialMix && /^[oabc]{9}$/.test(initialMix)) keys.forEach((id,i)=>settings[id]=initialMix[i]);
