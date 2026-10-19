@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+
+<script src="../../offline-links.js?v=20261019-offline"></script>
+<script src="../../motion-frame.offline.js?v=20261019-offline"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clayco | Building to make life better</title>
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/home-intro.js" defer></script>
+<script src="assets/work-carousel.js" defer></script>
+<script src="assets/reveal.js" defer></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container">
+    <button class="icon-btn" aria-label="Menu">
+      <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 7h30M0 15h30M0 23h30"/></svg>
+    </button>
+    <a class="logo" href="index.html" aria-label="Clayco home"><img src="assets/img/clayco-logo-white.svg" alt="Clayco"></a>
+    <button class="icon-btn" aria-label="Search">
+      <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13" cy="13" r="8"/><path d="M19 19l7 7"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO (intro video) =====
+       Loads full-screen, plays for a few seconds, then shrinks into the header space.
+       Timing lives in assets/home-intro.js (INTRO_SECONDS). -->
+  <section class="hero hero--video is-intro" id="home-hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="assets/img/home-intro-poster.jpg"
+           data-src-large="assets/video/home-intro.mp4"
+           data-src-small="assets/video/home-intro-720.mp4"
+           aria-hidden="true"></video>
+    <button class="video-toggle" type="button" aria-label="Pause background video">
+      <svg class="icon-pause" viewBox="0 0 20 20" fill="currentColor"><rect x="4" y="3" width="4" height="14"/><rect x="12" y="3" width="4" height="14"/></svg>
+      <svg class="icon-play" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3l12 7-12 7z"/></svg>
+    </button>
+    <div class="container">
+      <h1>Building to<br>make life better.</h1>
+      <a class="hero-link" href="#">See what better means <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== INTRO STATEMENT ===== -->
+  <section class="statement" data-reveal-group>
+    <div class="container">
+      <h2 class="reveal" data-reveal-delay="0">Clayco believes<br>in the Art &amp; Science<br>of Building</h2>
+      <p class="reveal" data-reveal-delay="1">Clayco is a full-service, turnkey real estate, architecture, engineering, design-build and construction firm. Through a unified design-build team, we deliver integrated solutions driven by our clients’ vision: on time, on budget and above and beyond&nbsp;expectations.</p>
+      <ul class="stats reveal" data-reveal-delay="3">
+        <li><strong data-count="1984" data-format="year">1984</strong><span>Founded in St. Louis</span></li>
+        <li><strong data-count="8.1" data-prefix="$" data-suffix="B+" data-decimals="1">$8.1B+</strong><span>Revenue in 2025</span></li>
+        <li><strong data-count="4000" data-suffix="+">4,000+</strong><span>Employees nationwide</span></li>
+        <li><strong data-count="600" data-suffix="+">600+</strong><span>Iconic &amp; complex projects</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== NEWS (placeholder content) =====
+       1 featured story + 2 smaller stories. Swap images, dates, titles and links as real stories come in. -->
+  <section class="section container news">
+    <div class="news-head">
+      <div class="eyebrow">News</div>
+      <a class="text-link" href="#">View All News <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+    </div>
+    <div class="news-grid">
+      <article class="news-item news-item--featured">
+        <a href="#">
+          <div class="media"><img src="assets/img/iqmp-groundbreaking.jpg" alt=""></div>
+          <div class="news-meta"><span class="category">Company News</span><time datetime="2026-10-01">October 1, 2026</time></div>
+          <h3>It eos rem di to teEbisquassint acestruptur recesciis nobis cum</h3>
+          <p>It eos rem di to teEbisquassint acestruptur recesciis nobis cum et quodio quid earumquiasi vellandandae niendi aut laModi dolo quam, ius, quamus peratem porepedisAtur sunt, sant offic totatur.</p>
+        </a>
+      </article>
+      <div class="news-side">
+        <article class="news-item">
+          <a href="#">
+            <div class="media"><img src="assets/img/values-safety.jpg" alt=""></div>
+            <div>
+              <div class="news-meta"><span class="category">Community</span><time datetime="2026-09-18">September 18, 2026</time></div>
+              <h3>Quia que elendaere id mo torit ab ipsanti beatem</h3>
+              <p>Adi opta quam vera cores doluptatum intibus, quae plaboremque mo con nonsequist.</p>
+            </div>
+          </a>
+        </article>
+        <article class="news-item">
+          <a href="#">
+            <div class="media"><img src="assets/img/proj-rivian-r2.jpg" alt=""></div>
+            <div>
+              <div class="news-meta"><span class="category">Projects</span><time datetime="2026-09-04">September 4, 2026</time></div>
+              <h3>Sit rae nis aut facea dist dolupti ncillent quasimo</h3>
+              <p>Dignit fugia derum laborectus, quae nihil imus nobissi ncipicium quia sincips.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR MISSION ===== -->
+  <section class="section container mission">
+    <div class="eyebrow">Our Mission</div>
+    <!-- Copy adapted from claycorp.com/company-overview -->
+    <div class="media mission-media">
+      <img src="assets/img/home-mission.jpg" alt="Ironworker walking a beam with an American flag in the background">
+      <h2 class="mission-title">Beyond<br>These Walls</h2>
+    </div>
+    <div class="mission-body">
+      <blockquote class="mission-quote">It’s not about the walls we plan and the buildings we put up. It’s about the <span>people</span> and their <span>purpose</span> within them every day.</blockquote>
+      <div class="mission-text">
+        <p>Since 2011, “Beyond These Walls” has guided everything we do: building for the people who will live, work, heal and discover inside our buildings every&nbsp;day.</p>
+        <a class="text-link" href="#">Read Our Story <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR VALUES =====
+       Copy adapted from claycorp.com/values-commitment, /about/safety and /quality -->
+  <section class="section container values">
+    <div class="eyebrow">Our Values</div>
+    <div class="values-intro">
+      <h2><strong>Our Approach Is Very Simple:</strong> <span class="accent">Treat others as we would want to be treated.</span></h2>
+      <p>We hire the best and brightest, build fair partnerships with our subcontractors, and treat the communities we build in as our&nbsp;own.</p>
+    </div>
+    <div class="grid-3 values-grid">
+      <article class="value">
+        <div class="media"><img src="assets/img/values-safety.jpg" alt="Smiling Clayco worker in a hard hat"></div>
+        <div class="category">Our First Priority</div>
+        <h3>Safety</h3>
+        <p>From day one, we’ve set out to lead the industry in jobsite safety, so every project ends with zero incidents. Clayco Safe. We live by it, on the job and off.</p>
+        <a class="text-link" href="#">Learn About Safety <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+      <article class="value">
+        <div class="media"><img src="assets/img/values-rising.jpg" alt="Clayco Rising"></div>
+        <div class="category">Beyond the Jobsite</div>
+        <h3>Community</h3>
+        <p>Our projects build communities, and our commitment doesn’t end when the doors open. Through Clayco Rising, we create lasting opportunity for our people, partners and neighbors.</p>
+        <a class="text-link" href="#">Explore Clayco Rising <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+      <article class="value">
+        <div class="media"><img src="assets/img/values-quality.jpg" alt="Clayco crew member grinding concrete in a parking structure"></div>
+        <div class="category">Continuous Improvement</div>
+        <h3>Quality</h3>
+        <p>Everyone is accountable for the quality of our work, and every task is done right the first time.</p>
+        <a class="text-link" href="#">Our Quality Approach <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATED BY DESIGN =====
+       Develop / Design & Engineering / Build cards. Services lists from claycorp.com/company-overview -->
+  <section class="section container integrated">
+    <div class="eyebrow">Integrated by Design</div>
+    <div class="values-intro">
+      <h2><strong>Our Integrated Approach</strong></h2>
+      <p>Developers, designers, engineers and builders working as one transparent team, committed to exceeding every owner’s&nbsp;expectations.</p>
+    </div>
+    <div class="grid-3 values-grid">
+      <article class="value integrated-card">
+        <div class="media"><img src="assets/img/iqmp-gallery-4.jpg" alt="Rendering of the IQMP campus"></div>
+        <div class="category">Develop</div>
+        <img class="integrated-logo integrated-logo--crg" src="assets/img/logo-crg-gray.png" alt="CRG">
+        <p>Real estate services that take a project from the right site and the right financing through development and long-term ownership.</p>
+        <p class="integrated-services">Site Selection · Development · Financing · Asset Management</p>
+        <a class="text-link" href="https://realcrg.com/">Visit CRG <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+      <article class="value integrated-card">
+        <div class="media"><img src="assets/img/integrated-ljc.jpg" alt="Northwestern Medicine building designed by LJC"></div>
+        <div class="category">Design &amp; Engineering</div>
+        <img class="integrated-logo integrated-logo--ljc" src="assets/img/logo-ljc.png" alt="LJC Design &amp; Engineering">
+        <p>An award-winning architecture, engineering and design practice working hand in hand with the build team from the very first sketch.</p>
+        <p class="integrated-services">Architecture · Interior Design · Engineering · Urban Design &amp; Planning · Landscape Architecture</p>
+        <a class="text-link" href="https://theljc.com/">Visit LJC <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+      <article class="value integrated-card">
+        <div class="media"><img src="assets/img/iqmp-gallery-2.jpg" alt="Clayco crews erecting steel at the IQMP site"></div>
+        <div class="category">Build</div>
+        <img class="integrated-logo integrated-logo--clayco" src="assets/img/clayco-logo-red.svg" alt="Clayco">
+        <p>Design-build and construction delivered by our own crews and trusted partners, with a culture of safety on every jobsite.</p>
+        <p class="integrated-services">Design-Build · CM@Risk · Self-Perform · Culture of Safety</p>
+        <a class="text-link" href="#">Explore Our Services <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== OUR BUSINESS UNITS ===== -->
+  <section class="section container units">
+    <div class="eyebrow">Our Business Units</div>
+    <div class="grid-3">
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-compute.jpg" alt=""></div>
+          <div class="category">End-to-End Solutions</div>
+          <h3>Clayco Compute</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-advanced-mfg.jpg" alt=""></div>
+          <div class="category">Industry Thrives</div>
+          <h3>Advanced Manufacturing</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-life-sciences.jpg" alt=""></div>
+          <div class="category">Foster Research</div>
+          <h3>Life Sciences</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-food-beverage.jpg" alt=""></div>
+          <div class="category">Surpassing Quality</div>
+          <h3>Food &amp; Beverage</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-sports-ent.jpg" alt=""></div>
+          <div class="category">Unique Experiences</div>
+          <h3>Sports &amp; Entertainment</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-aviation.jpg" alt=""></div>
+          <div class="category">Connecting the World</div>
+          <h3>Aviation</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-distribution.jpg" alt=""></div>
+          <div class="category">Steady Supply Chains</div>
+          <h3>Distribution &amp; E&#8209;Commerce</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="#">
+          <div class="media"><img src="assets/img/company-residential.jpg" alt=""></div>
+          <div class="category">Communities Grow</div>
+          <h3>Residential &amp; Hospitality</h3>
+        </a>
+      </article>
+      <article class="card">
+        <a href="projects.html">
+          <div class="media"><img src="assets/img/company-current-projects.jpg" alt=""></div>
+          <div class="category">Depth of Expertise</div>
+          <h3>Current Projects</h3>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED PROJECTS (highlighted projects slideshow) =====
+       One project in frame; the dots (bottom right) bring in another project from the right.
+       Behaviour lives in assets/work-carousel.js -->
+  <section class="section container work" aria-label="Featured Projects">
+    <div class="eyebrow">Featured Projects</div>
+    <div class="work-frame" aria-roledescription="carousel">
+      <div class="work-slides">
+        <div class="work-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 8">
+          <a href="iqmp.html">
+            <img src="assets/img/home-our-work.jpg" alt="">
+            <div class="work-caption">
+              <span class="category">Mission Critical</span>
+              <h3>Illinois Quantum and Microelectronics Park</h3>
+              <span class="work-location">Chicago, Illinois</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="2 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-hollywood-park.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Sports &amp; Entertainment</span>
+              <h3>Hollywood Park Studios</h3>
+              <span class="work-location">Inglewood, California</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="3 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-ohare-concourse-d.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Aviation</span>
+              <h3>O’Hare 21 – Satellite Concourse D</h3>
+              <span class="work-location">Chicago, Illinois</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="4 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-rivian-ev.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Advanced Manufacturing</span>
+              <h3>Rivian EV Manufacturing Plant</h3>
+              <span class="work-location">Stanton Springs North, Georgia</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="5 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-washu-hirsch.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Higher Education</span>
+              <h3>WashU Neil S. Hirsch Alumni Center</h3>
+              <span class="work-location">St. Louis, Missouri</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="6 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-related-digital.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Mission Critical</span>
+              <h3>Related Digital Data Center Campus</h3>
+              <span class="work-location">Cheyenne, Wyoming</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="7 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-one-fulton-market.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Residential / Mixed-Use</span>
+              <h3>One Fulton Market</h3>
+              <span class="work-location">Chicago, Illinois</span>
+            </div>
+          </a>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="8 of 8" aria-hidden="true">
+          <a href="#">
+            <img src="assets/img/work-kali-hotel.jpg" alt="" loading="lazy">
+            <div class="work-caption">
+              <span class="category">Hospitality</span>
+              <h3>Kali Hotel</h3>
+              <span class="work-location">Inglewood, California</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="work-dots" role="group" aria-label="Choose a project">
+        <button class="work-dot is-active" type="button" aria-label="Show Illinois Quantum and Microelectronics Park" aria-current="true"></button>
+        <button class="work-dot" type="button" aria-label="Show Hollywood Park Studios"></button>
+        <button class="work-dot" type="button" aria-label="Show O’Hare 21 – Satellite Concourse D"></button>
+        <button class="work-dot" type="button" aria-label="Show Rivian EV Manufacturing Plant"></button>
+        <button class="work-dot" type="button" aria-label="Show WashU Neil S. Hirsch Alumni Center"></button>
+        <button class="work-dot" type="button" aria-label="Show Related Digital Data Center Campus"></button>
+        <button class="work-dot" type="button" aria-label="Show One Fulton Market"></button>
+        <button class="work-dot" type="button" aria-label="Show Kali Hotel"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CAREERS (working with Clayco) — same layout as Our Mission ===== -->
+  <section class="section container careers">
+    <div class="eyebrow">Careers</div>
+    <div class="media mission-media careers-media">
+      <img src="assets/img/projects-hero.jpg" alt="Clayco crew finishing concrete on a bridge deck">
+      <h2 class="mission-title">A Culture<br>That Inspires</h2>
+    </div>
+    <div class="mission-body">
+      <blockquote class="mission-quote">More than <span>4,000 people</span> bring the art and science of building to life every day.</blockquote>
+      <div class="mission-text">
+        <h3 class="careers-heading">Learn More About Working with Clayco</h3>
+        <p>We embrace the passion and ideas of the best and brightest, and build real partnerships with the subcontractors and suppliers who work alongside&nbsp;us.</p>
+      </div>
+    </div>
+    <div class="paths">
+      <div class="path">
+        <h3>Join Our Team</h3>
+        <p>Project management, engineering, design and the skilled trades.</p>
+        <a class="btn-outline" href="#">View Careers</a>
+      </div>
+      <div class="path">
+        <h3>Partner With Us</h3>
+        <p>Get prequalified to bid on upcoming Clayco projects.</p>
+        <a class="btn-outline" href="#">Subcontractor Resources</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <h2>OFFICES</h2>
+    <div class="offices">
+      <address class="office">
+        <strong>St. Louis</strong>
+        8640 Evans Ave.<br>
+        St. Louis, MO 63134<br>
+        p: +1 314-429-5100<br>
+        f: +1 314-429-3137
+      </address>
+      <address class="office">
+        <strong>Chicago</strong>
+        35 E Wacker Drive<br>
+        Suite 1300<br>
+        Chicago, IL 60601<br>
+        p: +1 312-658-0747<br>
+        f: +1 314-890-7528
+      </address>
+      <address class="office">
+        <strong>South Carolina</strong>
+        2 West Washington Street<br>
+        Suite 902<br>
+        Greenville, SC 29601<br>
+        p: +1 864-720-6974<br>
+        f: +1 864-551-4004
+      </address>
+      <address class="office">
+        <strong>Kansas City</strong>
+        9829 Commerce Parkway<br>
+        Lenexa, KS 66219<br>
+        p: +1 816-652-3001
+      </address>
+      <address class="office">
+        <strong>Phoenix</strong>
+        4300 E. Camelback Road<br>
+        Suite 300<br>
+        Phoenix, AZ 85018<br>
+        p: +1 602-833-6050
+      </address>
+      <address class="office">
+        <strong>Culver City</strong>
+        8590 National Blvd<br>
+        Culver City, CA 90232<br>
+        p: +1 424-361-3950
+      </address>
+      <address class="office">
+        <strong>Birmingham</strong>
+        1143 1st Avenue South<br>
+        Suite 108<br>
+        Birmingham, AL 35233<br>
+        p: +1 205-941-7315
+      </address>
+      <address class="office">
+        <strong>Atlanta</strong>
+        2859 Paces Ferry Road<br>
+        Suite 1900<br>
+        Atlanta, GA 30339<br>
+        p: +1 770-767-6341
+      </address>
+      <address class="office">
+        <strong>Raleigh</strong>
+        4000 Centregreen Way<br>
+        Suite 170<br>
+        Cary, NC 27513
+      </address>
+    </div>
+    <!-- Contact + Building On Relationships (from claycorp.com footer) -->
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>We want to hear from you.</p>
+        <dl class="contact-list">
+          <dt>Media inquiries</dt><dd><a href="mailto:mediainquiries@claycorp.com">mediainquiries@claycorp.com</a></dd>
+          <dt>Project inquiries</dt><dd><a href="mailto:info@claycorp.com">info@claycorp.com</a></dd>
+          <dt>Bid inquiries</dt><dd><a href="mailto:precon-info@claycorp.com">precon-info@claycorp.com</a></dd>
+          <dt>Prequalification</dt><dd><a href="mailto:prequalification@claycorp.com">prequalification@claycorp.com</a></dd>
+        </dl>
+        <p class="contact-more">To learn more about opportunities with Clayco, explore our <a href="https://claycorp.com/careers">Careers</a> and <a href="https://claycorp.com/contact-us/subcontractor-pre-qual">Subcontractor &amp; Vendor</a> resources.</p>
+        <ul class="social">
+          <li><a href="https://www.instagram.com/clayco_inc">Instagram</a></li>
+          <li><a href="https://www.facebook.com/claycoartandscience">Facebook</a></li>
+          <li><a href="https://www.twitter.com/ClaycoInc">X / Twitter</a></li>
+          <li><a href="https://www.linkedin.com/company/73731">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@claycodesign-build">YouTube</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Building On Relationships</h2>
+        <ul class="family-logos">
+          <li><a href="https://claycorp.com/"><img src="assets/img/clayco-logo-white.svg" alt="Clayco" class="fl-clayco"></a></li>
+          <li><a href="https://theljc.com/"><img src="assets/img/logo-ljc-white.png" alt="LJC" class="fl-ljc"></a></li>
+          <li><a href="https://www.realcrg.com/"><img src="assets/img/logo-crg-white.png" alt="CRG" class="fl-crg"></a></li>
+          <li><a href="https://concretestrategies.com/" class="fl-text">Concrete Strategies</a></li>
+          <li><a href="https://ventana.vc/" class="fl-text">Ventana</a></li>
+          <li><a href="https://claycorp.com/services/#SEI" class="fl-text">Systems &amp; Equipment</a></li>
+          <li><a href="https://claycorising.com/" class="fl-text">Clayco Rising</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 Clayco</span>
+      <a href="https://claycorp.com/accessibility">Accessibility</a>
+      <a href="https://claycorp.com/cookie-policy">Cookie Policy</a>
+      <a href="https://claycorp.com/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

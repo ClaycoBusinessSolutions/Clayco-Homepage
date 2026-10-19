@@ -1,0 +1,567 @@
+/* Shared reader. History belongs to the caller.
+   open({title,pages,id?,kind?,chapters?,stories?,returnTarget(index)?}, index?, trigger?)
+   Selection is emitted after artwork has decoded; story actions emit
+   ljc-case-reader-story {id,storyId,index}. close() is immediate for routing. */
+(() => {
+  'use strict';
+  const media = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = () => media.matches || document.body.classList.contains('motion-paused');
+  const ease = 'cubic-bezier(.2,.7,.2,1)';
+  const cache = new Map(), animations = new Set(), pointers = new Map();
+  let dialog, surface, image, stage, canvas, thumbs, transcript, count, scale, status, position;
+  let study = null, pageIndex = -1, requestedIndex = 0, zoom = 1, maxZoom = 1;
+  let returnFocus = null, buttons = [], request = 0, loadingTimer, closing = false;
+  let gesture = null, lastTap = null, doubleTapAt = 0;
+  let dock, trayButton, chapterButton, chapterPanel, fullscreenButton, pdfLink;
+  let trayMode = 'auto', trayHovered = false, trayFocused = false;
+  let readerOwnsFullscreen = false, fullscreenRequestPending = false;
+  let expandedReader = false, fullscreenWanted = false;
+
+  function motion(node, frames, options, cleanup = () => {}) {
+    const animation = node.animate(frames, options);
+    const item = {animation, cleanup};
+    animations.add(item);
+    const done = () => { if (animations.delete(item)) cleanup(); };
+    animation.finished.then(done, done);
+    return animation;
+  }
+  function stopMotion() {
+    for (const item of [...animations]) { animations.delete(item); item.animation.cancel(); item.cleanup(); }
+  }
+  function stopGesture() {
+    gesture = null; pointers.clear();
+    stage?.classList.remove('is-dragging');
+    if (image) image.style.transform = '';
+  }
+  function visible(element) { return element?.isConnected && element.getClientRects().length > 0; }
+  function imageRect(element) {
+    const picture = element?.matches?.('img') ? element : element?.querySelector?.('img');
+    if (!visible(picture)) return null;
+    const rect = picture.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0 ? rect : null;
+  }
+  function clearLoading() {
+    clearTimeout(loadingTimer);
+    dialog?.classList.remove('is-loading');
+    stage?.setAttribute('aria-busy', 'false');
+  }
+  function prepare(page) {
+    if (cache.has(page.src)) return cache.get(page.src);
+    const promise = new Promise((resolve, reject) => {
+      const artwork = new Image();
+      artwork.decoding = 'async';
+      artwork.onload = async () => {
+        try { await artwork.decode(); } catch (_) { /* A complete image can still be displayed when decode is unavailable. */ }
+        if (artwork.naturalWidth) resolve(artwork);
+        else reject(new Error('Image could not be decoded'));
+      };
+      artwork.onerror = () => reject(new Error('Image could not be loaded'));
+      artwork.src = page.src;
+    });
+    cache.set(page.src, promise);
+    promise.catch(() => { if (cache.get(page.src) === promise) cache.delete(page.src); });
+    while (cache.size > (study?.kind === 'book' ? 4 : 8)) cache.delete(cache.keys().next().value);
+    return promise;
+  }
+  function preloadNeighbors(index) {
+    for (const next of [index - 1, index + 1]) {
+      if (study.pages[next]) prepare(study.pages[next]).catch(() => {});
+    }
+  }
+
+  function mount() {
+    if (dialog) return;
+    dialog = document.createElement('dialog');
+    dialog.className = 'case-reader'; dialog.id = 'case-reader';
+    dialog.setAttribute('aria-labelledby', 'case-reader-title');
+    dialog.innerHTML = `<div class="case-reader-toolbar"><div><h2 id="case-reader-title"></h2><p id="case-reader-count" aria-live="polite"></p><a class="case-reader-story" hidden></a><button type="button" class="case-reader-story" hidden></button></div><div class="case-reader-actions"><button type="button" class="case-reader-chapter-toggle" aria-expanded="false" aria-controls="case-reader-chapters" hidden>Sections <span aria-hidden="true">⌄</span></button><a class="case-reader-pdf" hidden target="_blank" rel="noopener">PDF ↗</a><button type="button" class="case-reader-fullscreen" hidden>Full screen</button><button type="button" class="case-reader-close" aria-label="Close case study reader" autofocus>×</button></div></div><nav class="case-reader-chapters" id="case-reader-chapters" aria-label="Book sections" hidden></nav><div class="case-reader-workspace"><nav class="case-reader-thumbnails" aria-label="All case study spreads"></nav><div class="case-reader-stage" tabindex="0"><div class="case-reader-canvas"><img id="case-reader-image" alt="" hidden></div><div class="case-reader-status" role="status"></div></div></div><div class="case-reader-controls"><button type="button" data-reader-step="-1" aria-label="Previous case study spread">← <span>Previous</span></button><div class="case-reader-zoom" role="group" aria-label="Zoom case study artwork"><button type="button" data-reader-zoom="out" aria-label="Zoom out">−</button><button type="button" data-reader-zoom="fit" aria-label="Fit case study spread">Fit</button><span id="case-reader-scale" aria-live="polite" title="Zoom relative to fit">100%</span><button type="button" data-reader-zoom="in" aria-label="Zoom in">+</button></div><button type="button" data-reader-step="1" aria-label="Next case study spread"><span>Next</span> →</button></div><div class="case-reader-dock" hidden><button type="button" class="case-reader-tray-toggle" aria-expanded="false" aria-controls="case-reader-tray">Thumbnails <span aria-hidden="true">⌃</span></button><div class="case-reader-tray" id="case-reader-tray" inert></div></div><label class="case-reader-position" hidden><span>Book position</span><input type="range" min="0" step="1" value="0" aria-label="Book position"><output></output></label><details class="case-reader-transcript"><summary>Read spread text</summary><div id="case-reader-text"></div></details>`;
+    surface = document.createElement('div'); surface.className = 'case-reader-surface';
+    surface.append(...dialog.childNodes); dialog.append(surface);
+    document.body.append(dialog);
+    image = dialog.querySelector('#case-reader-image');
+    stage = dialog.querySelector('.case-reader-stage'); canvas = dialog.querySelector('.case-reader-canvas');
+    thumbs = dialog.querySelector('.case-reader-thumbnails'); transcript = dialog.querySelector('.case-reader-transcript');
+    count = dialog.querySelector('#case-reader-count'); scale = dialog.querySelector('#case-reader-scale');
+    status = dialog.querySelector('.case-reader-status'); position = dialog.querySelector('.case-reader-position');
+    dock = dialog.querySelector('.case-reader-dock'); trayButton = dialog.querySelector('.case-reader-tray-toggle');
+    chapterButton = dialog.querySelector('.case-reader-chapter-toggle'); chapterPanel = dialog.querySelector('.case-reader-chapters');
+    fullscreenButton = dialog.querySelector('.case-reader-fullscreen'); pdfLink = dialog.querySelector('.case-reader-pdf');
+    trayButton.addEventListener('click', () => {
+      trayMode = trayMode === 'pinned' ? 'hidden' : 'pinned';
+      updateTray();
+    });
+    dock.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') { trayHovered = true; updateTray(); } });
+    dock.addEventListener('pointerleave', () => { trayHovered = false; updateTray(); });
+    dock.addEventListener('focusin', () => { trayFocused = true; updateTray(); });
+    dock.addEventListener('focusout', event => { trayFocused = dock.contains(event.relatedTarget); updateTray(); });
+    chapterButton.addEventListener('click', () => toggleChapters(chapterPanel.hidden));
+    dialog.addEventListener('click', event => {
+      if (!chapterPanel.hidden && !chapterPanel.contains(event.target) && !chapterButton.contains(event.target)) toggleChapters(false);
+    });
+    fullscreenButton.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', updateFullscreen);
+    document.addEventListener('webkitfullscreenchange', updateFullscreen);
+    const fullscreenFailed = () => {
+      if (!fullscreenRequestPending) return;
+      fullscreenRequestPending = false; readerOwnsFullscreen = false;
+      if (!expandedReader) status.textContent = 'Full screen is unavailable in this browser.';
+      updateFullscreen();
+    };
+    document.addEventListener('fullscreenerror', fullscreenFailed);
+    document.addEventListener('webkitfullscreenerror', fullscreenFailed);
+    dialog.querySelector('.case-reader-close').addEventListener('click', () => closeReader(true));
+    dialog.addEventListener('cancel', event => { event.preventDefault(); if (expandedReader || readerOwnsFullscreen || fullscreenRequestPending) exitOwnedFullscreen(); else closeReader(true); });
+    window.addEventListener('message',event=>{
+      if (event.source!==window.parent || event.origin!==location.origin || event.data?.type!=='ljc-reader-fullscreen-state') return;
+      expandedReader=Boolean(event.data.expanded);updateFullscreen();
+    });
+    dialog.querySelectorAll('[data-reader-step]').forEach(button => button.addEventListener('click', () => select(requestedIndex + Number(button.dataset.readerStep))));
+    dialog.querySelectorAll('[data-reader-zoom]').forEach(button => button.addEventListener('click', () => changeZoom(button.dataset.readerZoom)));
+    dialog.querySelectorAll('.case-reader-story').forEach(link => link.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      document.dispatchEvent(new CustomEvent('ljc-case-reader-story', {detail:{id:study.id,storyId:link.dataset.storyId,index:pageIndex}}));
+    }));
+    position.querySelector('input').addEventListener('input', event => updatePosition(Number(event.target.value)));
+    position.querySelector('input').addEventListener('change', event => select(Number(event.target.value)));
+    dialog.addEventListener('close', () => {
+      if (dialog.open) return; // A queued close from an earlier opening must not tear down a new reader.
+      ++request; clearLoading(); stopMotion(); stopGesture(); closing = false;
+      document.body.classList.remove('case-reader-active');
+      toggleChapters(false);
+      exitOwnedFullscreen();
+      if (visible(returnFocus)) returnFocus.focus({preventScroll:true});
+      document.dispatchEvent(new CustomEvent('ljc-case-reader-close', {detail:{id:study?.id,index:Math.max(0,pageIndex)}}));
+    });
+    dialog.addEventListener('keydown', onKey);
+    stage.addEventListener('pointerdown', pointerDown);
+    stage.addEventListener('pointermove', pointerMove);
+    stage.addEventListener('pointerup', pointerUp);
+    stage.addEventListener('pointercancel', event => { pointers.delete(event.pointerId); stopGesture(); });
+    stage.addEventListener('dblclick', event => {
+      if (performance.now() - doubleTapAt < 450) return;
+      event.preventDefault(); toggleZoom(event.clientX, event.clientY);
+    });
+    stage.addEventListener('dragstart', event => event.preventDefault());
+    new ResizeObserver(() => fit(false)).observe(stage);
+    const motionChanged = () => {
+      if (!reduced()) return;
+      if (closing) closeReader(false); else stopMotion();
+    };
+    media.addEventListener('change', motionChanged);
+    if (document.body) new MutationObserver(motionChanged).observe(document.body, {attributes:true,attributeFilter:['class']});
+  }
+
+  function isEdition() { return Boolean(study?.editionReader && study?.kind === 'book'); }
+  function updateTray() {
+    if (!dock || !isEdition()) return;
+    const open = trayMode === 'pinned' || (trayMode === 'auto' && (trayHovered || trayFocused));
+    const tray = dock.querySelector('.case-reader-tray'), changed = dock.dataset.expanded !== String(open);
+    dock.dataset.expanded = String(open); tray.inert = !open;
+    tray.setAttribute('aria-hidden', String(!open));
+    trayButton.setAttribute('aria-expanded', String(open));
+    trayButton.innerHTML = `${trayMode === 'pinned' ? 'Hide thumbnails' : trayMode === 'hidden' ? 'Show thumbnails' : 'Thumbnails'} <span aria-hidden="true">${open ? '⌄' : '⌃'}</span>`;
+    if (open && changed) buttons[Math.max(0,pageIndex)]?.scrollIntoView({block:'nearest',inline:'center',behavior:'instant'});
+  }
+  function toggleChapters(open) {
+    if (!chapterPanel) return;
+    chapterPanel.hidden = !open; chapterButton.setAttribute('aria-expanded', String(open));
+    if (open) {
+      if (!reduced()) motion(chapterPanel,[{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'none'}],{duration:160,easing:ease});
+      chapterPanel.querySelector('[aria-current],button')?.focus({preventScroll:true});
+    }
+  }
+  function fullscreenElement() { return document.fullscreenElement || document.webkitFullscreenElement; }
+  function setExpandedReader(expanded) {
+    expandedReader=expanded && window.parent!==window;
+    if (window.parent!==window) window.parent.postMessage({type:'ljc-reader-fullscreen',expanded:expandedReader},'*');
+    updateFullscreen();
+  }
+  function exitOwnedFullscreen() {
+    fullscreenWanted=false;
+    setExpandedReader(false);
+    if (!readerOwnsFullscreen || fullscreenElement() !== surface) return;
+    readerOwnsFullscreen = false;
+    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    else document.webkitExitFullscreen?.();
+  }
+  function updateFullscreen() {
+    if (!fullscreenButton) return;
+    const nativeActive = fullscreenElement() === surface;
+    if (nativeActive && fullscreenRequestPending) {
+      fullscreenRequestPending = false; readerOwnsFullscreen = true;
+      if (!dialog.open || !fullscreenWanted) exitOwnedFullscreen();
+    } else if (!nativeActive && !fullscreenRequestPending && readerOwnsFullscreen) {
+      readerOwnsFullscreen = false;
+      fullscreenWanted=false;
+      // Browser Escape exits native fullscreen without necessarily sending a key
+      // event to the modal. Restore the review frame while keeping the book open.
+      setExpandedReader(false);
+    }
+    const active=nativeActive || expandedReader;
+    fullscreenButton.textContent = active ? 'Exit full screen ⤡' : 'Full screen ⤢';
+    fullscreenButton.setAttribute('aria-label', active ? 'Exit full screen' : 'Enter full screen');
+    fullscreenButton.setAttribute('aria-pressed', String(active));
+  }
+  async function toggleFullscreen() {
+    status.textContent = '';
+    // Fullscreen is added above an existing modal in the browser's top layer.
+    // Promote the entire reader surface, never the document behind the dialog.
+    const host = surface;
+    try {
+      if (fullscreenElement() === host || expandedReader) {
+        fullscreenWanted=false;
+        setExpandedReader(false);
+        readerOwnsFullscreen = false;
+        if (document.fullscreenElement) await document.exitFullscreen();
+        else if (document.webkitFullscreenElement) document.webkitExitFullscreen();
+      } else if (host.requestFullscreen) {
+        fullscreenWanted=true;
+        setExpandedReader(true);
+        fullscreenRequestPending = true;
+        await host.requestFullscreen();
+        fullscreenRequestPending = false;
+        readerOwnsFullscreen = fullscreenElement() === host;
+        if (!dialog.open || !fullscreenWanted) exitOwnedFullscreen();
+      } else if (host.webkitRequestFullscreen) {
+        fullscreenWanted=true;
+        setExpandedReader(true);
+        fullscreenRequestPending = true;
+        host.webkitRequestFullscreen();
+      } else {setExpandedReader(true);if (!expandedReader) status.textContent = 'Full screen is unavailable in this browser.';return;}
+      updateFullscreen();
+    } catch (_) {
+      fullscreenRequestPending = false; readerOwnsFullscreen = false;
+      if (!expandedReader) status.textContent = 'Full screen is unavailable in this browser. Use your browser’s full-screen command.';
+      updateFullscreen();
+    }
+  }
+  function configureEdition() {
+    const edition = isEdition();
+    dialog.toggleAttribute('data-edition-reader',edition);
+    dock.hidden = !edition; chapterButton.hidden = !edition || !study.chapters?.length;
+    fullscreenButton.hidden = !edition;
+    const pdf = typeof study.pdf === 'string' ? study.pdf : study.pdf?.src || study.pdf?.href;
+    pdfLink.hidden = !edition || !pdf;
+    if (pdf) { pdfLink.href = pdf; pdfLink.setAttribute('aria-label','Open the complete PDF book in a new tab'); }
+    const close = dialog.querySelector('.case-reader-close');
+    close.textContent = edition ? '← Website' : '×';
+    close.setAttribute('aria-label',edition ? 'Return to website' : study.kind === 'book' ? 'Close book reader' : study.kind === 'gallery' ? 'Close image viewer' : 'Close case study reader');
+    if (edition) dock.querySelector('.case-reader-tray').append(thumbs);
+    else dialog.querySelector('.case-reader-workspace').prepend(thumbs);
+    trayMode = 'auto'; trayHovered = false; trayFocused = false; updateTray(); toggleChapters(false); updateFullscreen();
+    chapterPanel.replaceChildren(...(study.chapters || []).map((chapter,index) => {
+      const button = document.createElement('button'); button.type = 'button';
+      button.dataset.chapterStart = chapter.startIndex;
+      const number = document.createElement('span'); number.textContent = String(index+1).padStart(2,'0'); number.setAttribute('aria-hidden','true');
+      const title = document.createElement('span'); title.textContent = chapter.title;
+      button.append(number,title);
+      button.addEventListener('click',() => { select(chapter.startIndex); toggleChapters(false); chapterButton.focus({preventScroll:true}); });
+      return button;
+    }));
+  }
+
+  function fit(reset = false, anchor = null) {
+    if (!dialog?.open || image.hidden || !image.naturalWidth || !stage.clientWidth) return;
+    const before = image.getBoundingClientRect(), box = stage.getBoundingClientRect();
+    const point = anchor || {x:box.left + stage.clientWidth / 2,y:box.top + stage.clientHeight / 2};
+    const fraction = {x:before.width ? (point.x - before.left) / before.width : .5,y:before.height ? (point.y - before.top) / before.height : .5};
+    const fitted = Math.min(1, Math.max(1,stage.clientWidth - 16) / image.naturalWidth, Math.max(1,stage.clientHeight - 16) / image.naturalHeight);
+    // At the limit, one source pixel occupies at most one CSS pixel. This avoids
+    // enlarging small source artwork into an arbitrary, blurry 400% view.
+    maxZoom = Math.max(1, Math.min(8, 1 / fitted));
+    zoom = Math.min(zoom, maxZoom);
+    const width = Math.round(image.naturalWidth * fitted * zoom), height = Math.round(image.naturalHeight * fitted * zoom);
+    image.style.width = `${width}px`; image.style.height = `${height}px`;
+    canvas.style.width = `${Math.max(stage.clientWidth,width + 16)}px`;
+    canvas.style.height = `${Math.max(stage.clientHeight,height + 16)}px`;
+    scale.textContent = `${Math.round(zoom * 100)}%`;
+    dialog.querySelector('[data-reader-zoom="out"]').disabled = zoom <= 1.001;
+    dialog.querySelector('[data-reader-zoom="in"]').disabled = zoom >= maxZoom - .001;
+    stage.classList.toggle('is-zoomed', zoom > 1.001);
+    if (reset) stage.scrollTo({left:0,top:0,behavior:'instant'});
+    else {
+      const after = image.getBoundingClientRect();
+      stage.scrollBy({left:after.left + fraction.x * after.width - point.x,top:after.top + fraction.y * after.height - point.y,behavior:'instant'});
+    }
+  }
+  function changeZoom(action, anchor = null) {
+    if (pageIndex < 0 || closing) return;
+    stopMotion();
+    zoom = action === 'fit' ? 1 : Math.max(1, Math.min(maxZoom, zoom + (action === 'in' ? .5 : -.5)));
+    fit(action === 'fit', anchor);
+  }
+  function toggleZoom(x, y) {
+    if (pageIndex < 0 || closing) return;
+    stopMotion(); zoom = zoom > 1.001 ? 1 : Math.min(2,maxZoom);
+    fit(zoom === 1,{x,y});
+  }
+  function onKey(event) {
+    if (closing) return;
+    if (event.key === 'Escape' && !chapterPanel.hidden) {
+      event.preventDefault(); event.stopPropagation(); toggleChapters(false); chapterButton.focus({preventScroll:true}); return;
+    }
+    if (event.key==='Escape' && (expandedReader || readerOwnsFullscreen || fullscreenRequestPending)) {event.preventDefault();event.stopPropagation();exitOwnedFullscreen();return;}
+    if (event.metaKey || event.ctrlKey || event.altKey || event.target.matches('input,textarea,select,[contenteditable=true]')) return;
+    const thumbnailFocus = thumbs.contains(event.target), artworkFocus = stage.contains(event.target);
+    if (chapterPanel.contains(event.target)) {
+      const items = [...chapterPanel.querySelectorAll('button')], current = items.indexOf(event.target);
+      const delta = event.key === 'ArrowDown' ? 1 : event.key === 'ArrowUp' ? -1 : 0;
+      if (delta) { event.preventDefault(); items[(current+delta+items.length)%items.length]?.focus(); }
+      return;
+    }
+    if (artworkFocus && zoom > 1.001 && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) {
+      event.preventDefault();
+      stage.scrollBy({left:event.key === 'ArrowLeft' ? -80 : event.key === 'ArrowRight' ? 80 : 0,top:event.key === 'ArrowUp' ? -80 : event.key === 'ArrowDown' ? 80 : 0,behavior:'instant'});
+      return;
+    }
+    let next = null;
+    if (event.key === 'ArrowLeft') next = requestedIndex - 1;
+    else if (event.key === 'ArrowRight') next = requestedIndex + 1;
+    else if (thumbnailFocus && event.key === 'Home') next = 0;
+    else if (thumbnailFocus && event.key === 'End') next = study.pages.length - 1;
+    else if (thumbnailFocus && ['ArrowUp','ArrowDown'].includes(event.key)) next = requestedIndex + (event.key === 'ArrowDown' ? 1 : -1) * (isEdition() || matchMedia('(max-width:700px)').matches ? 1 : 2);
+    if (next !== null) {
+      event.preventDefault(); select(next);
+      if (thumbnailFocus) buttons[requestedIndex]?.focus({preventScroll:true});
+    } else if (['+','=','-','0'].includes(event.key)) {
+      event.preventDefault(); changeZoom(event.key === '-' ? 'out' : event.key === '0' ? 'fit' : 'in');
+    }
+  }
+
+  function pointerDown(event) {
+    if (event.button !== 0 || pageIndex < 0 || closing || event.target.closest('button,a,input,select,textarea')) return;
+    stopMotion(); stage.focus({preventScroll:true});
+    pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+    try { stage.setPointerCapture(event.pointerId); } catch (_) {}
+    if (pointers.size === 2) {
+      const [a,b] = [...pointers.values()];
+      gesture = {kind:'pinch',distance:Math.hypot(b.x-a.x,b.y-a.y),zoom};
+      for (const id of pointers.keys()) { try { stage.setPointerCapture(id); } catch (_) {} }
+    } else if (pointers.size === 1) {
+      gesture = {kind:zoom > 1.001 ? 'pan' : 'swipe',id:event.pointerId,x:event.clientX,y:event.clientY,left:stage.scrollLeft,top:stage.scrollTop,time:performance.now(),touch:event.pointerType !== 'mouse',dragged:false};
+      if (gesture.kind === 'pan') { stage.setPointerCapture(event.pointerId); stage.classList.add('is-dragging'); }
+    }
+  }
+  function pointerMove(event) {
+    if (!pointers.has(event.pointerId) || !gesture) return;
+    pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+    if (gesture.kind === 'pinch' && pointers.size === 2) {
+      const [a,b] = [...pointers.values()];
+      zoom = Math.max(1,Math.min(maxZoom,gesture.zoom * Math.hypot(b.x-a.x,b.y-a.y) / Math.max(1,gesture.distance)));
+      fit(false,{x:(a.x+b.x)/2,y:(a.y+b.y)/2}); event.preventDefault(); return;
+    }
+    const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
+    if (gesture.kind === 'pan') {
+      if (Math.hypot(dx,dy) > 4) gesture.dragged = true;
+      stage.scrollTo({left:gesture.left-dx,top:gesture.top-dy,behavior:'instant'}); event.preventDefault();
+    } else if (gesture.touch && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      gesture.dragged = true;
+      try { stage.setPointerCapture(event.pointerId); } catch (_) {}
+      image.style.transform = reduced() ? '' : `translateX(${dx * .7}px)`;
+      event.preventDefault();
+    }
+  }
+  function pointerUp(event) {
+    const previous = gesture;
+    pointers.delete(event.pointerId);
+    if (!previous) return;
+    if (previous.kind === 'pinch') {
+      const remaining = [...pointers.entries()][0];
+      gesture = remaining ? {kind:'pan',id:remaining[0],x:remaining[1].x,y:remaining[1].y,left:stage.scrollLeft,top:stage.scrollTop,time:performance.now(),touch:true,dragged:true} : null;
+      if (!remaining) stage.classList.remove('is-dragging');
+      return;
+    }
+    const dx = event.clientX-previous.x, dy = event.clientY-previous.y;
+    image.style.transform = ''; stage.classList.remove('is-dragging'); gesture = null;
+    if (previous.kind === 'swipe' && previous.touch && previous.dragged && Math.abs(dx) > Math.abs(dy)*1.4 && (Math.abs(dx) > stage.clientWidth*.18 || (Math.abs(dx) > 35 && Math.abs(dx)/Math.max(1,performance.now()-previous.time) > .35))) {
+      select(requestedIndex + (dx < 0 ? 1 : -1));
+    } else if (previous.touch && !previous.dragged && Math.hypot(dx,dy) < 8) {
+      if (lastTap && performance.now()-lastTap.time < 300 && Math.hypot(event.clientX-lastTap.x,event.clientY-lastTap.y) < 30) {
+        event.preventDefault(); doubleTapAt = performance.now(); toggleZoom(event.clientX,event.clientY); lastTap = null;
+      } else lastTap = {time:performance.now(),x:event.clientX,y:event.clientY};
+    }
+  }
+
+  function chapterAt(index) {
+    return study.chapters?.find((chapter,i,list) => index >= chapter.startIndex && index <= (chapter.endIndex ?? ((list[i+1]?.startIndex ?? study.pages.length)-1)));
+  }
+  function updatePosition(index) {
+    const page = study.pages[index], input = position.querySelector('input');
+    input.value = index;
+    input.setAttribute('aria-valuetext', `${chapterAt(index)?.title || study.title}, ${page.label || `Spread ${index+1}`}, ${index+1} of ${study.pages.length}`);
+    position.querySelector('output').textContent = `${index+1} / ${study.pages.length}`;
+  }
+  function updateContext() {
+    const page = study.pages[pageIndex], chapter = chapterAt(pageIndex);
+    count.textContent = [chapter?.title,page.label || `Spread ${pageIndex+1}`,`${pageIndex+1} of ${study.pages.length}`].filter(Boolean).join(' · ');
+    const story = study.stories?.find(item => pageIndex >= item.startIndex && pageIndex <= item.endIndex);
+    dialog.querySelectorAll('.case-reader-story').forEach(link => {
+      link.hidden = !story || (link.tagName === 'A') !== Boolean(story?.href);
+      if (!story) return;
+      link.textContent = 'Read this story online ↗'; link.dataset.storyId = story.id;
+      link.setAttribute('aria-label', `Read ${story.title} online`);
+      if (link.tagName === 'A') link.href = story.href;
+    });
+    dialog.querySelector('#case-reader-text').textContent = page.text?.trim() || 'No transcript is available for this spread. Use the zoom controls to explore the artwork.';
+    buttons.forEach((button,index) => {
+      button.tabIndex = index === pageIndex ? 0 : -1;
+      if (index === pageIndex) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
+    });
+    updatePosition(pageIndex);
+    chapterPanel.querySelectorAll('button').forEach(button => {
+      if (chapter && Number(button.dataset.chapterStart) === chapter.startIndex) button.setAttribute('aria-current','true');
+      else button.removeAttribute('aria-current');
+    });
+  }
+  function updateSteps() {
+    dialog.querySelector('[data-reader-step="-1"]').disabled = requestedIndex <= 0;
+    dialog.querySelector('[data-reader-step="1"]').disabled = requestedIndex >= study.pages.length-1;
+  }
+  function fly(from, to, entering, targetImage) {
+    if (!from || !to || reduced()) return false;
+    const clone = targetImage.cloneNode();
+    clone.removeAttribute('id'); clone.alt = ''; clone.setAttribute('aria-hidden','true');
+    clone.className = 'case-reader-flight';
+    Object.assign(clone.style,{left:`${to.left}px`,top:`${to.top}px`,width:`${to.width}px`,height:`${to.height}px`});
+    surface.append(clone); targetImage.style.visibility = 'hidden';
+    const displacement = `translate(${from.left-to.left}px,${from.top-to.top}px) scale(${from.width/to.width},${from.height/to.height})`;
+    motion(clone, entering ? [{transform:displacement},{transform:'none'}] : [{transform:'none'},{transform:displacement}], {duration:entering ? 420 : 360,easing:entering ? ease : 'cubic-bezier(.4,0,.2,1)'}, () => { clone.remove(); targetImage.style.visibility = ''; });
+    return true;
+  }
+
+  // Directional masked wipe inspired by Osmo's parallax gallery. Book artwork
+  // always finishes completely visible and retains its original proportions.
+  function turnSpread(previousImage, previousRect, direction) {
+    const bounds=canvas.getBoundingClientRect();
+    const outgoing=previousImage.cloneNode();outgoing.removeAttribute('id');outgoing.alt='';
+    outgoing.className='case-reader-outgoing';outgoing.setAttribute('aria-hidden','true');
+    Object.assign(outgoing.style,{position:'absolute',left:`${previousRect.left-bounds.left}px`,top:`${previousRect.top-bounds.top}px`,width:`${previousRect.width}px`,height:`${previousRect.height}px`,pointerEvents:'none'});
+    canvas.append(outgoing);
+    const enter=direction>0 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
+    const leave=direction>0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)';
+    const options={duration:680,easing:'cubic-bezier(.6,.08,.02,.99)'};
+    motion(outgoing,[{clipPath:'inset(0 0 0 0)',transform:'none'},{clipPath:leave,transform:`translateX(${-direction*previousRect.width*.12}px)`}],options,()=>outgoing.remove());
+    motion(image,[{clipPath:enter,transform:`translateX(${direction*previousRect.width*.12}px)`},{clipPath:'inset(0 0 0 0)',transform:'none'}],options);
+  }
+
+  async function select(index, {openingRect = null, opening = false} = {}) {
+    if (!study || closing) return;
+    const target = Math.max(0,Math.min(study.pages.length-1,Math.trunc(Number(index)) || 0));
+    requestedIndex = target; updateSteps();
+    const token = ++request, content = study;
+    clearLoading(); stage.setAttribute('aria-busy','true'); status.textContent = '';
+    loadingTimer = setTimeout(() => { if (request === token) { dialog.classList.add('is-loading'); status.textContent = pageIndex < 0 ? 'Loading artwork…' : ''; } },150);
+    try {
+      const decoded = await prepare(content.pages[target]);
+      if (request !== token || !dialog.open || closing || study !== content) return;
+      clearLoading(); stopMotion(); stopGesture();
+      const direction = Math.sign(target-pageIndex), hadImage = pageIndex >= 0;
+      const previousImage=image, previousRect=image.getBoundingClientRect();
+      const page = content.pages[target];
+      const nextImage = decoded.cloneNode();
+      // The decoded source is cached; decoding the clone guarantees the DOM
+      // image itself is ready before its label and artwork are committed.
+      if (nextImage.decode) await nextImage.decode().catch(() => {});
+      if (request !== token || !dialog.open || closing || study !== content) return;
+      nextImage.id = 'case-reader-image'; nextImage.alt = page.alt || `${study.title}, spread ${target+1}`;
+      nextImage.width = decoded.naturalWidth; nextImage.height = decoded.naturalHeight;
+      image.replaceWith(nextImage); image = nextImage;
+      pageIndex = target; zoom = 1; transcript.open = false; status.textContent = '';
+      updateContext(); fit(true);
+      buttons[pageIndex]?.scrollIntoView({block:'nearest',inline:isEdition() ? 'center' : 'nearest',behavior:'instant'});
+      const didFly = opening && fly(openingRect,image.getBoundingClientRect(),true,image);
+      if (!didFly && !reduced()) {
+        if (isEdition() && hadImage && direction) turnSpread(previousImage,previousRect,direction);
+        else motion(image,[{opacity:.35,transform:`translateX(${hadImage ? direction*18 : 0}px)`},{opacity:1,transform:'none'}],{duration:240,easing:ease});
+      }
+      document.dispatchEvent(new CustomEvent('ljc-case-reader-selection',{detail:{id:study.id,index:pageIndex}}));
+      preloadNeighbors(pageIndex);
+    } catch (_) {
+      if (request !== token || !dialog.open || closing) return;
+      clearLoading(); requestedIndex = pageIndex < 0 ? target : pageIndex; updateSteps();
+      status.replaceChildren(document.createTextNode('Artwork could not load. '));
+      const retry = document.createElement('button'); retry.type = 'button'; retry.textContent = 'Try again';
+      retry.addEventListener('click',() => select(target,{openingRect,opening})); status.append(retry);
+    }
+  }
+
+  function closeReader(animate = false) {
+    if (!dialog?.open || (closing && animate)) return;
+    ++request; clearLoading(); stopMotion(); stopGesture();
+    if (closing) { closing = false; dialog.close(); return; }
+    closing = true;
+    let target = returnFocus;
+    if (animate && typeof study.returnTarget === 'function') {
+      try { target = study.returnTarget(Math.max(0,pageIndex)) || target; } catch (_) {}
+    }
+    if (visible(target)) {
+      returnFocus = target;
+      if (animate) target.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
+    }
+    // Leave the book reader immediately; navigation behind it must accept the next tap.
+    if (!animate || reduced() || pageIndex < 0 || study.kind === 'book') { dialog.close(); return; }
+    const token = request, rect = imageRect(target), current = image.getBoundingClientRect();
+    const didFly = fly(rect,current,false,image);
+    const duration = didFly ? 360 : 120;
+    const parts = [...surface.children].filter(child => !child.classList.contains('case-reader-flight'));
+    parts.forEach(part => motion(part,[{opacity:1,offset:0},{opacity:0,offset:.45},{opacity:0,offset:1}],{duration,easing:'ease-out'}));
+    const done = motion(dialog,[{backgroundColor:'#242523'},{backgroundColor:'rgba(36,37,35,0)'}],{duration,easing:'ease-out'});
+    done.finished.then(() => { if (request === token && closing) dialog.close(); },() => {});
+  }
+
+  function open(content, index = 0, trigger = null) {
+    if (!Array.isArray(content?.pages) || !content.pages.length) return false;
+    mount(); ++request; clearLoading(); stopMotion(); stopGesture(); closing = false;
+    const wasOpen = dialog.open, sameContent = study?.id === content.id && study?.pages === content.pages;
+    const openingRect = imageRect(trigger);
+    if (!wasOpen || !sameContent) {
+      pageIndex = -1; image.hidden = true; count.textContent = ''; status.textContent = '';
+      dialog.querySelectorAll('.case-reader-story').forEach(link => { link.hidden = true; });
+    }
+    study = content; const book = content.kind === 'book';
+    // kind 'gallery': project photographs (Clayco project pages), worded as images, with no spread transcript.
+    const gallery = content.kind === 'gallery';
+    dialog.dataset.readerKind = book ? 'book' : gallery ? 'gallery' : 'case';
+    dialog.querySelector('#case-reader-title').textContent = content.title || 'Case study';
+    dialog.querySelector('.case-reader-close').setAttribute('aria-label',book ? 'Close book reader' : gallery ? 'Close image viewer' : 'Close case study reader');
+    thumbs.setAttribute('aria-label',book ? 'All book spreads' : gallery ? 'All images' : 'All case study spreads');
+    stage.setAttribute('aria-label',`${gallery ? 'Image' : book ? 'Book artwork' : 'Case study artwork'}. Plus and minus zoom; double-click or double-tap toggles zoom. Drag or use arrow keys to pan when enlarged.`);
+    for (const step of [-1,1]) dialog.querySelector(`[data-reader-step="${step}"]`).setAttribute('aria-label',gallery ? `${step < 0 ? 'Previous' : 'Next'} image` : `${step < 0 ? 'Previous' : 'Next'} ${book ? 'book' : 'case study'} spread`);
+    dialog.querySelector('.case-reader-zoom').setAttribute('aria-label',gallery ? 'Zoom image' : `Zoom ${book ? 'book' : 'case study'} artwork`);
+    dialog.querySelector('[data-reader-zoom="fit"]').setAttribute('aria-label',gallery ? 'Fit image' : `Fit ${book ? 'book' : 'case study'} spread`);
+    transcript.hidden = gallery;
+    returnFocus = trigger || (!wasOpen ? document.activeElement : returnFocus);
+    position.hidden = !book || isEdition(); position.querySelector('input').max = content.pages.length-1;
+    position.style.setProperty('--reader-stops',Math.max(1,content.pages.length-1));
+    const ticks = (content.chapters || []).map(chapter => {
+      const at = Math.min(100,Math.max(0,chapter.startIndex / Math.max(1,content.pages.length-1) * 100));
+      return `transparent ${at}%, #ede9dc88 ${at}%, #ede9dc88 calc(${at}% + 1px), transparent calc(${at}% + 1px)`;
+    });
+    position.style.setProperty('--reader-chapter-ticks',ticks.length ? `linear-gradient(to right,${ticks.join(',')})` : 'linear-gradient(transparent,transparent)');
+    if (!sameContent || !buttons.length) {
+      buttons = study.pages.map((page,number) => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'case-reader-thumb';
+        button.setAttribute('aria-label',study.kind === 'gallery' ? `Show image ${number+1}, ${number+1} of ${study.pages.length}` : `Read ${page.label || `spread ${number+1}`}, ${number+1} of ${study.pages.length}`);
+        button.tabIndex = -1;
+        const thumb = document.createElement('img'); thumb.src = page.thumbSrc || page.src; thumb.alt = ''; thumb.loading = 'lazy'; thumb.decoding = 'async';
+        if (page.width && page.height) { thumb.width = page.width; thumb.height = page.height; }
+        // A "Spread 07" page keeps its own number, so a case study shown without its held
+        // spreads reads 02, 03, 04, 05, 07 … like its labels, not 01–13.
+        const spreadNumber = /^Spread (\d+)$/.exec(page.label || '');
+        const label = document.createElement('span'); label.textContent = spreadNumber ? spreadNumber[1].padStart(2,'0') : String(number+1).padStart(2,'0'); button.append(thumb,label);
+        button.addEventListener('click',() => select(number)); return button;
+      });
+      thumbs.replaceChildren(...buttons);
+    }
+    configureEdition();
+    if (!dialog.open) dialog.showModal();
+    document.body.classList.add('case-reader-active');
+    dialog.querySelector('.case-reader-close').focus({preventScroll:true});
+    if (!wasOpen && !reduced()) motion(dialog,[{opacity:0},{opacity:1}],{duration:160,easing:'ease-out'});
+    select(index,{openingRect,opening:!wasOpen});
+    return true;
+  }
+
+  window.LJCCaseReader = Object.freeze({open,close:() => closeReader(false)});
+})();

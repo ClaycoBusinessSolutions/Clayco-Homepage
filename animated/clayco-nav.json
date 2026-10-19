@@ -1,0 +1,661 @@
+{
+  "fetched": "2026-10-09",
+  "sourceUrl": "https://claycorp.com/",
+  "primary": [
+    {
+      "label": "Innovation Stories",
+      "url": "https://claycorp.com/innovation-stories",
+      "external": false,
+      "newTab": false,
+      "children": []
+    },
+    {
+      "label": "Work",
+      "url": "",
+      "external": false,
+      "newTab": false,
+      "children": [
+        {
+          "label": "Current Projects",
+          "url": "https://claycorp.com/work/current-projects",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Featured Projects",
+          "url": "https://claycorp.com/work/featured-projects",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Aviation",
+          "url": "https://claycorp.com/work/aerospace-aviation",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Clayco Compute",
+          "url": "https://claycorp.com/work/mission-critical",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Commercial",
+          "url": "",
+          "external": false,
+          "newTab": false,
+          "children": [
+            {
+              "label": "Featured Projects",
+              "url": "https://claycorp.com/work/commercial",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Corporate",
+              "url": "https://claycorp.com/work/commercial/corporate",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Parking Garages",
+              "url": "https://claycorp.com/work/commercial/parking-garages",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Art",
+              "url": "https://claycorp.com/work/commercial/art",
+              "external": false,
+              "newTab": false,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Institutional",
+          "url": "",
+          "external": false,
+          "newTab": false,
+          "children": [
+            {
+              "label": "Featured Projects",
+              "url": "https://claycorp.com/work/institutional",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Education",
+              "url": "https://claycorp.com/work/institutional/education",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Government",
+              "url": "https://claycorp.com/work/institutional/government",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Healthcare",
+              "url": "https://claycorp.com/work/institutional/healthcare",
+              "external": false,
+              "newTab": false,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Industrial",
+          "url": "",
+          "external": false,
+          "newTab": false,
+          "children": [
+            {
+              "label": "Featured Projects",
+              "url": "https://claycorp.com/work/industrial",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Advanced Manufacturing",
+              "url": "https://claycorp.com/work/manufacturing",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Distribution & E-Commerce",
+              "url": "https://claycorp.com/work/distribution",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Food & Beverage",
+              "url": "https://claycorp.com/work/food-beverage",
+              "external": false,
+              "newTab": false,
+              "children": []
+            },
+            {
+              "label": "Controlled Environment Agriculture",
+              "url": "https://claycorp.com/work/controlled-environment-agriculture",
+              "external": false,
+              "newTab": false,
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Life Sciences",
+          "url": "https://claycorp.com/work/life-science",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Power & Energy",
+          "url": "https://claycorp.com/power-energy-storage",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Residential & Hospitality",
+          "url": "https://claycorp.com/work/residential-hospitality",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Sports & Entertainment",
+          "url": "https://claycorp.com/work/commercial/sports-entertainment",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Services",
+      "url": "",
+      "external": false,
+      "newTab": false,
+      "children": [
+        {
+          "label": "Overview",
+          "url": "https://claycorp.com/services",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Pre-Construction",
+          "url": "https://claycorp.com/services/#preconstruction",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Procurement",
+          "url": "https://claycorp.com/services/#procurement",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Construction",
+          "url": "https://claycorp.com/services/#construction",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Design",
+          "url": "https://claycorp.com/services/#design",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Engineering",
+          "url": "https://claycorp.com/services/#CDE",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Systems & Equipment",
+          "url": "https://claycorp.com/services/#SEI",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "VDC & BIM",
+          "url": "https://claycorp.com/services/#VDC",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Technical Assurance Group",
+          "url": "https://claycorp.com/services/#TAG",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Self-Perform",
+          "url": "https://claycorp.com/services/#selfperform",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Development",
+          "url": "https://claycorp.com/services/#development",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Sustainability",
+          "url": "https://claycorp.com/services/#sustainability",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "About Us",
+      "url": "",
+      "external": false,
+      "newTab": false,
+      "children": [
+        {
+          "label": "Company Overview",
+          "url": "https://claycorp.com/company-overview",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Safety",
+          "url": "https://claycorp.com/about/safety",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Sustainability",
+          "url": "https://claycorp.com/claycos-sustainable-commitment",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Quality",
+          "url": "https://claycorp.com/quality",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Values & Commitments",
+          "url": "https://claycorp.com/values-commitment",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "People",
+          "url": "https://claycorp.com/people",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Message from Our Chairman",
+          "url": "https://claycorp.com/message-from-our-chairman",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Design-Build",
+          "url": "https://claycorp.com/design-build",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Voices of Clayco",
+      "url": "https://claycorp.com/voices-of-clayco",
+      "external": false,
+      "newTab": false,
+      "children": []
+    },
+    {
+      "label": "Contact",
+      "url": "",
+      "external": false,
+      "newTab": false,
+      "children": [
+        {
+          "label": "Offices",
+          "url": "https://claycorp.com/contact-us",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Subcontractor & Vendor Resources",
+          "url": "https://claycorp.com/contact-us/subcontractor-pre-qual",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Careers",
+      "url": "https://claycorp.com/careers",
+      "external": false,
+      "newTab": false,
+      "children": []
+    },
+    {
+      "label": "Newsroom",
+      "url": "https://claycorp.com/latest",
+      "external": false,
+      "newTab": false,
+      "children": []
+    },
+    {
+      "label": "Building Solutions",
+      "url": "",
+      "external": false,
+      "newTab": false,
+      "children": [
+        {
+          "label": "Integrated Approach",
+          "url": "https://claycorp.com/integrated-companies",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "CRG",
+          "url": "https://realcrg.com/",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "LJC",
+          "url": "https://theljc.com/",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Concrete Strategies",
+          "url": "https://concretestrategies.com/",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Ventana",
+          "url": "https://ventana.vc/",
+          "external": true,
+          "newTab": true,
+          "children": []
+        }
+      ]
+    }
+  ],
+  "menuLogos": [
+    {
+      "label": "CRG",
+      "url": "https://realcrg.com/",
+      "image": "https://e1.nmcdn.io/assets/clayco/wp-content/themes/nmc_clayco/assets/menu_crg.svg",
+      "external": true,
+      "newTab": true,
+      "width": "87px"
+    },
+    {
+      "label": "LJC",
+      "url": "https://theljc.com/",
+      "image": "https://e1.nmcdn.io/assets/clayco/wp-content/themes/nmc_clayco/assets/menu_ljc.svg",
+      "external": true,
+      "newTab": true,
+      "width": "95px"
+    }
+  ],
+  "utility": [
+    {
+      "label": "Skip to Main Content",
+      "url": "#main",
+      "type": "skip-link (first focusable element, visually hidden until focused)"
+    },
+    {
+      "label": "Clayco homepage",
+      "url": "https://claycorp.com/",
+      "type": "header logo (href=\"/\" rel=\"home\", title=\"homepage\", aria-label=\"Clayco homepage\"; inline white SVG wordmark)"
+    },
+    {
+      "label": "Search",
+      "url": "https://claycorp.com/?s=",
+      "type": "header button (title=\"Search\", magnifier icon) opening modal #search-popup; modal heading \"Search\", GET form action=\"https://claycorp.com\", input name=\"s\" placeholder=\"Search Term\", submit \"Search\""
+    },
+    {
+      "label": "menu",
+      "url": "",
+      "type": "hamburger toggle button (aria-label=\"menu\", aria-controls=\"nmcnav_wrap\") that opens the primary navigation panel"
+    }
+  ],
+  "footer": [
+    {
+      "label": "Building On Relationships",
+      "url": "",
+      "children": [
+        {
+          "label": "Clayco",
+          "url": "https://claycorp.com/",
+          "external": false,
+          "newTab": true,
+          "image": "../offline-media/844659ecd8-footerlogo-clayco.svg",
+          "children": []
+        },
+        {
+          "label": "LJC",
+          "url": "https://theljc.com/?utm_source=claycorp.com&utm_medium=referral&utm_campaign=footer",
+          "external": true,
+          "newTab": false,
+          "image": "../offline-media/e6909e4762-LJC-DE--1779.webp",
+          "children": []
+        },
+        {
+          "label": "CRG",
+          "url": "https://www.realcrg.com/?utm_source=claycorp.com&utm_medium=referral&utm_campaign=footer",
+          "external": true,
+          "newTab": true,
+          "image": "../offline-media/2e0ecd01e9-footerlogo-crg.svg",
+          "children": []
+        },
+        {
+          "label": "Concrete Strategies",
+          "url": "https://concretestrategies.com/?utm_source=claycorp.com&utm_medium=referral&utm_campaign=footer",
+          "external": true,
+          "newTab": true,
+          "image": "../offline-media/b900088b94-footerlogo-concretestrategies-1.svg",
+          "children": []
+        },
+        {
+          "label": "Ventana",
+          "url": "https://ventana.vc/?utm_source=claycorp.com&utm_medium=referral&utm_campaign=footer",
+          "external": true,
+          "newTab": true,
+          "image": "../offline-media/e79c8e5a74-footerlogo-ventana.svg",
+          "children": []
+        },
+        {
+          "label": "Clayco SEI",
+          "url": "https://claycorp.com/services/#SEI",
+          "external": false,
+          "newTab": false,
+          "image": "../offline-media/2b958d361a-ClaycoSEI_white-NEW-NEW.svg",
+          "children": []
+        },
+        {
+          "label": "Clayco Rising",
+          "url": "https://claycorising.com/",
+          "external": true,
+          "newTab": true,
+          "image": "../offline-media/a5a6878a48-footerlogo-claycorising.svg",
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Contact",
+      "url": "",
+      "children": [
+        {
+          "label": "Careers",
+          "url": "https://claycorp.com/careers",
+          "external": false,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Subcontractors or Vendors",
+          "url": "https://claycorp.com/contact-us/subcontractor-pre-qual",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Social",
+      "url": "",
+      "children": [
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/clayco_inc",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/claycoartandscience",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Twitter",
+          "url": "https://www.twitter.com/ClaycoInc",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/73731",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@claycodesign-build",
+          "external": true,
+          "newTab": true,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Credits",
+      "url": "",
+      "children": [
+        {
+          "label": "Designed by Cardigan",
+          "url": "https://www.thiscardigan.com/",
+          "external": true,
+          "newTab": true,
+          "children": []
+        },
+        {
+          "label": "Developed by NMC",
+          "url": "https://www.newmediacampaigns.com/architecture-engineering-construction-aec-website-design",
+          "external": true,
+          "newTab": true,
+          "children": []
+        }
+      ]
+    },
+    {
+      "label": "Legal",
+      "url": "",
+      "children": [
+        {
+          "label": "Accessibility",
+          "url": "https://claycorp.com/accessibility",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Cookie Policy",
+          "url": "https://claycorp.com/cookie-policy",
+          "external": false,
+          "newTab": false,
+          "children": []
+        },
+        {
+          "label": "Privacy Policy",
+          "url": "https://claycorp.com/privacy-policy",
+          "external": false,
+          "newTab": false,
+          "children": []
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Source: raw HTML of https://claycorp.com/ fetched 2026-10-09 with curl -sL and a desktop Chrome User-Agent (HTTP 200, 177,596 bytes). Primary tree parsed from <nav class=\"nmcnav_wrap\" id=\"nmcnav_wrap\" aria-label=\"Site Navigation\"> > <ul class=\"nmcnav_primary nmcnav_ul\" aria-label=\"Primary Navigation\">. 60 menu items in total: 9 top level, 38 second level and 13 third level, 3 levels deep (only Work > Commercial / Institutional / Industrial reach level 3). Re-checked 2026-10-09 against https://claycorp.com/careers/ (HTTP 200, 136,703 bytes): the menu there is identical, except that the Careers <li> (menu-item-4954) carries the current-menu-item / current_page_item classes.",
+    "Labels are verbatim, with HTML entities decoded: the source writes some ampersands as &#038; (Distribution & E-Commerce, Food & Beverage, Residential & Hospitality, Sports & Entertainment) and others as a literal & (Power & Energy, Systems & Equipment, VDC & BIM, Values & Commitments, Subcontractor & Vendor Resources). All render as \"&\".",
+    "Items with children (Work, Commercial, Institutional, Industrial, Services, About Us, Contact, Building Solutions) are WordPress page menu items, but the site renders them as <button> toggles with aria-expanded/aria-controls and a .nav-dd-indicator span, with no href. Hence url \"\". The landing page for each group is the first child where one exists (Commercial > Featured Projects = /work/commercial, Institutional > Featured Projects = /work/institutional, Industrial > Featured Projects = /work/industrial, Services > Overview = /services). Work, About Us, Contact and Building Solutions have no 'overview' child.",
+    "Header layout from the inline CSS: the hamburger nav toggle is order 1 (left), the Clayco logo order 2 (centre), and the search button order 3 (right). There is one menu for every width: the toggle has no desktop hide rule, and the panel (.nmcnav_panel) is a position:fixed drawer that is display:none until opened, then slides in from the left (nav-slidein, 0.3s ease-in-out). Submenus are nested in-panel dropdowns (class \"nmcnav_dropdown -standard\"), not a mega-menu. Header icons are white (#FFF) over the hero and switch to #212121 when .scrolled / .navopen / .header-color is set.",
+    "Duplicate labels are real and intentional: \"Featured Projects\" appears 4 times (Work > Featured Projects = /work/featured-projects, plus the first child of Commercial, Institutional and Industrial). \"Sustainability\" appears twice (Services > Sustainability = /services/#sustainability and About Us > Sustainability = /claycos-sustainable-commitment).",
+    "Label and slug mismatches to preserve exactly: Aviation -> /work/aerospace-aviation; Clayco Compute -> /work/mission-critical; Advanced Manufacturing -> /work/manufacturing; Distribution & E-Commerce -> /work/distribution; Life Sciences -> /work/life-science; Power & Energy -> /power-energy-storage (not under /work/); Sports & Entertainment sits under Work at top level but its URL is /work/commercial/sports-entertainment; Newsroom -> /latest; Contact > Offices -> /contact-us; Building Solutions > Integrated Approach -> /integrated-companies. Most Services children are anchors on /services/ (#preconstruction, #procurement, #construction, #design, #CDE, #SEI, #VDC, #TAG, #selfperform, #development, #sustainability). Anchor case is mixed as in source.",
+    "External and new-tab behaviour: in the primary menu only the four Building Solutions company links (CRG https://realcrg.com/, LJC https://theljc.com/, Concrete Strategies https://concretestrategies.com/, Ventana https://ventana.vc/) are external, and all four carry target=\"_blank\" with no rel attribute. Every claycorp.com item opens in the same tab.",
+    "menuLogos: inside the nav panel, after the primary <ul>, sits <div class=\"nmcnav_logos\"> holding two linked logo images, CRG (87px wide) then LJC (95px wide). Both use target=\"_blank\". The labels come from the img alt text.",
+    "utility: the search button (title=\"Search\", data-nmc-micromodal-trigger=\"search-popup\") opens a modal rather than navigating. The url given is the resulting WordPress search query (GET https://claycorp.com?s=<term>). The 'menu' entry is the hamburger toggle's aria-label, not visible text.",
+    "Footer: there is no footer <nav> or menu mirroring the primary navigation. Its blocks, in order, are: \"Offices\" (h2; 9 office cards with no links except tel: numbers: St. Louis, Chicago, South Carolina, Kansas City, Phoenix, Culver City, Birmingham, Atlanta, Raleigh); \"Building On Relationships\" (h2; 7 linked logos); \"Contact\" (h2; prose with inline links); the social icons; and the tertiary row (\"© 2026 Clayco\", the credits, and the legal <ul class=\"footer-legal_ul\">). The footer group labels \"Social\", \"Legal\" and \"Credits\" are descriptive names I added from class names. They are not visible text on the site.",
+    "Footer logo labels are inferred from the image filenames because every footer logo img has alt=\"\". The footer LJC link (LJC-DE.png, max-width 180px) has no target=\"_blank\", unlike the other external logos. The Clayco SEI logo links internally to /services/#SEI. The Clayco logo links to https://claycorp.com/ with target=\"_blank\". Only the LJC, CRG, Concrete Strategies and Ventana footer links carry utm_source=claycorp.com&utm_medium=referral&utm_campaign=footer (in the HTML as &amp;, decoded here). The Clayco (https://claycorp.com/), Clayco SEI (https://claycorp.com/services/#SEI) and Clayco Rising (https://claycorising.com/) links have no UTM parameters.",
+    "Footer Contact prose: the media, project, bid and prequalification email links are Cloudflare email-protected (/cdn-cgi/l/email-protection#...). Their aria-labels show MediaInquiries@claycorp.com and info@claycorp.com. The bid and prequal addresses are obfuscated and were not recorded. The inline links Careers (target=\"_blank\") and \"Subcontractors or Vendors\" are recorded under footer > Contact.",
+    "Social link labels: Instagram, Facebook and LinkedIn come from each icon's SVG <title>. The Twitter and YouTube SVGs have no <title>, so those two labels come from the class name (social__link--twitter / social__link--youtube) and the aria-label. The aria-labels are verbatim \"Follow  on Instagram\" etc., with a double space (the account name is missing in the template). All five open in a new tab."
+  ]
+}

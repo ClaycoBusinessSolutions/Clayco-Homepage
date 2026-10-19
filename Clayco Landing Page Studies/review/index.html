@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Clayco — Design & Motion Review</title>
+  <link rel="icon" href="../../assets/clayco/clayco.svg">
+  <link rel="stylesheet" href="review.css?v=20261019-device-preview">
+  <script defer src="review.offline.js?v=20261019-offline"></script>
+</head>
+<body>
+  <a class="skip" href="#preview">Skip to design</a>
+  <button id="controls-toggle" class="controls-toggle" type="button" aria-expanded="false" aria-controls="review-controls" aria-label="Open design and motion controls" title="Design & motion controls">
+    <svg class="controls-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+  </button>
+  <aside id="review-controls" class="review-controls" aria-label="Design and motion controls" hidden>
+  <header class="review-header">
+    <div class="review-identity"><img class="wordmark" src="../../assets/clayco/clayco.svg" alt="Clayco" width="128" height="34"><span class="review-heading">Review controls<span>Design & motion</span></span></div>
+  </header>
+  <section class="design-toolbar" aria-labelledby="design-label">
+    <h2 class="group-label" id="design-label">Designs<span>5 options · 3 designers</span></h2>
+    <ol class="design-list">
+      <li><button type="button" data-design="sam-alcarez-new" aria-pressed="false"><span class="option-number">01</span><span class="option-title">New version</span><span class="option-designer">Sam Alcarez</span></button></li>
+      <li><button type="button" data-design="sam-alcarez-original" aria-pressed="false"><span class="option-number">02</span><span class="option-title">Tweaked original</span><span class="option-designer">Sam Alcarez</span></button></li>
+      <li><button type="button" data-design="sam-bromley" aria-pressed="false"><span class="option-number">03</span><span class="option-title">Homepage redesign</span><span class="option-designer">Sam Bromley</span></button></li>
+      <li><button type="button" data-design="dohyoung-task-first" aria-pressed="true"><span class="option-number">04</span><span class="option-title">Task-first</span><span class="option-designer">Dohyoung Kim</span></button></li>
+      <li><button type="button" data-design="dohyoung-gallery" aria-pressed="false"><span class="option-number">05</span><span class="option-title">Gallery</span><span class="option-designer">Dohyoung Kim</span></button></li>
+    </ol>
+    <div class="selected-credit" id="selected-credit" hidden>Dohyoung Kim / Task-first</div>
+  </section>
+  <section class="motion-toolbar" aria-labelledby="motion-label">
+    <h2 class="group-label" id="motion-label"><span class="motion-indicator" aria-hidden="true"></span>Motion<span>by Sofia</span><span id="motion-summary" class="motion-summary">Original design motion</span></h2>
+    <div class="presets" role="group" aria-label="Apply a motion family"><button type="button" data-preset="o" aria-pressed="true">Original</button><button type="button" data-preset="a" aria-pressed="false"><b>A</b> Block</button><button type="button" data-preset="b" aria-pressed="false"><b>B</b> Swipe</button><button type="button" data-preset="c" aria-pressed="false"><b>C</b> Linear</button></div>
+    <div class="motion-actions"><button id="pause" type="button" aria-pressed="false"><span aria-hidden="true">Ⅱ</span> Pause</button><button id="replay-all" type="button"><span aria-hidden="true">↻</span> Replay</button><button class="settings-toggle" id="settings-toggle" type="button" aria-expanded="false" aria-controls="motion-panel">Motion settings <span aria-hidden="true">+</span></button></div>
+  </section>
+  <section id="motion-panel" class="motion-panel" aria-label="Sofia's motion settings" hidden>
+    <div class="panel-heading"><div><h1>Compose the motion.</h1><p>Choose a family above, or mix treatments by section. Your mix carries across designs.</p></div><a href="../Clayco%20Home%20Motion%20Options.html" target="_blank" rel="noopener">Sofia’s original study ↗</a></div>
+    <div class="panel-utility"><label class="saved-label" for="saved-set">Saved sets <select id="saved-set"><option value="">Choose a saved set</option></select></label><button type="button" id="save-set">Save current mix <span aria-hidden="true">+</span></button><button type="button" id="delete-set" hidden>Delete saved set</button><button type="button" id="copy-link">Copy review link <span aria-hidden="true">↗</span></button><span id="storage-note">Saved on this browser</span></div>
+    <div id="section-controls" class="section-controls"></div>
+    <p class="panel-note">Treatments are mapped to each design’s existing sections. Any adaptations or unavailable components are noted below the controls.</p>
+  </section>
+  <section class="preview-bar" aria-labelledby="view-label">
+    <h2 class="group-label" id="view-label">View<span id="preview-description">Dohyoung Kim · Task-first</span></h2>
+    <label class="jump-label" for="jump">Jump to <select id="jump"><option value="">Top of page</option></select></label>
+    <div class="header-tools"><button id="home" type="button" hidden><span aria-hidden="true">↖</span> Back to homepage</button><a id="full-page" href="../../animated/clayco-b.html" target="_blank" rel="noopener">Open design <span aria-hidden="true">↗</span></a><button id="presentation" type="button" aria-pressed="false">Full screen <span aria-hidden="true">⤢</span></button></div>
+    <details id="source-notes" hidden><summary>Source notes</summary><p id="source-note-copy"></p></details>
+  </section>
+  </aside>
+  <div id="device-toggle" class="device-toggle" role="group" aria-label="Preview size">
+    <button type="button" data-device="desktop" aria-pressed="true" aria-label="Desktop preview" title="Desktop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.75" y="4" width="18.5" height="12.5" rx="1.5"/><path d="M9 20h6m-3-3.5V20"/></svg></button>
+    <button type="button" data-device="mobile" aria-pressed="false" aria-label="iPhone 18 Pro preview" title="iPhone 18 Pro · 402 × 874"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="6.75" y="2.75" width="10.5" height="18.5" rx="2.6"/><path d="M10.75 5.5h2.5"/></svg></button>
+  </div>
+  <main class="preview-stage" id="preview-stage" data-device="desktop">
+    <div class="device" id="device">
+      <span class="device-button action" aria-hidden="true"></span><span class="device-button volume-up" aria-hidden="true"></span><span class="device-button volume-down" aria-hidden="true"></span><span class="device-button side" aria-hidden="true"></span><span class="device-button camera" aria-hidden="true"></span>
+      <div class="device-screen">
+        <div class="device-status" aria-hidden="true"><span class="status-time">9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+        <iframe id="preview" title="Dohyoung Kim — Task-first design" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
+        <span class="device-island" aria-hidden="true"></span><span class="device-home" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="device-caption" aria-hidden="true">iPhone 18 Pro <span>402 × 874</span></p>
+    <div id="loading" class="loading"><span></span>Loading design</div>
+    <div id="load-error" class="load-error" hidden><h2>The preview could not be opened.</h2><p>Try reloading the design or open its full page.</p><button type="button" id="retry">Reload design</button></div>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="save-dialog"><form id="save-form"><div class="dialog-head"><h2>Save this motion mix</h2><button id="cancel-save" type="button" aria-label="Close save dialog">×</button></div><p>Use this set with any of the five designs.</p><label for="set-name">Name</label><input id="set-name" name="name" maxlength="60" required placeholder="e.g. Leadership shortlist" autocomplete="off"><div class="dialog-actions"><button type="button" id="cancel-save-bottom">Cancel</button><button class="primary" type="submit">Save set</button></div></form></dialog>
+  <noscript><p>JavaScript is required for the comparison controls. <a href="designs/sam-alcarez-new/index.html">Sam Alcarez — New version</a> · <a href="designs/sam-alcarez-original/index.html">Sam Alcarez — Tweaked original</a> · <a href="../Sam%20B%20homepage-redesign.html">Sam Bromley — Homepage redesign</a> · <a href="../../animated/clayco-b.html">Dohyoung Kim — Task-first</a> · <a href="../../animated/clayco-gallery.html">Dohyoung Kim — Gallery</a></p></noscript>
+</body>
+</html>

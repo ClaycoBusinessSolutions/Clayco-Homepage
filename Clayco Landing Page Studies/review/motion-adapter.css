@@ -1,0 +1,128 @@
+/* Isolated preview layer. The four designers’ source files are unchanged. */
+.review-motion-active [data-review-section] { scroll-margin-top: 110px; }
+.review-motion-active [data-review-section] [hidden] { display: none !important; }
+.review-native-paused *, .review-native-paused *::before, .review-native-paused *::after { animation-play-state: paused !important; }
+.review-native-paused .reveal-ready:not(.is-revealed) { opacity: 1; }
+.review-motion-active [data-review-section] { --motion-red: #e2231a; }
+.motion-header-rule { position:absolute; inset:auto 0 0; height:3px; background:#e2231a; transform:scaleX(0); transform-origin:left; pointer-events:none; z-index:20; }
+.motion-cover { position:absolute; inset:0; z-index:12; background:#e2231a; pointer-events:none; }
+.motion-leading-edge { position:absolute; width:5px; top:0; bottom:0; background:#e2231a; z-index:13; pointer-events:none; }
+.motion-center-rule { position:absolute; height:3px; top:50%; left:0; right:0; background:#e2231a; transform-origin:left; z-index:13; pointer-events:none; }
+.motion-explore-bar { position:absolute; inset:auto 0 0; padding:12px 18px; background:#e2231a; color:#fff; font:500 18px/1.3 Arial,sans-serif; transform:translateY(100%); z-index:10; pointer-events:none; }
+.motion-word { display:inline-block; }
+.motion-marquee { position:absolute; inset:20% auto auto -5%; width:max-content; max-width:none; font:700 clamp(80px,12vw,180px)/1 Arial,sans-serif; white-space:nowrap; -webkit-text-stroke:1.5px #e2231a; color:transparent; opacity:.22; pointer-events:none; z-index:-1; }
+.motion-relay-rule { position:absolute; top:0; left:0; right:0; height:3px; background:#e2231a; transform-origin:left; pointer-events:none; }
+[data-motion-expanding] { display:grid !important; align-items:stretch; transition:grid-template-columns .7s cubic-bezier(.2,.8,.2,1) !important; }
+[data-motion-expanding] > * { min-width:0; padding:24px !important; transition:background-color .5s ease,color .5s ease !important; }
+[data-motion-expanding] > [data-motion-selected="true"] { background:var(--motion-company) !important; color:#fff !important; }
+[data-motion-expanding] > [data-motion-selected="true"] :is(h2,h3,h4,p,a,span,li,.category) { color:#fff !important; }
+[data-motion-expanding] > [data-motion-selected="true"] :is(.logo-img,.integrated-logo) { filter:brightness(0) invert(1); }
+.motion-drawn-number { color:transparent; -webkit-text-stroke:1.25px currentColor; -webkit-text-stroke-color:#e2231a; font:500 clamp(68px,8vw,128px)/1 Arial,sans-serif; letter-spacing:-.065em; padding:0 0 20px; pointer-events:none; }
+.motion-office-clock { font-size:16px !important; line-height:1.5 !important; margin:16px 0 0 !important; font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+[data-motion-office-name] { position:relative; isolation:isolate; width:max-content; max-width:100%; }
+[data-motion-office-name]::after { content:''; position:absolute; inset:0 -4px; transform:scaleX(0); transform-origin:left; background:#e2231a; z-index:-1; transition:transform .45s cubic-bezier(.2,.8,.2,1) !important; }
+:is(.office,.cf-og-details):hover [data-motion-office-name]::after { transform:scaleX(1); }
+:is(.office,.cf-og-details):hover [data-motion-office-name] { color:#fff; }
+.motion-carousel { width:100%; min-width:0; margin:28px 0; color:inherit; }
+.motion-carousel-viewport { position:relative; overflow:hidden; touch-action:pan-y; isolation:isolate; }
+.motion-carousel-track { display:flex; width:100%; gap:24px; will-change:transform; transition:transform .75s cubic-bezier(.22,.61,.36,1) !important; }
+.motion-carousel-slide { flex:0 0 76%; width:76%; min-width:0; margin:0; }
+.motion-carousel-link { display:block; position:relative; width:100%; color:inherit; text-decoration:none; }
+.motion-carousel-image { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; max-width:none; }
+.motion-carousel-caption { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:24px; background:#e2231a; color:#fff; }
+.motion-carousel-caption h3 { margin:0 !important; font-size:clamp(24px,2.6vw,42px) !important; font-weight:500 !important; line-height:1.15 !important; color:inherit !important; }
+.motion-carousel-caption > span { flex-shrink:0; font-size:17px; }
+.motion-carousel-controls { display:flex; justify-content:flex-end; align-items:center; gap:14px; padding:16px 0; font:500 17px/1.3 Arial,sans-serif; }
+.motion-carousel-controls button { border:1px solid currentColor; color:inherit; background:transparent; padding:10px 16px; min-width:44px; min-height:44px; cursor:pointer; border-radius:0; font:inherit; }
+.motion-carousel-controls button:hover { background:#e2231a; border-color:#e2231a; color:#fff; }
+.motion-carousel-controls button:focus-visible,.motion-carousel-link:focus-visible { outline:3px solid #e2231a; outline-offset:4px; }
+.motion-carousel[data-kind="a"] .motion-carousel-track { display:grid; gap:0; }
+.motion-carousel[data-kind="a"] .motion-carousel-slide { width:100%; grid-area:1/1; }
+.motion-carousel[data-kind="a"] .motion-carousel-caption { background:#212121; }
+.motion-carousel[data-kind="c"] .motion-carousel-viewport { overflow-x:auto; scrollbar-width:thin; overscroll-behavior-x:contain; }
+.motion-carousel[data-kind="c"] .motion-carousel-track { width:max-content; transition:none !important; }
+.motion-carousel[data-kind="c"] .motion-carousel-slide { width:clamp(300px,40vw,760px); flex:none; }
+.motion-carousel[data-kind="c"] .motion-carousel-caption { background:transparent; color:inherit; padding:20px 0; }
+.motion-carousel[data-kind="c"] .motion-carousel-caption > span { display:none; }
+@media(max-width:760px) {
+  [data-motion-expanding] { grid-template-columns:1fr !important; }
+  .motion-carousel-slide { width:88%; flex-basis:88%; }
+  .motion-carousel-caption { display:block; padding:16px; }
+  .motion-carousel-caption > span { display:block; margin-top:12px; }
+  .motion-carousel-controls { gap:8px; font-size:15px; }
+  .motion-carousel-controls button { padding:8px 12px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  [data-motion-expanding],[data-motion-expanding] > *,[data-motion-office-name]::after,.motion-carousel-track { transition:none !important; }
+}
+.motion-hero { position:relative; width:100%; min-height:360px; max-height:92svh; overflow:hidden; color:#fff; background:#212121; isolation:isolate; touch-action:pan-y; }
+.motion-hero-slide { position:absolute; inset:0; margin:0; visibility:hidden; }
+.motion-hero-link { display:block; position:relative; width:100%; height:100%; color:#fff; text-decoration:none; overflow:hidden; }
+.motion-hero-image { display:block; width:100%; height:100%; object-fit:cover; max-width:none; }
+.motion-hero-link::after { content:''; position:absolute; inset:25% 0 0; background:linear-gradient(transparent,rgba(0,0,0,.7)); pointer-events:none; }
+.motion-hero-caption { position:absolute; bottom:100px; left:clamp(24px,5vw,80px); right:clamp(24px,5vw,80px); z-index:2; max-width:1000px; }
+.motion-hero-caption p { font:500 17px/1.3 Arial,sans-serif; margin:0 0 14px; }
+.motion-hero-caption h2 { font-size:clamp(32px,4vw,70px) !important; font-weight:500 !important; line-height:1.03 !important; letter-spacing:-.035em !important; color:#fff !important; margin:0 0 24px !important; }
+.motion-hero-caption span { font:500 18px/1.4 Arial,sans-serif; }
+.motion-hero-curtain { position:absolute; inset:0; background:#e2231a; transform:scaleX(0); z-index:5; pointer-events:none; }
+.motion-hero-controls { position:absolute; bottom:24px; right:clamp(24px,5vw,80px); z-index:6; display:flex; align-items:center; gap:12px; font:500 17px/1.3 Arial,sans-serif; }
+.motion-hero-controls button { min-width:44px; min-height:44px; border:1px solid rgba(255,255,255,.7); padding:10px 14px; background:rgba(0,0,0,.25); color:#fff; border-radius:0; font:inherit; cursor:pointer; }
+.motion-hero-controls button:hover { background:#e2231a; border-color:#e2231a; }
+.motion-hero-controls button:focus-visible,.motion-hero-link:focus-visible { outline:3px solid #fff; outline-offset:-5px; }
+@media(max-width:760px) { .motion-hero-caption { bottom:100px; } .motion-hero-caption h2 { font-size:34px !important; } .motion-hero-controls { left:24px; right:auto; } }
+.motion-drawn-number svg { display:block; width:190px; max-width:100%; height:auto; overflow:visible; }
+.motion-drawn-number svg text { fill:none; stroke:#e2231a; stroke-width:1.25px; stroke-dasharray:1000; stroke-dashoffset:0; font:500 120px/1 Arial,sans-serif; letter-spacing:-7px; }
+.review-motion-active [data-motion-expanding] { transition:grid-template-columns .7s cubic-bezier(.2,.8,.2,1) !important; }
+.review-motion-active [data-motion-expanding] > * { transition:background-color .5s ease,color .5s ease !important; }
+.review-motion-active [data-motion-office-name]::after { transition:transform .45s cubic-bezier(.2,.8,.2,1) !important; }
+.review-motion-active .motion-carousel-track { transition:transform .75s cubic-bezier(.22,.61,.36,1) !important; }
+.review-motion-active .motion-carousel[data-kind="a"] .motion-carousel-track,.review-motion-active .motion-carousel[data-kind="c"] .motion-carousel-track { transition:none !important; }
+[data-review-motion-paused].review-motion-active :is([data-motion-expanding],[data-motion-expanding] > *,[data-motion-office-name]::after,.motion-carousel-track) { transition:none !important; }
+@media(prefers-reduced-motion:reduce) {
+  .review-motion-active :is([data-motion-expanding],[data-motion-expanding] > *,[data-motion-office-name]::after,.motion-carousel-track) { transition:none !important; }
+}
+/* The source Sam hero settles at 595px. Keep the comparison responsive after
+   the review toolbar or settings panel changes the iframe viewport. */
+.motion-hero { min-height:420px; max-height:none; }
+.motion-hero-controls button:disabled,.motion-carousel-controls button:disabled { opacity:.55; cursor:default; background:transparent; }
+.motion-hero-controls button:disabled:hover { border-color:rgba(255,255,255,.7); color:#fff; }
+.motion-carousel-controls button:disabled:hover { border-color:currentColor; color:inherit; }
+@media(max-width:760px) { .motion-hero { min-height:420px; } }
+
+/* Sam B keeps its own fade observers. Suppress only their visual layer while
+   testing Sofia presets; removing the review class restores Original. */
+[data-review-designer="sam-bromley"].review-native-paused :is(.rv,.fd) { opacity:1; transform:none; transition:none !important; }
+[data-review-designer="sam-bromley"].review-native-paused :is(.reel .r,.show .s,.stats .bar) { transition:none !important; }
+[data-review-designer="sam-bromley"] [data-motion-expanding] > [data-motion-selected="true"] .logo svg { filter:brightness(0) invert(1); }
+[data-review-designer="sam-bromley"] .offices > div:hover [data-motion-office-name]::after { transform:scaleX(1); }
+[data-review-designer="sam-bromley"] .offices > div:hover [data-motion-office-name] { color:#fff; }
+
+/* Keep Sam B's right-hand explorer column from adopting the carousel track's
+   intrinsic width. The track is clipped or scrolled inside its own viewport. */
+[data-review-designer="sam-bromley"].review-motion-active .explorer > div { min-width:0; max-width:100%; }
+
+/* The supplied Sam B phone footer uses two intrinsic-width SVG columns.
+   Constrain those columns in the review so both logos fit the available width. */
+@media(max-width:560px) {
+  [data-review-designer="sam-bromley"] .site-footer .f-row { grid-template-columns:minmax(0,1fr); }
+  [data-review-designer="sam-bromley"] .site-footer .f-row > div { min-width:0; }
+  [data-review-designer="sam-bromley"] .site-footer .rel { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  [data-review-designer="sam-bromley"] .site-footer .rel a { min-width:0; max-width:100%; }
+  [data-review-designer="sam-bromley"] .site-footer .rel svg { max-width:100%; height:auto; max-height:100%; }
+  [data-review-designer="sam-bromley"] .site-footer .contact a { overflow-wrap:anywhere; }
+  [data-review-designer="sam-bromley"] .explorer > div { min-width:0; max-width:100%; }
+}
+
+/* Source buttons and service cards have nonbreaking text that exceeds a phone
+   column. Keep their labels intact when they fit and wrap them when needed. */
+@media(max-width:560px) {
+  [data-review-designer="sam-bromley"] .btn { max-width:100%; white-space:normal; text-align:center; }
+  [data-review-designer="sam-bromley"] .sv-grid { grid-template-columns:minmax(0,1fr); }
+  [data-review-designer="sam-bromley"] .sv { min-width:0; }
+  [data-review-designer="sam-bromley"] .sv :is(h3,p) { min-width:0; overflow-wrap:anywhere; }
+}
+
+@media(max-width:560px) {
+  [data-review-designer="sam-bromley"] .careers { grid-template-columns:minmax(0,1fr); }
+  [data-review-designer="sam-bromley"] .careers > * { min-width:0; overflow-wrap:anywhere; }
+}
