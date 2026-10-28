@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+
+<script src="../../offline-links.js?v=20261028-offline"></script>
+<script src="../../motion-frame.offline.js?v=20261028-offline"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clayco | Building to make life better</title>
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/scale.js"></script>
+<script src="assets/home-intro.js" defer></script>
+<script src="assets/business-units.js" defer></script>
+<script src="assets/mission-values.js" defer></script>
+<script src="assets/reveal.js" defer></script>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container">
+    <button class="icon-btn" aria-label="Menu">
+      <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 7h30M0 15h30M0 23h30"/></svg>
+    </button>
+    <a class="logo" href="index.html" aria-label="Clayco home"><img src="assets/img/clayco-logo-white.svg" alt="Clayco"></a>
+    <button class="icon-btn" aria-label="Search">
+      <svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13" cy="13" r="8"/><path d="M19 19l7 7"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO (intro video) =====
+       Loads full-screen, plays for a few seconds, then shrinks into the header space.
+       Timing lives in assets/home-intro.js (INTRO_SECONDS). -->
+  <section class="hero hero--video is-intro" id="home-hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="assets/img/home-intro-poster.jpg"
+           data-src-large="assets/video/home-intro.mp4"
+           data-src-small="assets/video/home-intro-720.mp4"
+           aria-hidden="true"></video>
+    <button class="video-toggle" type="button" aria-label="Pause background video">
+      <svg class="icon-pause" viewBox="0 0 20 20" fill="currentColor"><rect x="4" y="3" width="4" height="14"/><rect x="12" y="3" width="4" height="14"/></svg>
+      <svg class="icon-play" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3l12 7-12 7z"/></svg>
+    </button>
+    <div class="container">
+      <h1>Building to<br>make life better.</h1>
+      <a class="hero-link" href="#">See what better means <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== INTRO STATEMENT ===== -->
+  <section class="statement" data-reveal-group>
+    <div class="container">
+      <h2 class="reveal" data-reveal-delay="0">Clayco believes <br>in the Art &amp; Science <br>of Building</h2>
+      <p class="reveal" data-reveal-delay="1">Clayco is a full-service, turnkey real estate, architecture, engineering, design-build and construction firm. Through a unified design-build team, we deliver integrated solutions driven by our clients’ vision: on time, on budget and above and beyond&nbsp;expectations.</p>
+      <div class="statement-cta reveal" data-reveal-delay="2">
+        <span class="statement-cta-label">Work With Clayco</span>
+        <div class="statement-cta-buttons">
+          <a class="btn-outline" href="https://claycorp.com/careers">View Careers</a>
+          <a class="btn-outline" href="https://claycorp.com/contact-us/subcontractor-pre-qual">Subcontractor Resources</a>
+        </div>
+      </div>
+      <ul class="stats reveal" data-reveal-delay="3">
+        <li><strong data-count="1984" data-format="year">1984</strong><span>Founded in St. Louis</span></li>
+        <li><strong data-count="8.1" data-prefix="$" data-suffix="B+" data-decimals="1">$8.1B+</strong><span>Revenue in 2025</span></li>
+        <li><strong data-count="4000" data-suffix="+">4,000+</strong><span>Employees Nationwide</span></li>
+        <li><strong data-count="600" data-suffix="+">600+</strong><span>Iconic &amp; Complex Projects</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== OUR BUSINESS UNITS (merged with Featured Projects) =====
+       Unit list on the left; the selected unit's featured project as a hero on the right, with thumbnails of its
+       other projects underneath. Behaviour: assets/business-units.js. To add a project, copy a bu-hero link AND a bu-thumb. -->
+  <section class="section container bu" aria-label="Our Business Units">
+    <div class="eyebrow">Our Business Units</div>
+    <div class="bu-layout">
+      <ul class="bu-tabs" role="tablist" aria-label="Business units">
+        <li><button class="bu-tab is-active" type="button" role="tab" id="bu-tab-0" aria-controls="bu-panel-0" aria-selected="true"><span class="bu-tab-name">Clayco Compute</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-1" aria-controls="bu-panel-1" aria-selected="false"><span class="bu-tab-name">Advanced Manufacturing</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-2" aria-controls="bu-panel-2" aria-selected="false"><span class="bu-tab-name">Life Sciences</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-3" aria-controls="bu-panel-3" aria-selected="false"><span class="bu-tab-name">Food &amp; Beverage</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-4" aria-controls="bu-panel-4" aria-selected="false"><span class="bu-tab-name">Sports &amp; Entertainment</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-5" aria-controls="bu-panel-5" aria-selected="false"><span class="bu-tab-name">Aviation</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-6" aria-controls="bu-panel-6" aria-selected="false"><span class="bu-tab-name">Distribution &amp; E&#8209;Commerce</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-7" aria-controls="bu-panel-7" aria-selected="false"><span class="bu-tab-name">Residential &amp; Hospitality</span></button></li>
+        <li><button class="bu-tab" type="button" role="tab" id="bu-tab-8" aria-controls="bu-panel-8" aria-selected="false"><span class="bu-tab-name">Current Projects</span></button></li>
+      </ul>
+      <div class="bu-panels">
+      <div class="bu-panel is-active" id="bu-panel-0" role="tabpanel" aria-labelledby="bu-tab-0">
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="iqmp.html">
+            <img src="assets/img/work-iqmp-wide.jpg" alt="Illinois Quantum and Microelectronics Park">
+            <div class="bu-caption">
+              <span class="category">Clayco Compute</span>
+              <h3>Illinois Quantum and Microelectronics Park</h3>
+              <span class="bu-location">Chicago, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/work-related-digital-wide.jpg" alt="Related Digital Data Center Campus" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Clayco Compute</span>
+              <h3>Related Digital Data Center Campus</h3>
+              <span class="bu-location">Cheyenne, Wyoming</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-galaxy-helios.jpg" alt="Galaxy Digital LP Helios Renovation" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Clayco Compute</span>
+              <h3>Galaxy Digital LP Helios Renovation</h3>
+              <span class="bu-location">Afton, Texas</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/project-miner-campus" hidden>
+            <img src="assets/img/bu-project-miner.jpg" alt="Aerial view of the Project Miner data center campus" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Clayco Compute</span>
+              <h3>Project Miner Campus</h3>
+              <span class="bu-location">Doña Ana County, New Mexico</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show Illinois Quantum and Microelectronics Park" aria-pressed="true"><img src="assets/img/work-iqmp-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Related Digital Data Center Campus" aria-pressed="false"><img src="assets/img/work-related-digital-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Galaxy Digital LP Helios Renovation" aria-pressed="false"><img src="assets/img/proj-galaxy-helios.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Project Miner Campus" aria-pressed="false"><img src="assets/img/bu-project-miner.jpg" alt="Aerial view of the Project Miner data center campus" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-1" role="tabpanel" aria-labelledby="bu-tab-1" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="#">
+            <img src="assets/img/work-rivian-ev-wide.jpg" alt="Rivian EV Manufacturing Plant" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Advanced Manufacturing</span>
+              <h3>Rivian EV Manufacturing Plant</h3>
+              <span class="bu-location">Stanton Springs North, Georgia</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-rivian-r2.jpg" alt="Rivian R2 Plant Expansion" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Advanced Manufacturing</span>
+              <h3>Rivian R2 Plant Expansion</h3>
+              <span class="bu-location">Normal, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-weg-transformer.jpg" alt="WEG Transformer Plant Expansion" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Advanced Manufacturing</span>
+              <h3>WEG Transformer Plant Expansion</h3>
+              <span class="bu-location">Washington, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-entek-battery.jpg" alt="Entek Battery Separator Plant" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Advanced Manufacturing</span>
+              <h3>Entek Battery Separator Plant</h3>
+              <span class="bu-location">Terre Haute, Indiana</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show Rivian EV Manufacturing Plant" aria-pressed="true"><img src="assets/img/work-rivian-ev-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Rivian R2 Plant Expansion" aria-pressed="false"><img src="assets/img/proj-rivian-r2.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show WEG Transformer Plant Expansion" aria-pressed="false"><img src="assets/img/proj-weg-transformer.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Entek Battery Separator Plant" aria-pressed="false"><img src="assets/img/proj-entek-battery.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-2" role="tabpanel" aria-labelledby="bu-tab-2" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="https://claycorp.com/project/pfizer-rd-facility-expansion">
+            <img src="assets/img/bu-pfizer-chesterfield.jpg" alt="Aerial view of the Pfizer Chesterfield facility" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Life Sciences</span>
+              <h3>Pfizer Chesterfield Addition-Renovation</h3>
+              <span class="bu-location">Chesterfield, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/pfizer-boulder-campus" hidden>
+            <img src="assets/img/bu-pfizer-boulder.jpg" alt="Rendering of a laboratory at the Pfizer Boulder Campus" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Life Sciences</span>
+              <h3>Pfizer Boulder Campus</h3>
+              <span class="bu-location">Boulder, Colorado</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/debra-george-w-couch-iii-biomedical-research-building" hidden>
+            <img src="assets/img/bu-couch-biomedical.jpg" alt="Glass exterior of the Couch Biomedical Research Building" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Life Sciences</span>
+              <h3>The Debra and George W. Couch III Biomedical Research Building</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-gateways-hospital.jpg" alt="Gateways Hospital &amp; Mental Health Building" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Life Sciences</span>
+              <h3>Gateways Hospital &amp; Mental Health Building</h3>
+              <span class="bu-location">Los Angeles, California</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show Pfizer Chesterfield Addition-Renovation" aria-pressed="true"><img src="assets/img/bu-pfizer-chesterfield.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Pfizer Boulder Campus" aria-pressed="false"><img src="assets/img/bu-pfizer-boulder.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show The Debra and George W. Couch III Biomedical Research Building" aria-pressed="false"><img src="assets/img/bu-couch-biomedical.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Gateways Hospital &amp; Mental Health Building" aria-pressed="false"><img src="assets/img/proj-gateways-hospital.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-3" role="tabpanel" aria-labelledby="bu-tab-3" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="https://claycorp.com/project/tyson-foods-processing-facility">
+            <img src="assets/img/bu-tyson-danville.jpg" alt="Concrete crew finishing a slab at the Tyson Foods facility" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Food &amp; Beverage</span>
+              <h3>Tyson Foods Processing Facility</h3>
+              <span class="bu-location">Danville, Virginia</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/mark-anthony-brewery" hidden>
+            <img src="assets/img/bu-mark-anthony.jpg" alt="Mark Anthony Brewing facility in Columbia, South Carolina" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Food &amp; Beverage</span>
+              <h3>Mark Anthony Brewing</h3>
+              <span class="bu-location">Columbia, South Carolina</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/karis-cold-storage" hidden>
+            <img src="assets/img/bu-karis-cold-storage.jpg" alt="Karis Cold Storage facility in Daytona Beach, Florida" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Food &amp; Beverage</span>
+              <h3>Karis Cold Storage</h3>
+              <span class="bu-location">Daytona Beach, Florida</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/kraft-heinz" hidden>
+            <img src="assets/img/bu-kraft-heinz.jpg" alt="Kraft Heinz facility in Lathrop, California" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Food &amp; Beverage</span>
+              <h3>Kraft Heinz</h3>
+              <span class="bu-location">Lathrop, California</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show Tyson Foods Processing Facility" aria-pressed="true"><img src="assets/img/bu-tyson-danville.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Mark Anthony Brewing" aria-pressed="false"><img src="assets/img/bu-mark-anthony.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Karis Cold Storage" aria-pressed="false"><img src="assets/img/bu-karis-cold-storage.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Kraft Heinz" aria-pressed="false"><img src="assets/img/bu-kraft-heinz.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-4" role="tabpanel" aria-labelledby="bu-tab-4" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="#">
+            <img src="assets/img/work-hollywood-park-wide.jpg" alt="Hollywood Park Studios" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Sports &amp; Entertainment</span>
+              <h3>Hollywood Park Studios</h3>
+              <span class="bu-location">Inglewood, California</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/ubben-basketball-expansion" hidden>
+            <img src="assets/img/bu-ubben-basketball.jpg" alt="Ubben Basketball Complex at the University of Illinois" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Sports &amp; Entertainment</span>
+              <h3>Ubben Basketball Expansion at University of Illinois</h3>
+              <span class="bu-location">Champaign, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/busch-stadium" hidden>
+            <img src="assets/img/bu-busch-stadium.jpg" alt="Busch Stadium in St. Louis" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Sports &amp; Entertainment</span>
+              <h3>Busch Stadium Renovations</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/the-henry-dale-and-betty-smith-football-center" hidden>
+            <img src="assets/img/bu-smith-football-center.jpg" alt="Smith Football Center at the University of Illinois" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Sports &amp; Entertainment</span>
+              <h3>The Henry Dale &amp; Betty Smith Football Center at University of Illinois</h3>
+              <span class="bu-location">Champaign, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show Hollywood Park Studios" aria-pressed="true"><img src="assets/img/work-hollywood-park-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Ubben Basketball Expansion at University of Illinois" aria-pressed="false"><img src="assets/img/bu-ubben-basketball.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Busch Stadium Renovations" aria-pressed="false"><img src="assets/img/bu-busch-stadium.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show The Henry Dale &amp; Betty Smith Football Center at University of Illinois" aria-pressed="false"><img src="assets/img/bu-smith-football-center.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-5" role="tabpanel" aria-labelledby="bu-tab-5" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="#">
+            <img src="assets/img/work-ohare-concourse-d-wide.jpg" alt="O’Hare 21 – Satellite Concourse D" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Aviation</span>
+              <h3>O’Hare 21 – Satellite Concourse D</h3>
+              <span class="bu-location">Chicago, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-ohare-airfield.jpg" alt="O’Hare 21 – Airfield Basin Modifications" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Aviation</span>
+              <h3>O’Hare 21 – Airfield Basin Modifications</h3>
+              <span class="bu-location">Chicago, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-idaho-falls.jpg" alt="Idaho Falls Terminal Renovation" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Aviation</span>
+              <h3>Idaho Falls Terminal Renovation</h3>
+              <span class="bu-location">Idaho Falls, Idaho</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/st-louis-lambert-international-airport-consolidated-terminal-program-ctp" hidden>
+            <img src="assets/img/bu-lambert-ctp.jpg" alt="Rendering of the new consolidated terminal at St. Louis Lambert International Airport" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Aviation</span>
+              <h3>St. Louis Lambert International Airport – Consolidated Terminal Program</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show O’Hare 21 – Satellite Concourse D" aria-pressed="true"><img src="assets/img/work-ohare-concourse-d-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show O’Hare 21 – Airfield Basin Modifications" aria-pressed="false"><img src="assets/img/proj-ohare-airfield.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Idaho Falls Terminal Renovation" aria-pressed="false"><img src="assets/img/proj-idaho-falls.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show St. Louis Lambert International Airport – Consolidated Terminal Program" aria-pressed="false"><img src="assets/img/bu-lambert-ctp.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-6" role="tabpanel" aria-labelledby="bu-tab-6" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="#">
+            <img src="assets/img/proj-cubes-bedford.jpg" alt="The Cubes at Bedford Station" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Distribution &amp; E-Commerce</span>
+              <h3>The Cubes at Bedford Station</h3>
+              <span class="bu-location">Bedford Park, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-cubes-sparta.jpg" alt="The Cubes at Sparta Pike" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Distribution &amp; E-Commerce</span>
+              <h3>The Cubes at Sparta Pike</h3>
+              <span class="bu-location">Nashville, Tennessee</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-confidential-distribution.jpg" alt="Confidential Distribution Client" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Distribution &amp; E-Commerce</span>
+              <h3>Confidential Distribution Client</h3>
+              <span class="bu-location">Hudson, New Hampshire</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/amazon-e-commerce-centers" hidden>
+            <img src="assets/img/bu-amazon-ecommerce.jpg" alt="Amazon e-commerce fulfillment center built by Clayco" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Distribution &amp; E-Commerce</span>
+              <h3>Amazon E-Commerce Centers</h3>
+              <span class="bu-location">Multiple Locations</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show The Cubes at Bedford Station" aria-pressed="true"><img src="assets/img/proj-cubes-bedford.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show The Cubes at Sparta Pike" aria-pressed="false"><img src="assets/img/proj-cubes-sparta.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Confidential Distribution Client" aria-pressed="false"><img src="assets/img/proj-confidential-distribution.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Amazon E-Commerce Centers" aria-pressed="false"><img src="assets/img/bu-amazon-ecommerce.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-7" role="tabpanel" aria-labelledby="bu-tab-7" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="#">
+            <img src="assets/img/work-one-fulton-market-wide.jpg" alt="One Fulton Market" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Residential &amp; Hospitality</span>
+              <h3>One Fulton Market</h3>
+              <span class="bu-location">Chicago, Illinois</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/work-kali-hotel-wide.jpg" alt="Kali Hotel" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Residential &amp; Hospitality</span>
+              <h3>Kali Hotel</h3>
+              <span class="bu-location">Inglewood, California</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-albion-west-end.jpg" alt="Albion West End" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Residential &amp; Hospitality</span>
+              <h3>Albion West End</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="#" hidden>
+            <img src="assets/img/proj-shorehaven.jpg" alt="Shorehaven" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Residential &amp; Hospitality</span>
+              <h3>Shorehaven</h3>
+              <span class="bu-location">Tempe, Arizona</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show One Fulton Market" aria-pressed="true"><img src="assets/img/work-one-fulton-market-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Kali Hotel" aria-pressed="false"><img src="assets/img/work-kali-hotel-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Albion West End" aria-pressed="false"><img src="assets/img/proj-albion-west-end.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Shorehaven" aria-pressed="false"><img src="assets/img/proj-shorehaven.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      <div class="bu-panel" id="bu-panel-8" role="tabpanel" aria-labelledby="bu-tab-8" hidden>
+        <div class="bu-stage">
+          <a class="bu-hero is-active" href="projects.html">
+            <img src="assets/img/work-washu-hirsch-wide.jpg" alt="WashU Neil S. Hirsch Alumni Center" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Current Projects</span>
+              <h3>WashU Neil S. Hirsch Alumni Center</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="projects.html" hidden>
+            <img src="assets/img/proj-washu-south40.jpg" alt="WashU South 40 Phase 1" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Current Projects</span>
+              <h3>WashU South 40 Phase 1</h3>
+              <span class="bu-location">St. Louis, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="projects.html" hidden>
+            <img src="assets/img/proj-penn-state-pollock.jpg" alt="Penn State Pollock Halls" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Current Projects</span>
+              <h3>Penn State Pollock Halls</h3>
+              <span class="bu-location">State College, Pennsylvania</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+          <a class="bu-hero" href="https://claycorp.com/project/weg-transformers-usa" hidden>
+            <img src="assets/img/bu-weg-transformers.jpg" alt="Rendering of the WEG Transformers USA facility" loading="lazy">
+            <div class="bu-caption">
+              <span class="category">Current Projects</span>
+              <h3>WEG Transformers USA</h3>
+              <span class="bu-location">Washington, Missouri</span>
+              <span class="bu-btn">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+            </div>
+          </a>
+        </div>
+        <ul class="bu-thumbs">
+            <li><button class="bu-thumb is-active" type="button" aria-label="Show WashU Neil S. Hirsch Alumni Center" aria-pressed="true"><img src="assets/img/work-washu-hirsch-wide.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show WashU South 40 Phase 1" aria-pressed="false"><img src="assets/img/proj-washu-south40.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show Penn State Pollock Halls" aria-pressed="false"><img src="assets/img/proj-penn-state-pollock.jpg" alt="" loading="lazy"></button></li>
+            <li><button class="bu-thumb" type="button" aria-label="Show WEG Transformers USA" aria-pressed="false"><img src="assets/img/bu-weg-transformers.jpg" alt="" loading="lazy"></button></li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTEGRATED BY DESIGN =====
+       Develop / Design & Engineering / Build cards. Services lists from claycorp.com/company-overview -->
+  <section class="section container integrated">
+    <div class="eyebrow">Integrated by Design</div>
+    <div class="values-intro">
+      <h2><strong>Our Integrated Approach</strong></h2>
+      <p>Developers, designers, engineers and builders working as one transparent team, committed to exceeding every owner’s&nbsp;expectations.</p>
+    </div>
+    <div class="grid-3 values-grid">
+      <article class="value integrated-card">
+        <a class="value-link" href="https://realcrg.com/"><div class="media"><img src="assets/img/iqmp-gallery-4.jpg" alt="Rendering of the IQMP campus"></div></a>
+        <div class="category">Develop</div>
+        <img class="integrated-logo integrated-logo--crg" src="assets/img/logo-crg-gray.png" alt="CRG">
+        <p>Real estate services that take a project from the right site and the right financing through development and long-term ownership.</p>
+        <p class="integrated-services">Site Selection · Development · Financing · Asset Management</p>
+      </article>
+      <article class="value integrated-card">
+        <a class="value-link" href="https://theljc.com/"><div class="media"><img src="assets/img/integrated-ljc.jpg" alt="Northwestern Medicine building designed by LJC"></div></a>
+        <div class="category">Design &amp; Engineering</div>
+        <img class="integrated-logo integrated-logo--ljc" src="assets/img/logo-ljc.png" alt="LJC Design &amp; Engineering">
+        <p>An award-winning architecture, engineering and design practice working hand in hand with the build team from the very first sketch.</p>
+        <p class="integrated-services">Architecture · Interior Design · Engineering · Urban Design &amp; Planning · Landscape Architecture</p>
+      </article>
+      <article class="value integrated-card">
+        <a class="value-link" href="#"><div class="media"><img src="assets/img/iqmp-gallery-2.jpg" alt="Clayco crews erecting steel at the IQMP site"></div></a>
+        <div class="category">Build</div>
+        <img class="integrated-logo integrated-logo--clayco" src="assets/img/clayco-logo-red.svg" alt="Clayco">
+        <p>Design-build and construction delivered by our own crews and trusted partners, with a culture of safety on every jobsite.</p>
+        <p class="integrated-services">Design-Build · CM@Risk · Self-Perform · Culture of Safety</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== OUR MISSION + VALUES =====
+       The three values sit along the bottom of the mission photo; hovering one swaps the photo to that value's image
+       (assets/mission-values.js). Copy adapted from claycorp.com company overview, values, safety and quality pages. -->
+  <section class="section container mission values">
+    <div class="eyebrow">Our Mission + Values</div>
+    <div class="media mv-photo">
+      <div class="mv-imgs">
+        <img class="mv-img is-active" data-value="mission" src="assets/img/mission-band.jpg" alt="Ironworker walking a beam with an American flag in the background">
+        <img class="mv-img" data-value="safety" src="assets/img/values-safety-wide.jpg" alt="Smiling Clayco worker in a hard hat" loading="lazy">
+        <img class="mv-img" data-value="community" src="assets/img/mission-5.jpg" alt="Crew member waving from a jobsite at sunset" loading="lazy">
+        <img class="mv-img" data-value="quality" src="assets/img/values-quality-wide.jpg" alt="Clayco crew member grinding concrete" loading="lazy">
+      </div>
+      <div class="mv-overlay">
+        <h2 class="mission-title">Beyond These Walls</h2>
+        <ul class="mv-values" aria-label="Our values">
+          <li><a href="#" data-value="safety">
+            <span class="category">Our First Priority</span>
+            <strong>Safety</strong>
+            <span class="mv-line">Clayco Safe. We live by it, on the job and off.</span>
+            <span class="mv-more">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+          </a></li>
+          <li><a href="#" data-value="community">
+            <span class="category">Beyond the Jobsite</span>
+            <strong>Community</strong>
+            <span class="mv-line">Our commitment doesn’t end when the doors open.</span>
+            <span class="mv-more">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+          </a></li>
+          <li><a href="#" data-value="quality">
+            <span class="category">Continuous Improvement</span>
+            <strong>Quality</strong>
+            <span class="mv-line">Every task is done right the first time.</span>
+            <span class="mv-more">Learn More <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mission-body">
+      <blockquote class="mission-quote">It’s not about the walls we plan and the buildings we put up. It’s about the <span>people</span> and their <span>purpose</span> within them every day.</blockquote>
+      <div class="mission-text">
+        <p>Since 2011, “Beyond These Walls” has guided everything we do: building for the people who will live, work, heal and discover inside our buildings every&nbsp;day.</p>
+        <a class="text-link" href="#">Read Our Story <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS (placeholder content) =====
+       1 featured story + 2 smaller stories. Swap images, dates, titles and links as real stories come in. -->
+  <section class="section container news">
+    <div class="news-head">
+      <div class="eyebrow">News</div>
+      <a class="text-link" href="#">View All News <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M0 11h20M11 2l9 9-9 9"/></svg></a>
+    </div>
+    <div class="news-grid">
+      <article class="news-item news-item--featured">
+        <a href="#">
+          <div class="media"><img src="assets/img/iqmp-groundbreaking.jpg" alt=""></div>
+          <div class="news-meta"><span class="category">Company News</span><time datetime="2026-10-01">October 1, 2026</time></div>
+          <h3>It eos rem di to teEbisquassint acestruptur recesciis nobis cum</h3>
+          <p>It eos rem di to teEbisquassint acestruptur recesciis nobis cum et quodio quid earumquiasi vellandandae niendi aut laModi dolo quam, ius, quamus peratem porepedisAtur sunt, sant offic totatur.</p>
+        </a>
+      </article>
+      <div class="news-side">
+        <article class="news-item">
+          <a href="#">
+            <div class="media"><img src="assets/img/values-safety.jpg" alt=""></div>
+            <div>
+              <div class="news-meta"><span class="category">Community</span><time datetime="2026-09-18">September 18, 2026</time></div>
+              <h3>Quia que elendaere id mo torit ab ipsanti beatem</h3>
+              <p>Adi opta quam vera cores doluptatum intibus, quae plaboremque mo con nonsequist.</p>
+            </div>
+          </a>
+        </article>
+        <article class="news-item">
+          <a href="#">
+            <div class="media"><img src="assets/img/proj-rivian-r2.jpg" alt=""></div>
+            <div>
+              <div class="news-meta"><span class="category">Projects</span><time datetime="2026-09-04">September 4, 2026</time></div>
+              <h3>Sit rae nis aut facea dist dolupti ncillent quasimo</h3>
+              <p>Dignit fugia derum laborectus, quae nihil imus nobissi ncipicium quia sincips.</p>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <h2>OFFICES</h2>
+    <div class="offices">
+      <address class="office">
+        <strong>St. Louis</strong>
+        8640 Evans Ave.<br>
+        St. Louis, MO 63134<br>
+        p: <a href="tel:+13144295100">+1 314-429-5100</a><br>
+        f: <a href="tel:+13144293137">+1 314-429-3137</a>
+      </address>
+      <address class="office">
+        <strong>Chicago</strong>
+        35 E Wacker Drive<br>
+        Suite 1300<br>
+        Chicago, IL 60601<br>
+        p: <a href="tel:+13126580747">+1 312-658-0747</a><br>
+        f: <a href="tel:+13148907528">+1 314-890-7528</a>
+      </address>
+      <address class="office">
+        <strong>South Carolina</strong>
+        2 West Washington Street<br>
+        Suite 902<br>
+        Greenville, SC 29601<br>
+        p: <a href="tel:+18647206974">+1 864-720-6974</a><br>
+        f: <a href="tel:+18645514004">+1 864-551-4004</a>
+      </address>
+      <address class="office">
+        <strong>Kansas City</strong>
+        9829 Commerce Parkway<br>
+        Lenexa, KS 66219<br>
+        p: <a href="tel:+18166523001">+1 816-652-3001</a>
+      </address>
+      <address class="office">
+        <strong>Phoenix</strong>
+        4300 E. Camelback Road<br>
+        Suite 300<br>
+        Phoenix, AZ 85018<br>
+        p: <a href="tel:+16028336050">+1 602-833-6050</a>
+      </address>
+      <address class="office">
+        <strong>Culver City</strong>
+        8590 National Blvd<br>
+        Culver City, CA 90232<br>
+        p: <a href="tel:+14243613950">+1 424-361-3950</a>
+      </address>
+      <address class="office">
+        <strong>Birmingham</strong>
+        1143 1st Avenue South<br>
+        Suite 108<br>
+        Birmingham, AL 35233<br>
+        p: <a href="tel:+12059417315">+1 205-941-7315</a>
+      </address>
+      <address class="office">
+        <strong>Atlanta</strong>
+        2859 Paces Ferry Road<br>
+        Suite 1900<br>
+        Atlanta, GA 30339<br>
+        p: <a href="tel:+17707676341">+1 770-767-6341</a>
+      </address>
+      <address class="office">
+        <strong>Raleigh</strong>
+        4000 Centregreen Way<br>
+        Suite 170<br>
+        Cary, NC 27513
+      </address>
+    </div>
+    <!-- Contact + Building On Relationships (from claycorp.com footer) -->
+    <div class="footer-contact">
+      <div>
+        <h2>Contact</h2>
+        <p>We want to hear from you.</p>
+        <dl class="contact-list">
+          <dt>Media Inquiries</dt><dd><a href="mailto:mediainquiries@claycorp.com">mediainquiries@claycorp.com</a></dd>
+          <dt>Project Inquiries</dt><dd><a href="mailto:info@claycorp.com">info@claycorp.com</a></dd>
+          <dt>Bid Inquiries</dt><dd><a href="mailto:precon-info@claycorp.com">precon-info@claycorp.com</a></dd>
+          <dt>Prequalification</dt><dd><a href="mailto:prequalification@claycorp.com">prequalification@claycorp.com</a></dd>
+        </dl>
+        <p class="contact-more">To learn more about opportunities with Clayco, explore our <a href="https://claycorp.com/careers">Careers</a> and <a href="https://claycorp.com/contact-us/subcontractor-pre-qual">Subcontractor &amp; Vendor</a> resources.</p>
+        <ul class="social">
+          <li><a href="https://www.instagram.com/clayco_inc">Instagram</a></li>
+          <li><a href="https://www.facebook.com/claycoartandscience">Facebook</a></li>
+          <li><a href="https://www.twitter.com/ClaycoInc">X / Twitter</a></li>
+          <li><a href="https://www.linkedin.com/company/73731">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@claycodesign-build">YouTube</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Building On Relationships</h2>
+        <ul class="family-logos">
+          <li><a href="https://claycorp.com/"><img src="assets/img/clayco-logo-red.svg" alt="Clayco" class="fl-clayco"></a></li>
+          <li><a href="https://theljc.com/"><img src="assets/img/logo-ljc.png" alt="LJC" class="fl-ljc"></a></li>
+          <li><a href="https://www.realcrg.com/"><img src="assets/img/logo-crg-gray.png" alt="CRG" class="fl-crg"></a></li>
+          <li><a href="https://concretestrategies.com/" class="fl-text">Concrete Strategies</a></li>
+          <li><a href="https://ventana.vc/" class="fl-text">Ventana</a></li>
+          <li><a href="https://claycorp.com/services/#SEI" class="fl-text">Systems &amp; Equipment</a></li>
+          <li><a href="https://claycorising.com/" class="fl-text">Clayco Rising</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 Clayco</span>
+      <a href="https://claycorp.com/accessibility">Accessibility</a>
+      <a href="https://claycorp.com/cookie-policy">Cookie Policy</a>
+      <a href="https://claycorp.com/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

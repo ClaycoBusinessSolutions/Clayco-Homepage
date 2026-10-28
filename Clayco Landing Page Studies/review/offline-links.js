@@ -1,7 +1,8 @@
 /* Offline package: links to pages that are not in the package show a note instead of an error page. */
 (() => {
-  if (location.protocol !== 'file:') return;
+  // Packaged copies only (offline or hosted): the project itself has every page.
   const missing = new Set(["animated/case-studies.html", "animated/ljc.html", "animated/reverberation.html"]);
+  if (!missing.size) return;
   const root = new URL('../../', document.currentScript.src);
   let note = null, timer = 0;
   const show = () => {
@@ -17,7 +18,7 @@
     const a = event.target.closest?.('a[href]');
     if (!a) return;
     const url = new URL(a.getAttribute('href'), location.href);
-    if (url.protocol !== 'file:' || !url.href.startsWith(root.href)) return;
+    if (!url.href.startsWith(root.href)) return;
     if (!missing.has(decodeURIComponent(url.pathname.slice(root.pathname.length)))) return;
     event.preventDefault(); event.stopImmediatePropagation(); show();
   }, true);

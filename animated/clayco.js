@@ -524,6 +524,9 @@
         if (inside(dialog.getBoundingClientRect(), x, y)) return false; // dim area below the panel: default close
         const topic = topics.find(t => visible(t) && inside(t.getBoundingClientRect(), x, y));
         if (topic) { openedBy = 'click'; setActive(topic.dataset.megaOpen); focusGroup(topic.dataset.megaOpen); return true; }
+        // Task-first's search icon sits in the header above the open menu: one click switches to search.
+        const searchIcon = $('.js-search-trigger');
+        if (searchIcon && visible(searchIcon) && inside(searchIcon.getBoundingClientRect(), x, y)) { api.search?.(); return true; }
         const field = $('.cb-search-box');
         if (field && inside(field.getBoundingClientRect(), x, y)) {
           const state = dialogState.get(dialog);
@@ -929,7 +932,9 @@
     const empty = $('.cb-finder-empty', finder);
     const resetButton = $('.cb-finder-reset', finder);
     const chips = $$('[data-filter]', finder);
-    const step = matchMedia('(max-width: 767px)').matches ? 6 : 8;
+    // The page sets its own page size (Task-first's denser grid shows 15); 8 / 6 otherwise.
+    const phone = matchMedia('(max-width: 767px)').matches;
+    const step = Number(phone ? finder.dataset.finderStepMobile : finder.dataset.finderStep) || (phone ? 6 : 8);
     let market = 'all', status = 'all', limit = step;
     function matches() {
       return cards.filter(card => (market === 'all' || card.dataset.markets.split(' ').includes(market))
@@ -1194,11 +1199,11 @@
   const SECTIONS = {
     'clayco-gallery': ['home', 'intro', 'work', 'integrated', 'insights', 'contact'],
     'clayco-a': ['home', 'intro', 'paths', 'work', 'news', 'integrated', 'partners', 'contact'],
-    'clayco-b': ['home', 'doors', 'markets', 'integrated', 'finder', 'careers', 'partners', 'insights', 'contact'],
+    'clayco-b': ['home', 'doors', 'markets', 'integrated', 'finder', 'insights', 'contact'],
   };
   const ALIASES = {
     'clayco-a': { doors: 'paths', markets: 'paths', careers: 'paths', finder: 'work', insights: 'news', reverberation: 'integrated', 'case-studies': 'work', about: 'intro', atlas: 'contact' },
-    'clayco-b': { intro: 'home', paths: 'doors', work: 'finder', news: 'insights', reverberation: 'integrated', 'case-studies': 'finder', about: 'home', atlas: 'contact' },
+    'clayco-b': { intro: 'home', paths: 'doors', work: 'finder', news: 'insights', reverberation: 'integrated', 'case-studies': 'finder', about: 'home', atlas: 'contact', careers: 'doors', partners: 'doors' },
   };
   const PROJECT_ALIASES = { work: 'gallery', paths: 'story', intro: 'story', news: 'facts', integrated: 'facts', partners: 'contact', insights: 'contact', finder: 'gallery', markets: 'facts', careers: 'contact', doors: 'story', case: 'case-study', 'case-studies': 'case-study' };
   function goToSection(id) {

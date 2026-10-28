@@ -395,7 +395,7 @@ const CSS_URL = new URL('./motion-adapter.css?v=sam-b-20261019-5', __bundleURL).
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
 const WIPE = 'cubic-bezier(.77,0,.18,1)';
 const MAPS = {
-  'dohyoung-task-first': {header:'.cb-header',hero:'.cb-photo',banner:'.cb-statement',industries:'#markets',cta:'#careers',approach:'#integrated',featured:'#finder',values:null,footer:'.cf'},
+  'dohyoung-task-first': {header:'.cs-header',hero:'.cb-photo',banner:'.cb-statement',industries:'#markets',cta:'#careers',approach:'#integrated',featured:'#finder',values:null,footer:'.cf-offices'},
   'dohyoung-gallery': {header:'.cg-header',hero:'.cg-cover',banner:'#intro',industries:'.cg-market-row',cta:null,approach:'#integrated',featured:'#work',values:null,footer:'.cf'},
   'sam-alcarez-new': {header:'.site-header',hero:'#home-hero',banner:'.mission',industries:'.markets',cta:'.careers-band',approach:'.integrated',featured:'.work',values:'.band-values',footer:'.site-footer'},
   'sam-bromley': {header:'.site-header',hero:'.hero#top',banner:'.mission',industries:'#mlist',cta:'.careers',approach:'.integrated',featured:'.work#work',values:null,footer:'.site-footer'},
@@ -406,7 +406,7 @@ const CARD_SELECTORS = {
   approach:'.cb-flow-step, .cg-steps > li, .integrated-card',
   featured:'.cb-proj, .cg-project, .work-slide',
   values:'.band-values > li, .values-grid > .value',
-  footer:'.office, .cf-og-details',
+  footer:'.office, .cf-og-details, .cf-office',
 };
 const ZONES = [['St. Louis','America/Chicago'],['Chicago','America/Chicago'],['South Carolina','America/New_York'],['Kansas City','America/Chicago'],['Phoenix','America/Phoenix'],['Culver City','America/Los_Angeles'],['Birmingham','America/Chicago'],['Atlanta','America/New_York'],['Raleigh','America/New_York']];
 
@@ -740,6 +740,8 @@ if (host !== window && location.protocol === 'file:') {
     try { reply(id, (await methods[method](event.data)) || {}); }
     catch (error) { reply(id, {error: String(error?.message || error)}); }
   });
+  // From disk the host cannot read this page's address, so report it (final.html's Home / Open).
+  host.postMessage({type: 'review-frame-location', href: location.href}, '*');
   // The review listens to these on same-origin pages; from disk the page forwards them.
   document.addEventListener('pointerdown', () => host.postMessage({type: 'review-frame-pointerdown'}, '*'), true);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') host.postMessage({type: 'review-frame-escape'}, '*'); });
