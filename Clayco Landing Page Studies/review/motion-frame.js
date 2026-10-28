@@ -54,6 +54,8 @@ if (host !== window && location.protocol === 'file:') {
     try { reply(id, (await methods[method](event.data)) || {}); }
     catch (error) { reply(id, {error: String(error?.message || error)}); }
   });
+  // From disk the host cannot read this page's address, so report it (final.html's Home / Open).
+  host.postMessage({type: 'review-frame-location', href: location.href}, '*');
   // The review listens to these on same-origin pages; from disk the page forwards them.
   document.addEventListener('pointerdown', () => host.postMessage({type: 'review-frame-pointerdown'}, '*'), true);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') host.postMessage({type: 'review-frame-escape'}, '*'); });
