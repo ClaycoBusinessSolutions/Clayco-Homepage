@@ -1,0 +1,350 @@
+/* Task-first, Nordic v2 — "set out, then build" (28 Oct 2026). Loaded after clayco-b-nordic.css.
+   From the RBB Gallery / PATH reference study: daylight and concrete instead of cream, one family at
+   regular weight, numbered sections like a drawing set, photographs flush in gapped grids (no matted
+   cells), no arrowheads, and ruled text lists. The second half holds the states for
+   clayco-b-motion.js (drawn rules, word masks, the finder indicator, the footer shade). */
+html body[data-theme="clayco-b"]{
+ --n-paper:#f6f6f3; --n-panel:#e9eae6; --n-panel-2:#dcded9;
+ --n-ink:#1b1f1e; --n-muted:#5b625f; --n-line:rgb(27 31 30 / .14);
+ --n-red:#E2231A; --n-red-text:#c41e16;
+ --n-gap:clamp(12px,1.67vw,32px); --n-row:clamp(28px,2.5vw,48px); --n-section:clamp(48px,5vw,96px);
+ --paper:var(--n-paper); --paper-2:var(--n-panel); --ink:var(--n-ink); --muted:var(--n-muted); --line:var(--n-line); --red:var(--n-red);
+ background:var(--n-paper); font-size:18px; line-height:1.5;
+}
+html body[data-theme="clayco-b"] main{background:var(--n-paper)}
+/* No arrowheads anywhere, menu included (Sam's page uses none either); "(opens in a new tab)" stays for screen readers. */
+html body[data-theme="clayco-b"] .arrow{display:none !important}
+/* hero */
+html body[data-theme="clayco-b"] .cb-top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--n-gap);row-gap:40px;padding-block:48px var(--n-section);align-items:start}
+html body[data-theme="clayco-b"] .cb-hero{grid-column:1/span 8}
+html body[data-theme="clayco-b"] .cb-doors{grid-column:9/span 4}
+html body[data-theme="clayco-b"] .cb-statement{max-width:none;font:400 clamp(38px,calc(24.8px + 3.28vw),88px)/1.04 var(--font);letter-spacing:-.02em;text-wrap:balance}
+html body[data-theme="clayco-b"] .cb-hero-links{margin-top:32px;gap:8px 32px}
+html body[data-theme="clayco-b"] main{counter-reset:nsec}
+html body[data-theme="clayco-b"]:not(.clayco-home) main .kicker::before{content:none}
+html body[data-theme="clayco-b"] main .kicker{counter-increment:nsec;display:flex;gap:0;margin:0 0 20px;font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-ink)}
+html body[data-theme="clayco-b"] main .kicker::before{content:counter(nsec,decimal-leading-zero);width:2.6em;height:auto;margin:0;background:none;color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cb-doors-title{margin:0 0 14px;font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-ink)}
+html body[data-theme="clayco-b"] .cb-door-list{border-top:1px solid var(--n-ink)}
+html body[data-theme="clayco-b"] .cb-door{grid-template-columns:2.6em minmax(0,1fr);gap:4px 0;min-height:0;padding:18px 0 20px;border-bottom:1px solid var(--n-line)}
+html body[data-theme="clayco-b"] .cb-door-num{font:500 15px/1.3 var(--font);padding-top:.5em;color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cb-door-label{font:400 clamp(24px,calc(21.7px + .58vw),32px)/1.12 var(--font);letter-spacing:-.01em}
+html body[data-theme="clayco-b"] .cb-door-sub{font-size:16px;line-height:1.4;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-door:hover .cb-door-label{color:inherit}
+/* Doors: no ink fill on hover; a red rule draws along the row and the label steps in. */
+html body[data-theme="clayco-b"] .cb-door::before{content:none}
+html body[data-theme="clayco-b"] .cb-door:is(:hover,:focus-visible){color:inherit;padding-left:0}
+html body[data-theme="clayco-b"] .cb-door:is(:hover,:focus-visible) :is(.cb-door-num,.cb-door-sub){color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-door-list>li{position:relative}
+html body[data-theme="clayco-b"] .cb-door-list>li::after{content:"";position:absolute;inset:auto 0 -1px;height:2px;background:var(--n-red);transform:scaleX(0);transform-origin:right;transition:transform .735s cubic-bezier(.625,.05,0,1)}
+html body[data-theme="clayco-b"] .cb-door-list>li:is(:hover,:focus-within)::after{transform:scaleX(1);transform-origin:left}
+html body[data-theme="clayco-b"] .cb-door-label{transition:translate .5s cubic-bezier(.16,1,.3,1)}
+html body[data-theme="clayco-b"] .cb-door:is(:hover,:focus-visible) .cb-door-label{translate:6px 0}
+/* Cards: the whole card is the link; the title underlines and the photograph settles closer. */
+html body[data-theme="clayco-b"] :is(.cb-market-name,.cb-proj-title,.news-title,.cb-ddb-name){text-decoration:underline 1px transparent;text-underline-offset:.2em;transition:text-decoration-color .3s}
+html body[data-theme="clayco-b"] a:is(:hover,:focus-visible) :is(.cb-market-name,.cb-proj-title,.news-title,.cb-ddb-name){text-decoration-color:currentColor;color:inherit}
+html body[data-theme="clayco-b"] .media.zoom img{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+html body[data-theme="clayco-b"] a:hover .media.zoom img{transform:scale(1.035)}
+/* band */
+html body[data-theme="clayco-b"] .cb-photo figcaption{position:static;display:flex;align-items:baseline;gap:4px 24px;padding-block:14px;background:none;color:var(--n-ink);text-shadow:none;border-bottom:1px solid var(--n-line)}
+html body[data-theme="clayco-b"] .cb-photo-title{font:500 18px/1.3 var(--font)}
+html body[data-theme="clayco-b"] .cb-photo figcaption>span:not(.cb-photo-title){font-size:16px;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-photo-link{margin-left:auto;color:var(--n-ink);min-height:0}
+/* sections */
+html body[data-theme="clayco-b"] .section{padding-block:var(--n-section)}
+html body[data-theme="clayco-b"] .section-head{position:relative;margin-bottom:32px;padding-top:14px;border-top:1px solid var(--n-ink)}
+html body[data-theme="clayco-b"] .section-head--row{align-items:flex-start;gap:12px 48px}
+html body[data-theme="clayco-b"] .section-title{max-width:26ch;font:400 clamp(30px,calc(24.6px + 1.35vw),52px)/1.08 var(--font);letter-spacing:-.015em}
+html body[data-theme="clayco-b"] :is(.text-link,.cf-link,.cb-photo-link){font:500 16px/1.3 var(--font);padding-bottom:5px;min-height:0}
+html body[data-theme="clayco-b"] .section-head .inline-links{gap:8px 28px}
+/* photo grids: gapped, flush photos, no cells */
+html body[data-theme="clayco-b"] :is(.cb-market-grid,.cb-finder-grid,.news-grid--four){border:0;gap:var(--n-row) var(--n-gap)}
+html body[data-theme="clayco-b"] :is(.cb-market,.cb-proj,.news-grid--four>li){border:0;background:none}
+html body[data-theme="clayco-b"] :is(.cb-market a,.cb-finder .cb-proj a,.news-grid--four .news-card a){padding:0;gap:0}
+html body[data-theme="clayco-b"] .cb-market .media{aspect-ratio:3/2}
+html body[data-theme="clayco-b"] .cb-market-copy{gap:2px;padding:12px 0 0}
+html body[data-theme="clayco-b"] .cb-market-name{font:400 clamp(20px,calc(18.45px + .385vw),26px)/1.2 var(--font);letter-spacing:-.006em}
+html body[data-theme="clayco-b"] :is(.cb-market-line,.cb-market-children){font-size:16px;line-height:1.4;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-market-count{margin-top:6px;font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted);font-variant-numeric:tabular-nums}
+/* finder */
+html body[data-theme="clayco-b"] .cb-filters{gap:4px;padding:10px 0;margin-bottom:16px;border-block:1px solid var(--n-line)}
+html body[data-theme="clayco-b"] .cb-filter-row{grid-template-columns:120px minmax(0,1fr)}
+html body[data-theme="clayco-b"] .cb-filter-label{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .chip{min-height:44px;margin-right:20px;padding:0}
+html body[data-theme="clayco-b"] .chip-face{padding:6px 0;font-size:16px;border:0;border-bottom:2px solid transparent;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .chip[aria-pressed="true"] .chip-face{color:var(--n-ink);border-color:var(--n-red)}
+html body[data-theme="clayco-b"] .cb-finder-count{font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cb-finder-bar{margin-bottom:16px;min-height:0}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj a{position:relative}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-copy{display:block;padding:10px 0 0}
+html body[data-theme="clayco-b"] .clayco-page .cb-finder .cb-proj-title, html body[data-theme="clayco-b"] .cb-finder .cb-proj-title{display:block;margin-bottom:4px;font:400 clamp(16px,calc(14.84px + .29vw),20px)/1.25 var(--font);letter-spacing:0}
+html body[data-theme="clayco-b"] .cb-finder :is(.cb-proj-loc,.cb-proj-market){display:inline;font-size:15px;line-height:1.4;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-market::before{content:" · "}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags{position:absolute;top:8px;left:8px;margin:0}
+html body[data-theme="clayco-b"] .cb-proj[data-current="false"] .cb-proj-tags, html body[data-theme="clayco-b"] .cb-proj .tag+.tag{display:none}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag{padding:5px 7px 4px;background:var(--n-paper);color:var(--n-ink);font:500 11px/1 var(--font);letter-spacing:.08em;text-transform:uppercase}
+html body[data-theme="clayco-b"] .cb-finder-more{min-height:52px;padding:0 28px;border:1px solid var(--n-ink);border-radius:0;background:none;font:500 16px/1 var(--font)}
+/* integrated */
+html body[data-theme="clayco-b"] .section--panel{background:var(--n-panel)}
+html body[data-theme="clayco-b"] .cb-flow{border-top:0;gap:0 var(--n-gap)}
+html body[data-theme="clayco-b"] .cb-flow-step{padding:16px 0 0;border-top:1px solid var(--n-ink);border-left:0 !important;background:none;gap:12px}
+html body[data-theme="clayco-b"] .cb-flow-title{font:400 clamp(20px,calc(18.45px + .385vw),26px)/1.2 var(--font);letter-spacing:-.006em}
+html body[data-theme="clayco-b"] :is(.cb-flow-copy,.cb-flow-list li){font-size:17px;line-height:1.45;color:var(--n-ink)}
+html body[data-theme="clayco-b"] .cb-flow-list li{padding-block:6px;border-bottom:1px solid var(--n-line)}
+html body[data-theme="clayco-b"] .cb-flow-num{font:500 15px/1.3 var(--font);color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cb-ddb{margin-top:56px;border-top:1px solid var(--n-ink)}
+html body[data-theme="clayco-b"] .cb-ddb-head{padding-block:14px;border-bottom:0}
+html body[data-theme="clayco-b"] .cb-ddb-title{font:400 clamp(24px,calc(21.7px + .58vw),32px)/1.12 var(--font);letter-spacing:-.01em}
+html body[data-theme="clayco-b"] .cb-ddb-sub{font-size:16px;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-ddb-list{gap:0 var(--n-gap)}
+html body[data-theme="clayco-b"] .cb-ddb-item a{grid-template-columns:112px minmax(0,1fr);gap:16px;padding-block:16px;border-top:1px solid var(--n-line);border-bottom:0}
+html body[data-theme="clayco-b"] .cb-ddb-copy{padding-right:0}
+html body[data-theme="clayco-b"] .cb-ddb-kind{font:500 12px/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-ddb-name{font:400 19px/1.25 var(--font);letter-spacing:0}
+html body[data-theme="clayco-b"] .cb-ddb-loc{font-size:15px;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-ddb-roles{font-size:15px;margin-top:6px}
+/* news */
+html body[data-theme="clayco-b"] .cb-news-head{margin-bottom:20px}
+html body[data-theme="clayco-b"] .cb-insight-title{font:400 24px/1.2 var(--font)}
+html body[data-theme="clayco-b"] .cb-insight-copy{font-size:16px;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .news-grid--four{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:0}
+html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story){grid-row:1/span 2}
+html body[data-theme="clayco-b"] .news-grid--four>li.news-card--story{grid-column:3}
+html body[data-theme="clayco-b"] .news-grid--four .news-card--story a{padding:14px 0 28px;border-top:1px solid var(--n-ink)}
+html body[data-theme="clayco-b"] .news-grid--four .news-card--story + .news-card--story a{border-top-color:var(--n-line)}
+html body[data-theme="clayco-b"] .news-grid--four .news-meta{flex-direction:row;flex-wrap:wrap;gap:2px 10px;margin:12px 0 6px;font:500 12px/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .news-grid--four .news-card--story .news-meta{margin-top:0}
+html body[data-theme="clayco-b"] .news-grid--four .news-title{font:400 clamp(17px,calc(15.45px + .385vw),21px)/1.28 var(--font);letter-spacing:0}
+html body[data-theme="clayco-b"] .news-byline{margin-top:6px;font-size:15px;color:var(--n-muted)}
+/* footer */
+html body[data-theme="clayco-b"] .cf{padding-block:72px 28px}
+html body[data-theme="clayco-b"] .cf-sign{font:400 clamp(28px,calc(23.4px + 1.16vw),44px)/1.1 var(--font);letter-spacing:-.012em}
+html body[data-theme="clayco-b"] .cf-heading{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:#fff}
+html body[data-theme="clayco-b"] .cf-family-row{gap:1px;background:rgb(255 255 255 / .38);border:1px solid rgb(255 255 255 / .38)}
+html body[data-theme="clayco-b"] .cf-company{border:0;background:var(--n-red);min-height:120px}
+/* The family grid draws its rules with a 1px gap; fill the empty eighth slot so it does not show as a pale block. */
+html body[data-theme="clayco-b"] .cf-family-row::after{content:"";background:var(--n-red)}
+html body[data-theme="clayco-b"] .cf-company-desc{font-size:16px}
+@media (max-width:1099px){
+ html body[data-theme="clayco-b"] :is(.cb-hero,.cb-doors){grid-column:1/-1}
+}
+@media (max-width:767px){
+ html body[data-theme="clayco-b"] .cb-top{padding-block:28px 48px;row-gap:32px}
+ html body[data-theme="clayco-b"] .cb-statement{line-height:1.08;letter-spacing:-.015em}
+ html body[data-theme="clayco-b"] main .kicker, html body[data-theme="clayco-b"] .cb-doors-title{font-size:14px;margin-bottom:14px}
+ html body[data-theme="clayco-b"] .cb-door{padding:14px 0 16px}
+ html body[data-theme="clayco-b"] .cb-door-sub{font-size:15px}
+ html body[data-theme="clayco-b"] .cb-photo figcaption{flex-wrap:wrap}
+ html body[data-theme="clayco-b"] .cb-photo-link{margin-left:0}
+ html body[data-theme="clayco-b"] .section-head{margin-bottom:24px}
+ html body[data-theme="clayco-b"] .cb-market-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
+ html body[data-theme="clayco-b"] .cb-market:last-child:nth-child(odd){grid-column:1/-1}
+ html body[data-theme="clayco-b"] .cb-market:last-child:nth-child(odd) .media{aspect-ratio:2/1}
+ html body[data-theme="clayco-b"] .cb-market a{display:flex;flex-direction:column;padding:0;gap:0}
+ html body[data-theme="clayco-b"] .cb-market .media{aspect-ratio:3/2}
+ html body[data-theme="clayco-b"] .cb-market-copy{padding-top:8px}
+ html body[data-theme="clayco-b"] :is(.cb-market-line,.cb-market-children){font-size:14px}
+ html body[data-theme="clayco-b"] .cb-market-children{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ html body[data-theme="clayco-b"] .cb-market-count{font-size:14px}
+ html body[data-theme="clayco-b"] .cb-filter-row{grid-template-columns:minmax(0,1fr);gap:0}
+ html body[data-theme="clayco-b"] .cb-filter-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter)}
+ html body[data-theme="clayco-b"] .chip{flex:none;margin-right:18px}
+ html body[data-theme="clayco-b"] .cb-finder-grid{gap:24px 12px}
+ html body[data-theme="clayco-b"] .cb-finder :is(.cb-proj-loc,.cb-proj-market){font-size:13.5px}
+ html body[data-theme="clayco-b"] .cb-finder .cb-proj-market{display:block}
+ html body[data-theme="clayco-b"] .cb-finder .cb-proj-market::before{content:none}
+ html body[data-theme="clayco-b"] .cb-flow{grid-template-columns:minmax(0,1fr);gap:28px}
+ html body[data-theme="clayco-b"] .cb-ddb-item a{grid-template-columns:88px minmax(0,1fr)}
+ html body[data-theme="clayco-b"] .news-grid--four{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
+ html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story){grid-row:auto}
+ html body[data-theme="clayco-b"] .news-grid--four>li.news-card--story{grid-column:1/-1}
+ html body[data-theme="clayco-b"] .news-grid--four .news-card--story a{padding-bottom:16px}
+ html body[data-theme="clayco-b"] .cf-family-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* ---------- Motion states (clayco-b-motion.js) ---------- */
+/* The drawn rule replaces the border's colour, not its box, so motion and static layouts measure the same. */
+html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office)[data-n-rule]{border-top-color:transparent}
+html body[data-theme="clayco-b"] :is(.cb-ddb-item,.news-card--story)[data-n-rule] > a{border-top-color:transparent}
+html body[data-theme="clayco-b"] .cb-door-list > li[data-n-rule] > .cb-door{border-bottom-color:transparent}
+html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office)[data-n-rule]::before{top:-1px}
+[data-n-rule]{position:relative}
+[data-n-rule]::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--n-rule,var(--n-line));transform-origin:0 50%;pointer-events:none}
+:is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.news-card--story)[data-n-rule]{--n-rule:var(--n-ink)}
+.news-grid--four .news-card--story + .news-card--story[data-n-rule]{--n-rule:var(--n-line)}
+.cb-door-list > li[data-n-rule]::before{top:auto;bottom:0}
+/* Row rules are hairlines; the ink colour set on their list must not cascade into them. */
+.cb-door-list > li[data-n-rule], .cb-ddb-item[data-n-rule]{--n-rule:var(--n-line)}
+.cf-office[data-n-rule]{--n-rule:rgb(255 255 255 / .38)}
+html.cbm [data-n-rule]:not(.is-set)::before{transform:scaleX(0)}
+html.cbm [data-n-rule].is-set::before{transition:transform 900ms cubic-bezier(.65,0,.35,1) var(--n-d,0ms)}
+html.cbm .n-wait[data-n-rule] > *, html.cbm .n-wait:not([data-n-rule]):not(.media){opacity:0}
+html.cbm .media.n-wait{clip-path:inset(100% 0 0 0)}
+.n-mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.n-mask > span{display:inline-block}
+.cb-filter-chips.has-indicator{position:relative}
+.n-indicator{position:absolute;left:0;top:0;height:2px;background:var(--n-red);pointer-events:none;transition:transform 500ms cubic-bezier(.65,0,.35,1),width 500ms cubic-bezier(.65,0,.35,1)}
+/* The sliding indicator stands in for the pressed tab's own rule; with motion paused, the rule returns. */
+html:not(.motion-off) body[data-theme="clayco-b"] .has-indicator .chip[aria-pressed="true"] .chip-face{border-bottom-color:transparent}
+html.motion-off body[data-theme="clayco-b"] .n-indicator{display:none}
+.cf{position:relative;overflow:clip}
+.cf::after{content:"";position:absolute;inset:0;z-index:2;background:#000;opacity:var(--n-shade,0);pointer-events:none}
+@media (prefers-reduced-motion:reduce){html.cbm [data-n-rule]::before{transform:none!important}html.cbm .n-wait{opacity:1!important;clip-path:none!important}}
+/* Reset reads like the count beside it: sentence case, with a quiet rule. */
+html body[data-theme="clayco-b"] .cb-finder-reset{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none}
+html body[data-theme="clayco-b"] .cf-offices-count{font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none}
+/* The band caption now sits on paper, so its focus ring is red, not the white it had over the photo. */
+html body[data-theme="clayco-b"] .cb-photo-link:focus-visible{outline-color:var(--n-red)}
+@media (max-width:599px){
+ /* Offices two to a row on phones: the footer was a quarter of the phone page. */
+ html body[data-theme="clayco-b"] .cf-office-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px}
+ html body[data-theme="clayco-b"] .cf-office-name{font-size:17px}
+ html body[data-theme="clayco-b"] :is(.cf-office-address,.cf-office-phone){font-size:14px}
+}
+/* Project and case-study pages speak the same label voice as the home page: sentence case, no tracking. */
+html body[data-theme="clayco-b"] .cp-fact dt{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cp-milestone-date{font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cp-milestone-label{font:400 18px/1.3 var(--font)}
+html body[data-theme="clayco-b"] .cp-section-title{font:400 clamp(26px,calc(22px + 1vw),40px)/1.1 var(--font);letter-spacing:-.012em}
+/* Show more: ink fills the button from its base on hover, the sheet move in miniature. */
+html body[data-theme="clayco-b"] .cb-finder-more{background:linear-gradient(var(--n-ink),var(--n-ink)) 0 100%/100% 0 no-repeat;transition:background-size .45s cubic-bezier(.65,0,.35,1),color .45s cubic-bezier(.65,0,.35,1)}
+html body[data-theme="clayco-b"] .cb-finder-more:is(:hover,:focus-visible){background-size:100% 100%;color:var(--n-paper)}
+/* Tablets keep the develop · design · build flow and its case studies three across, not one long column. */
+@media (min-width:900px) and (max-width:1099px){
+ html body[data-theme="clayco-b"] .cb-flow{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 var(--n-gap)}
+ html body[data-theme="clayco-b"] .cb-ddb-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+ html body[data-theme="clayco-b"] .cb-ddb-item a{grid-template-columns:72px minmax(0,1fr);gap:12px}
+}
+/* Red as revision marks: the drawing-set section numbers and the "Current" status carry Clayco red down
+   the page without bars or fills. #c41e16 is about 5:1 on both paper and concrete. */
+html body[data-theme="clayco-b"].clayco-home main .kicker::before{color:var(--n-red-text)}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag::before{content:"";display:inline-block;width:6px;height:6px;margin:0 6px 1px 0;background:var(--n-red);vertical-align:middle}
+@media (max-width:767px){
+ /* Phone flow: number, title and logo share one line; the ruled capability list follows. */
+ html body[data-theme="clayco-b"] .cb-flow{gap:24px}
+ html body[data-theme="clayco-b"] .cb-flow-step{display:grid;grid-template-columns:2.6em minmax(0,1fr) auto;column-gap:0;row-gap:8px;align-items:center}
+ html body[data-theme="clayco-b"] .cb-flow-step>*{grid-column:1/-1}
+ html body[data-theme="clayco-b"] .cb-flow-step>.cb-flow-num{grid-column:1;grid-row:1}
+ html body[data-theme="clayco-b"] .cb-flow-step>.cb-flow-title{grid-column:2;grid-row:1}
+ html body[data-theme="clayco-b"] .cb-flow-step>.cb-flow-logo{grid-column:3;grid-row:1;justify-self:end}
+ html body[data-theme="clayco-b"] .cb-flow-logo :is(.logo-img,.wordmark){height:22px;width:auto}
+}
+/* Office phone numbers are tap targets on phones: 44px tall without moving the text. */
+html body[data-theme="clayco-b"] .cf-office-phone{display:inline-flex;align-items:center;min-height:44px;margin-block:-8px}
+
+/* ---------- Critique round (28 Oct, 14:30): leftovers from the earlier template layer ---------- */
+/* Hero: the red clause gets its own line instead of breaking on a dangling "we". */
+html body[data-theme="clayco-b"] .cb-statement .accent{display:block}
+/* Band photograph: keep the walkway and the people in frame (the page's ground line). */
+html body[data-theme="clayco-b"] .cb-photo img{object-position:50% 80%}
+/* Finder: status moves off the photographs into the caption, sentence case, the red mark kept. */
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-copy{line-height:1.4}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags{position:static;display:block;margin:4px 0 0}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag{padding:0;background:none;color:var(--n-ink);font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-title + .cb-proj-market::before{content:none}
+html body[data-theme="clayco-b"] .cc-cta{left:0;bottom:0;min-height:0;padding:10px 14px 9px;border-radius:0;background:var(--n-paper);box-shadow:none;font:500 15px/1.3 var(--font)}
+html body[data-theme="clayco-b"] :is(.cc-open:hover,.cc-open:focus-visible) .cc-cta{background:var(--n-ink);color:#fff}
+/* One label voice: news, case-study kinds and the more-projects title in sentence case too. */
+html body[data-theme="clayco-b"] :is(.news-grid--four .news-meta,.cb-ddb-kind,.cc-more-title){font:500 14px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .cb-flow-num{letter-spacing:0}
+/* News: bylines sit under their titles; the story column is as tall as its content. */
+html body[data-theme="clayco-b"] .news-card--story .news-byline{margin-top:8px}
+/* Ragged rows: one supporting line per market card; the flow's site links share a baseline. */
+html body[data-theme="clayco-b"] .cb-market-line + .cb-market-children{display:none}
+/* Footer: the family of companies as one ruled row, quieter fine print, no outlined boxes. */
+html body[data-theme="clayco-b"] .cf-family-row{gap:0 var(--n-gap);background:none;border:0}
+html body[data-theme="clayco-b"] .cf-family-row::after{content:none}
+html body[data-theme="clayco-b"] .cf-company{min-height:0;padding:16px 0 20px;border:0;border-top:1px solid rgb(255 255 255/.38)}
+html body[data-theme="clayco-b"] .cf-company-desc{font-size:14px;line-height:1.4}
+html body[data-theme="clayco-b"] .cf-label{font-size:16px}
+html body[data-theme="clayco-b"] :is(.cf-note,.cf-bottom .concept-tag,.cf-motion){font-size:14px;line-height:1.45}
+html body[data-theme="clayco-b"] .cf-note{max-width:72ch}
+html body[data-theme="clayco-b"] .cf-bottom .concept-tag{padding:0;border:0;gap:8px}
+html body[data-theme="clayco-b"] .cf-motion{padding:0;border:0;text-decoration:underline 1px rgb(255 255 255/.5);text-underline-offset:.3em}
+/* Project page: the lede steps below the section titles, body copy matches home, logos and milestones ruled. */
+html body[data-theme="clayco-b"] .cp-crumbs ol{font-size:16px}
+html body[data-theme="clayco-b"] .cp-summary{font-size:clamp(24px,calc(18px + 1vw),30px);line-height:1.28;max-width:34ch}
+html body[data-theme="clayco-b"] .cp-paras p{font-size:18px;line-height:1.55;max-width:62ch}
+html body[data-theme="clayco-b"] .cp-facts dd{font-size:18px}
+html body[data-theme="clayco-b"] .cp-logos{gap:0 var(--n-gap)}
+html body[data-theme="clayco-b"] .cp-logo{min-height:0;place-items:center start;padding:18px 0;border:0;border-top:1px solid var(--n-line)}
+html body[data-theme="clayco-b"] .cp-milestone{border-top-width:1px}
+html body[data-theme="clayco-b"] .cp-milestone::before{content:none}
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .news-grid--four{grid-template-rows:auto 1fr}
+}
+@media (min-width:900px){
+ html body[data-theme="clayco-b"] .cb-flow-step{display:flex;flex-direction:column}
+ html body[data-theme="clayco-b"] .cb-flow-step > .text-link{margin-top:auto;align-self:stretch}
+}
+@media (min-width:1100px){
+ html body[data-theme="clayco-b"] .cf--final .cf-family-row{grid-template-columns:repeat(7,minmax(0,1fr))}
+}
+@media (min-width:600px){
+ html body[data-theme="clayco-b"] :is(.cf-office-address,.cf-office-phone){font-size:16px}
+}
+@media (max-width:767px){
+ html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag{font-size:13.5px}
+ /* Phone news: a ruled thumbnail list, like the case-study bar, instead of squeezed half columns. */
+ html body[data-theme="clayco-b"] .news-grid--four{grid-template-columns:minmax(0,1fr);row-gap:0}
+ html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story) a{display:grid;grid-template-columns:112px minmax(0,1fr);column-gap:14px;padding-block:16px;border-top:1px solid var(--n-line)}
+ html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story) .media{grid-row:1/span 3;aspect-ratio:1}
+ html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story) .news-meta{margin-top:0}
+ html body[data-theme="clayco-b"] .news-grid--four .news-title{font-size:18px}
+}
+/* Leaving cards fade in place: the ghost copies are positioned against the grid. */
+html body[data-theme="clayco-b"] .cb-finder-grid{position:relative}
+/* Touch: the v1 cell hover box is gone, and the hover underline and zoom do not stick after a tap. */
+html body[data-theme="clayco-b"] :is(.cb-market,.cb-proj,.news-grid--four>li):hover{background:none}
+@media (hover:none){
+ html body[data-theme="clayco-b"] a:hover:not(:focus-visible) :is(.cb-market-name,.cb-proj-title,.news-title,.cb-ddb-name){text-decoration-color:transparent}
+ html body[data-theme="clayco-b"] a:hover .media.zoom img{transform:none}
+}
+@media (max-width:767px){
+ /* Phone filter tabs: a fade at the edge says the row scrolls; tabs snap and keep 44px targets. */
+ html body[data-theme="clayco-b"] .cb-filter-chips{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);padding-inline-end:56px;scroll-snap-type:x proximity}
+ html body[data-theme="clayco-b"] .chip{margin-right:0;padding-inline:9px;scroll-snap-align:start;scroll-margin-inline-start:8px}
+ html body[data-theme="clayco-b"] .chip:first-child{margin-left:-9px}
+ /* Text links keep their look but get a taller hit area (about 40px) without moving anything. */
+ html body[data-theme="clayco-b"] :is(.cf-link,.cb-photo-link,main .text-link){position:relative}
+ html body[data-theme="clayco-b"] :is(.cf-link,.cb-photo-link,main .text-link)::after{content:"";position:absolute;inset:-7px -4px}
+ /* News headlines clamp at four lines on phones; the link keeps the full headline as its name. */
+ html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story) .news-title{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (max-width:599px){
+ html body[data-theme="clayco-b"] .cp-crumbs ol{gap:0 6px}
+ html body[data-theme="clayco-b"] .cp-crumbs li{white-space:nowrap}
+ html body[data-theme="clayco-b"] .cp-crumbs li+li::before{margin-right:6px}
+}
+/* Editor round: the family marks share one top line; a lone project thumbnail keeps its link beside it. */
+html body[data-theme="clayco-b"] .cf-company{align-content:start}
+html body[data-theme="clayco-b"] .cf-company:hover{border-color:#fff;background:none}
+html body[data-theme="clayco-b"] .cp-gallery-row:has(.cp-thumbs > li:only-child){grid-template-columns:auto auto;justify-content:start}
+/* Fresh-eyes round: photography reaches the first screen at the review's frame sizes; the menu's Close
+   stays in view; the market tabs fit one row; the one tile that leaves says so; a visible skip ring. */
+@media (min-width:1100px){
+ html body[data-theme="clayco-b"] .cb-top{padding-block:32px 40px}
+ html body[data-theme="clayco-b"] .cb-statement{font-size:clamp(38px,calc(18px + 3.2vw),76px)}
+ html body[data-theme="clayco-b"] .cb-hero-links{margin-top:24px}
+ html body[data-theme="clayco-b"] .cb-door{padding:14px 0 16px}
+}
+@media (max-width:767px){
+ html body[data-theme="clayco-b"] .cb-top{padding-block:20px 32px;row-gap:24px}
+ html body[data-theme="clayco-b"] .cb-door-sub{display:none}
+ html body[data-theme="clayco-b"] .cb-door{padding:12px 0}
+ html body[data-theme="clayco-b"] .cb-hero-links{margin-top:20px}
+}
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .cb-mega--live .cb-mega-foot{position:sticky;bottom:0;z-index:1;background:var(--n-paper)}
+ html body[data-theme="clayco-b"] .cb-filter-chips .chip{margin-right:16px}
+ html body[data-theme="clayco-b"] .cb-filter-chips .chip:last-child{margin-right:0}
+}
+@media (min-width:768px) and (max-width:1439px){
+ html body[data-theme="clayco-b"] .cb-filter-row{grid-template-columns:minmax(0,1fr);row-gap:4px}
+}
+html:has(body[data-theme="clayco-b"]){scrollbar-gutter:stable}
+html body[data-theme="clayco-b"] .cb-market a[target="_blank"] .cb-market-copy::after{content:"On claycorp.com";display:block;margin-top:6px;font:400 15px/1.3 var(--font);color:var(--n-muted)}
+html body[data-theme="clayco-b"] .skip-link:focus-visible{outline-color:var(--n-red)}
+@media (max-width:767px){
+ html body[data-theme="clayco-b"] .cb-market a[target="_blank"] .cb-market-copy::after{font-size:14px}
+}
