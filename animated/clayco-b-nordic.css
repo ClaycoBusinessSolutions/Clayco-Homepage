@@ -1,0 +1,205 @@
+/* Task-first — Nordic layer (28 Oct 2026). Loads last on Task-first pages only.
+   Reference: Kim's RBB Gallery presentation (regular-weight grotesk headlines at normal tracking,
+   small spaced labels, quiet underlined links, photographs that reveal) and the PATH identity
+   presentation (stone paper, ink, hairline-ruled cells with an index and a status, breadcrumb labels).
+   Density stays: this is a builder's site, so the grid fills with projects rather than air. */
+
+body[data-theme="clayco-b"] {
+  /* PATH presentation tokens: warm paper, green-black ink, rules drawn in ink at low alpha. */
+  --paper: #f3f1e9;
+  --paper-2: #e9e7de;
+  --line: rgb(23 27 27 / .17);
+  --ink: #171b1b;
+  --muted: #656965;
+  --display: 'Clayco Haas', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --n-label: 500 13px/1.3 var(--font);
+  --n-ease: cubic-bezier(.16, 1, .3, 1);
+  background: var(--paper);
+  color: var(--ink);
+}
+body[data-theme="clayco-b"] ::selection { background: var(--ink); color: #fff; }
+body[data-theme="clayco-b"] main { background: var(--paper); }
+
+/* ---------- Type: regular weight, normal tracking, measured sizes ---------- */
+body[data-theme="clayco-b"] :is(h1, h2, h3, h4) { font-weight: 400; }
+body[data-theme="clayco-b"] .cb-statement {
+  max-width: 19ch; font: 400 clamp(40px, 4.5vw, 74px)/1.05 var(--display); letter-spacing: -.028em;
+}
+body[data-theme="clayco-b"] .section-title {
+  max-width: 24ch; font: 400 clamp(30px, 3.1vw, 50px)/1.1 var(--display); letter-spacing: -.022em;
+}
+body[data-theme="clayco-b"] :is(.cb-door-label, .cb-flow-title, .cf-sign) { font-weight: 400; letter-spacing: -.018em; }
+body[data-theme="clayco-b"] .cb-door-label { font-size: clamp(26px, 2vw, 32px); line-height: 1.12; }
+body[data-theme="clayco-b"] .cb-flow-title { font-size: clamp(24px, 1.8vw, 30px); line-height: 1.12; }
+body[data-theme="clayco-b"] .cf-sign { font-size: clamp(30px, 2.6vw, 42px); line-height: 1.08; }
+body[data-theme="clayco-b"] :is(.cb-market-name, .news-title, .cb-proj-title, .cb-ddb-name, .cb-insight-title, .cb-group-heading, .cf-office-name, .cp-section-title, .cp-related-copy h3, .cc-title, .cc-more-name) {
+  font-weight: 400; letter-spacing: -.012em;
+}
+body[data-theme="clayco-b"] .cb-market-name { font-size: clamp(22px, 1.6vw, 26px); line-height: 1.15; }
+body[data-theme="clayco-b"] .news-grid--four .news-title { font-size: clamp(21px, 1.45vw, 24px); line-height: 1.22; }
+/* Page titles share one display size with the home statement, so every page opens at the same voice. */
+body[data-theme="clayco-b"] :is(.cp-title, .cc-h1) { font-weight: 400; font-size: clamp(44px, 5.2vw, 86px); letter-spacing: -.03em; line-height: 1.02; }
+body[data-theme="clayco-b"] .cp-summary { font-weight: 400; letter-spacing: -.012em; }
+
+/* Labels: breadcrumb-style, no red dash. */
+body[data-theme="clayco-b"] .kicker { gap: 0; margin-bottom: 18px; font: var(--n-label); letter-spacing: .14em; color: var(--muted); }
+body[data-theme="clayco-b"] .kicker::before { content: 'Clayco /'; width: auto; height: auto; margin-right: .6em; background: none; color: var(--muted); }
+body[data-theme="clayco-b"] :is(.cf-heading, .cb-doors-title, .cf-offices-count) { font: var(--n-label); letter-spacing: .14em; }
+
+/* RBB's typesetting habits: balanced titles, no orphans in copy, figures that line up. */
+body[data-theme="clayco-b"] :is(.section-title, .cp-title, .news-title, .cb-proj-title, .cb-market-name, .cb-door-label, .cc-more-name) { text-wrap: balance; }
+body[data-theme="clayco-b"] main p { text-wrap: pretty; }
+body[data-theme="clayco-b"] :is(.cb-ddb-num, .cb-door-num, .cb-finder-count, .cb-flow-num, .cb-market-count, .cf-offices-count, .chip-count, .search-count, time) { font-variant-numeric: tabular-nums; }
+
+/* ---------- Links and arrows: quiet underline, thin drawn arrows ---------- */
+/* Underline draw (PATH menu links): a faint rule, with the ink rule drawing in from the left on hover. */
+body[data-theme="clayco-b"] :is(.text-link, .cf-link) {
+  gap: .5em; padding-bottom: 6px; font: 500 17px/1.3 var(--font); text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 100% 100% / 0 1px no-repeat, linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;
+  transition: background-size .735s cubic-bezier(.625, .05, 0, 1);
+}
+body[data-theme="clayco-b"] .cf-link { background-image: linear-gradient(currentColor, currentColor), linear-gradient(rgb(255 255 255 / .35), rgb(255 255 255 / .35)); }
+body[data-theme="clayco-b"] :is(.text-link, .cf-link):is(:hover, :focus-visible) { background-size: 100% 1px, 100% 1px; background-position: 0 100%, 0 100%; color: inherit; }
+body[data-theme="clayco-b"] .arrow {
+  --n-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 11 11.5 2.5M5 2.5h6.5V9' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E");
+  display: inline-block; flex: none; width: 13px; height: 13px; margin-left: .45em; font-size: 0; color: inherit;
+  background: currentColor; vertical-align: .05em;
+  -webkit-mask: var(--n-arrow) center / contain no-repeat; mask: var(--n-arrow) center / contain no-repeat;
+  transition: transform .45s var(--n-ease);
+}
+body[data-theme="clayco-b"] .arrow--in { --n-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M1 7h11.5M8 2.5 12.5 7 8 11.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E"); }
+body[data-theme="clayco-b"] a:hover .arrow--in, body[data-theme="clayco-b"] a:focus-visible .arrow--in { transform: translateX(3px); color: inherit; }
+body[data-theme="clayco-b"] a:hover .arrow--out, body[data-theme="clayco-b"] a:focus-visible .arrow--out { transform: translate(2px, -2px); color: inherit; }
+
+/* ---------- Hero and doors ---------- */
+body[data-theme="clayco-b"] .cb-top { padding-block: clamp(40px, 5vw, 88px) clamp(40px, 4.5vw, 72px); }
+body[data-theme="clayco-b"] .cb-hero-links { gap: 28px; margin-top: 32px; }
+body[data-theme="clayco-b"] .cb-doors-title { color: var(--ink); }
+body[data-theme="clayco-b"] .cb-door { padding-block: 22px; border-bottom: 1px solid var(--line); }
+body[data-theme="clayco-b"] .cb-door-num { font: var(--n-label); color: var(--muted); }
+body[data-theme="clayco-b"] .cb-door-sub { font-size: 17px; color: var(--muted); }
+body[data-theme="clayco-b"] .cb-door:hover .cb-door-label { color: var(--red); }
+body[data-theme="clayco-b"] .cb-photo { overflow: hidden; }
+body[data-theme="clayco-b"] .cb-photo figcaption { font-size: 15px; }
+body[data-theme="clayco-b"] .cb-photo-title { font-weight: 500; }
+
+/* ---------- Hairline-ruled cells (PATH): markets, project finder, news ---------- */
+body[data-theme="clayco-b"] :is(.cb-market-grid, .cb-finder-grid, .news-grid--four) {
+  gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+}
+body[data-theme="clayco-b"] :is(.cb-market, .cb-proj, .news-grid--four > li) {
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper);
+  transition: background .35s;
+}
+body[data-theme="clayco-b"] :is(.cb-market, .cb-proj, .news-grid--four > li):hover { background: #fbfbf9; }
+body[data-theme="clayco-b"] .cb-market a { padding: 18px 18px 20px; gap: 14px; }
+body[data-theme="clayco-b"] .cb-finder .cb-proj a { padding: 14px 14px 16px; gap: 10px; }
+body[data-theme="clayco-b"] .news-grid--four .news-card a { padding: 18px; gap: 12px; }
+body[data-theme="clayco-b"] .news-card--story a { border-top: 0; padding-top: 18px; }
+body[data-theme="clayco-b"] :is(.cb-market a, .cb-proj a, .news-card a) { position: relative; }
+/* The cell arrow sits in the cell's bottom-right corner, clear of the photograph; copy keeps a lane for it. */
+body[data-theme="clayco-b"] :is(.cb-market a, .cb-proj a, .news-card a) > .arrow { position: absolute; top: auto; right: 18px; bottom: 20px; margin: 0; }
+body[data-theme="clayco-b"] .cb-finder .cb-proj a > .arrow { right: 14px; bottom: 16px; }
+body[data-theme="clayco-b"] :is(.cb-market-copy, .cb-proj-copy) { padding-right: 24px; }
+body[data-theme="clayco-b"] .news-grid--four .news-card a { height: 100%; padding-bottom: 22px; }
+/* Stories without a photograph read as typeset cells: a larger title, the byline at the foot. */
+body[data-theme="clayco-b"] .news-card--story .news-title { font-size: clamp(24px, 1.85vw, 30px); line-height: 1.16; letter-spacing: -.016em; }
+body[data-theme="clayco-b"] .news-card--story .news-byline { margin-top: auto; }
+body[data-theme="clayco-b"] :is(.cb-market-line, .cb-market-children, .cb-proj-loc, .cb-proj-market, .news-byline) { font-size: 15px; color: var(--muted); }
+body[data-theme="clayco-b"] .cb-market-count { font: var(--n-label); letter-spacing: .12em; color: var(--muted); }
+body[data-theme="clayco-b"] .cb-market-count::before { display: none; }
+/* Status reads like PATH's cell status: small spaced text, not pills. */
+body[data-theme="clayco-b"] .tag { min-height: 0; padding: 0; border: 0; border-radius: 0; font: 500 11px/1.3 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+body[data-theme="clayco-b"] .tag + .tag::before { content: '·'; margin: 0 .45em; }
+body[data-theme="clayco-b"] .tag--red { color: var(--red); }
+body[data-theme="clayco-b"] .cb-proj-tags { gap: 0; margin-top: 4px; }
+body[data-theme="clayco-b"] .news-meta { font: var(--n-label); letter-spacing: .12em; }
+
+/* Filters: text tabs with an underline, not pills. */
+body[data-theme="clayco-b"] .cb-filters { border-color: var(--line); }
+body[data-theme="clayco-b"] .cb-filter-label { font: var(--n-label); letter-spacing: .14em; }
+body[data-theme="clayco-b"] .chip { min-height: 40px; padding: 0; margin-right: 18px; }
+body[data-theme="clayco-b"] .chip-face { min-height: 0; padding: 6px 0; border: 0; border-bottom: 1px solid transparent; border-radius: 0; background: none; font-size: 16px; color: var(--muted); transition: color .25s, border-color .25s; }
+body[data-theme="clayco-b"] .chip:hover .chip-face { color: var(--ink); border-color: var(--line); }
+body[data-theme="clayco-b"] .chip[aria-pressed="true"] .chip-face { background: none; color: var(--ink); border-color: var(--ink); }
+body[data-theme="clayco-b"] .cb-finder-count { font: var(--n-label); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+body[data-theme="clayco-b"] .cb-finder-reset { font: var(--n-label); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--ink); background: linear-gradient(currentColor, currentColor) 0 calc(100% - 12px) / 100% 1px no-repeat; }
+body[data-theme="clayco-b"] .cb-finder-reset:hover { color: var(--red); }
+body[data-theme="clayco-b"] .cb-finder-more { border-radius: 0; border-color: var(--ink); font-size: 16px; }
+
+/* ---------- Integrated approach and develop · design · build ---------- */
+body[data-theme="clayco-b"] .section--panel { background: var(--paper-2); }
+body[data-theme="clayco-b"] .cb-flow { border-top: 1px solid var(--ink); }
+body[data-theme="clayco-b"] .cb-flow-step { background: transparent; }
+body[data-theme="clayco-b"] .cb-flow-num { font: var(--n-label); color: var(--muted); }
+body[data-theme="clayco-b"] .cb-ddb { border-top-width: 1px; }
+body[data-theme="clayco-b"] .cb-ddb-title { font-weight: 400; letter-spacing: -.015em; }
+body[data-theme="clayco-b"] .cb-ddb-kind { font: var(--n-label); letter-spacing: .14em; }
+body[data-theme="clayco-b"] .cb-ddb-roles { font-size: 15px; }
+
+/* ---------- Footer: same red, lighter voice ---------- */
+body[data-theme="clayco-b"] :is(.cf-company, .concept-tag, .cf-motion, .cb-finder-more) { border-radius: 0; }
+body[data-theme="clayco-b"] .cf-link { font: 500 17px/1.3 var(--font); }
+body[data-theme="clayco-b"] .cf-office-name { font-size: 20px; }
+
+/* ---------- Project page and case studies: ruled rows instead of boxes ---------- */
+body[data-theme="clayco-b"] button.text-link { border: 0; padding-inline: 0; color: inherit; }
+body[data-theme="clayco-b"] .cp-gallery-row { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px 32px; margin-top: 16px; }
+body[data-theme="clayco-b"] .cp-thumbs { grid-template-columns: repeat(auto-fill, minmax(180px, 248px)); gap: 16px; }
+body[data-theme="clayco-b"] .cp-links { display: grid; gap: 0; max-width: 560px; border-top: 1px solid var(--ink); }
+body[data-theme="clayco-b"] .cp-cross { min-height: 0; padding: 16px 32px 16px 0; border: 0; border-bottom: 1px solid var(--line); position: relative; }
+body[data-theme="clayco-b"] .cp-cross:hover { background: none; color: var(--red); }
+body[data-theme="clayco-b"] .cp-cross:hover .cp-cross-note { color: var(--muted); }
+body[data-theme="clayco-b"] .cp-cross-label { display: block; font: 400 21px/1.25 var(--display); }
+body[data-theme="clayco-b"] .cp-cross-note { font-size: 15px; }
+body[data-theme="clayco-b"] .cp-links > .text-link { justify-self: start; margin-top: 16px; }
+body[data-theme="clayco-b"] :is(.cp-case-open, .cc-cta) { border-radius: 0; }
+body[data-theme="clayco-b"] .cc-cta { box-shadow: none; font-size: 15px; gap: .5em; }
+body[data-theme="clayco-b"] .cc-more { border-top-width: 1px; }
+body[data-theme="clayco-b"] .cc-more-title { font: var(--n-label); letter-spacing: .14em; }
+body[data-theme="clayco-b"] .cc-more-name { font-weight: 400; }
+
+/* ---------- Menu: Sam's structure on paper; the sheet uncovers (clayco.js) while the dim fades ---------- */
+body[data-theme="clayco-b"] .cb-mega-panel { background: var(--paper); box-shadow: 0 1px 0 var(--line) inset, 0 1px 0 var(--line); }
+body[data-theme="clayco-b"] .cb-mega { transition: background-color .7s cubic-bezier(.65, 0, .35, 1); }
+body[data-theme="clayco-b"] .cb-mega-head { background: var(--paper); }
+body[data-theme="clayco-b"] .cb-mega-head .dialog-close { background: var(--paper-2); }
+body[data-theme="clayco-b"] .cb-mega:is([data-phase="pre"], [data-phase="closing"]) { background-color: rgb(14 14 14 / 0); }
+body[data-theme="clayco-b"] .cb-mega[data-phase="closing"] { transition-duration: .46s; }
+html.motion-off body[data-theme="clayco-b"] .cb-mega { transition: none; }
+
+/* ---------- Laptops (1100–1399px): keep the desktop grid. The shared type layer drops to two columns
+   below 1400px, which made Task-first ~2,300px longer at 1280 — the "too much white space" risk. ---------- */
+@media (min-width: 1100px) and (max-width: 1399px) {
+  body[data-theme="clayco-b"] .cb-top { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  body[data-theme="clayco-b"] .cb-door-list { display: block; }
+  body[data-theme="clayco-b"] .cb-statement { font-size: clamp(40px, 4.4vw, 60px); }
+  body[data-theme="clayco-b"] .cb-market-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body[data-theme="clayco-b"] .cb-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+  body[data-theme="clayco-b"] .cb-flow-step + .cb-flow-step { border-left: 1px solid var(--line); }
+}
+/* Tablets keep three markets across too. */
+@media (min-width: 900px) and (max-width: 1099px) {
+  body[data-theme="clayco-b"] .cb-market-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 767px) {
+  body[data-theme="clayco-b"] .cb-statement { font-size: clamp(34px, 9vw, 42px); letter-spacing: -.025em; }
+  body[data-theme="clayco-b"] .section-title { font-size: clamp(28px, 7.4vw, 34px); }
+  body[data-theme="clayco-b"] .cb-door-label { font-size: 24px; }
+  body[data-theme="clayco-b"] .cb-finder .cb-proj a { padding: 10px 10px 12px; }
+  /* Markets sit two to a row on phones, like the finder: a contact sheet, not nine full-width cards. */
+  body[data-theme="clayco-b"] .cb-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-theme="clayco-b"] .cb-market a { gap: 10px; padding: 10px 10px 14px; }
+  body[data-theme="clayco-b"] .cb-market a > .media { aspect-ratio: 4 / 3; }
+  body[data-theme="clayco-b"] .cb-market-name { font-size: 18px; line-height: 1.18; }
+  body[data-theme="clayco-b"] .cb-market-line { font-size: 13px; }
+  body[data-theme="clayco-b"] .cb-market-children { display: none; }
+  body[data-theme="clayco-b"] .cb-market-count { font-size: 11px; }
+  body[data-theme="clayco-b"] :is(.cb-market a, .cb-proj a, .news-card a) > .arrow { right: 10px; bottom: 14px; }
+  body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag { padding: 0; }
+  body[data-theme="clayco-b"] .chip { margin-right: 14px; }
+  body[data-theme="clayco-b"] .cb-proj-tags { flex-direction: column; align-items: flex-start; gap: 2px; }
+  body[data-theme="clayco-b"] .tag + .tag::before { content: none; }
+}

@@ -80,7 +80,9 @@
   syncHeader(); updateHeader();
 
   /* ---------------- Reveal (content is never hidden before it animates) ---------------- */
-  if ('IntersectionObserver' in window) {
+  // Task-first's motion lives in clayco-b-motion.js (authored reveals instead of one fade-up).
+  const ownMotion = theme === 'clayco-b';
+  if ('IntersectionObserver' in window && !ownMotion) {
     const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       revealObserver.unobserve(entry.target);
@@ -88,7 +90,7 @@
     }), { threshold: .12, rootMargin: '0px 0px -5% 0px' });
     $$('[data-reveal]').forEach(element => revealObserver.observe(element));
   }
-  const heroImage = $('[data-hero-image]');
+  const heroImage = ownMotion ? null : $('[data-hero-image]');
   if (heroImage) {
     const settle = () => animate(heroImage, [{ transform: 'scale(1.06)' }, { transform: 'scale(1)' }], { duration: 1900, easing: 'cubic-bezier(.2,.7,.2,1)' });
     if (heroImage.complete) settle(); else heroImage.addEventListener('load', settle, { once: true });
@@ -192,17 +194,18 @@
 
   /* A panel that fades in and out; it owns its close animation so a filled
      final frame never leaks into the next opening. */
-  function fadeExperience(target, { inFrames, outFrames, inDuration = 380, outDuration = 190, onOpen = null, onReset = null } = {}) {
+  function fadeExperience(target, { inFrames, outFrames, inDuration = 380, outDuration = 190, inEasing = 'cubic-bezier(.2,.7,.2,1)', outEasing = 'ease-in', onOpen = null, onReset = null } = {}) {
     let exit = null;
     return {
       open(d) {
         exit?.cancel(); exit = null;
         onOpen?.(d);
         requestAnimationFrame(() => { if (d.open) d.dataset.phase = 'open'; });
-        animate(target(d), inFrames, { duration: inDuration, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        animate(target(d), inFrames, { duration: inDuration, easing: inEasing });
       },
       close(d, done) {
-        exit = animate(target(d), outFrames, { duration: outDuration, easing: 'ease-in', fill: 'forwards' });
+        d.dataset.phase = 'closing';
+        exit = animate(target(d), outFrames, { duration: outDuration, easing: outEasing, fill: 'forwards' });
         if (!exit) { done(); return; }
         exit.finished.then(done, done);
       },
@@ -506,12 +509,24 @@
       setActive(pane);
       focusGroup(name);
     }
+    // Task-first (Nordic layer): the menu uncovers like a sheet with the page's rise ease, then its groups rise.
+    const groupRise = ownMotion
+      ? { frames: [{ opacity: 0, transform: 'translateY(22px)' }, { opacity: 1, transform: 'none' }], duration: 720, delay: 180, step: 60, easing: 'cubic-bezier(.16,1,.3,1)' }
+      : { frames: [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], duration: 420, delay: 60, step: 45, easing: 'cubic-bezier(.2,.7,.2,1)' };
     const fade = fadeExperience(() => panel, {
-      inFrames: [{ opacity: 0, transform: 'translateY(-14px)' }, { opacity: 1, transform: 'none' }],
-      outFrames: [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-10px)' }],
-      inDuration: 340, outDuration: 180,
+      ...(ownMotion ? {
+        inFrames: [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }],
+        outFrames: [{ clipPath: 'inset(0 0 0% 0)' }, { clipPath: 'inset(0 0 100% 0)' }],
+        inDuration: 720, outDuration: 460, inEasing: 'cubic-bezier(.16,1,.3,1)', outEasing: 'cubic-bezier(.65,0,.35,1)',
+      } : {
+        inFrames: [{ opacity: 0, transform: 'translateY(-14px)' }, { opacity: 1, transform: 'none' }],
+        outFrames: [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-10px)' }],
+        inDuration: 340, outDuration: 180,
+      }),
       onOpen() {
-        groups.forEach((group, index) => animate(desktopMega.matches ? $('.cb-group-heading', group) : group, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: 60 + index * 45, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' }));
+        groups.forEach((group, index) => animate(desktopMega.matches ? $('.cb-group-heading', group) : group, groupRise.frames, { duration: groupRise.duration, delay: groupRise.delay + index * groupRise.step, easing: groupRise.easing, fill: 'backwards' }));
+        // Task-first: the open pane's columns rise with the list, so the whole sheet builds.
+        if (ownMotion && desktopMega.matches) $$('.cb-group-body', dialog).forEach(body => animate(body, groupRise.frames, { duration: groupRise.duration, delay: groupRise.delay + 120, easing: groupRise.easing, fill: 'backwards' }));
       },
       onReset() { clearTimeout(leaveTimer); leaveTimer = 0; clearTimeout(switchTimer); clearTimeout(railTimer); openedBy = null; setActive(''); },
     });
@@ -952,13 +967,37 @@
       resetButton.hidden = market === 'all' && status === 'all';
       return list;
     }
+    // Task-first animates filtering itself (clayco-b-motion.js: indicator, FLIP, rising cards).
+    const cardIn = ownMotion ? () => {} : (card, index) => animate(card, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: index * 30, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
     function choose(groupName, value) {
       if (groupName === 'market') market = value; else status = value;
       chips.filter(chip => chip.dataset.filter === groupName).forEach(chip => chip.setAttribute('aria-pressed', String(chip.dataset.value === value)));
       limit = step;
-      apply().slice(0, limit).forEach((card, index) => animate(card, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: index * 30, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' }));
+      apply().slice(0, limit).forEach(cardIn);
     }
     chips.forEach(chip => chip.addEventListener('click', () => choose(chip.dataset.filter, chip.dataset.value)));
+    // The Find a project door lands keyboard focus on the finder's pressed market tab.
+    $$('.cb-door[href="#finder"]').forEach(door => door.addEventListener('click', event => {
+      if (!plainClick(event)) return;
+      event.preventDefault();
+      finder.scrollIntoView({ block: 'start' });
+      history.replaceState(history.state, '', '#finder');
+      chips.find(chip => chip.dataset.filter === 'market' && chip.getAttribute('aria-pressed') === 'true')?.focus({ preventScroll: true });
+    }));
+    // Market tiles above (Task-first) land on the finder, then filter it, so the change plays in view.
+    $$('[data-finder-market]').forEach(tile => tile.addEventListener('click', event => {
+      const chip = chips.find(c => c.dataset.filter === 'market' && c.dataset.value === tile.dataset.finderMarket);
+      if (!chip || !plainClick(event)) return;
+      event.preventDefault();
+      finder.scrollIntoView({ block: 'start' });
+      history.replaceState(history.state, '', '#finder');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        chip.click(); chip.focus({ preventScroll: true });
+        // Phones scroll the tab row sideways: bring the chosen market into view under its indicator.
+        const row = chip.parentElement;
+        if (row.scrollWidth > row.clientWidth) row.scrollTo({ left: chip.offsetLeft - (row.clientWidth - chip.offsetWidth) / 2, behavior: reduced() ? 'instant' : 'smooth' });
+      }));
+    }));
     resetButton.addEventListener('click', () => { choose('market', 'all'); choose('status', 'all'); chips.find(chip => chip.dataset.value === 'all')?.focus(); });
     more.addEventListener('click', () => {
       const before = limit;
