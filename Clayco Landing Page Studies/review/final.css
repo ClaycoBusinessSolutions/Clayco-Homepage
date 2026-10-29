@@ -56,11 +56,21 @@ kbd{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 
 .seg-sm button{gap:7px;padding:0 12px;font-size:13px}
 .seg-letter{font-weight:500}
 .seg-name{font-weight:400}
-.seg[data-seg=show] button{min-width:38px;justify-content:center}
+.pick{display:flex;align-items:center;gap:3px;flex:none;height:38px;padding:3px;border-radius:999px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.pick button{display:flex;align-items:center;gap:7px;height:100%;padding:0 12px;border-radius:999px;color:var(--red-text);font-size:13px;font-weight:500;white-space:nowrap;transition:color .3s var(--move),background-color .3s var(--move),box-shadow .3s var(--move)}
+.pick button[aria-pressed=true]{background:var(--red);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 14px -8px rgba(226,35,26,.45)}
+.pick button[data-key=c][aria-pressed=true]{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px var(--text)}
+/* A refused removal, under reduced motion: a still outline instead of the shake. */
+.pick button.is-refused{outline:2px solid var(--text);outline-offset:-2px}
+.pick button:not([aria-pressed=true]):hover{background:var(--red-wash)}
+.pick button:focus-visible{outline-offset:-2px}
+.pick-sm{height:32px}
+.pick-sm button{min-width:32px;justify-content:center;padding:0 10px}
 
 /* Text buttons: Clayco red, quiet until hover. */
 .tbtn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 11px;border-radius:9px;color:var(--red-text);font-size:13.5px;font-weight:500;white-space:nowrap;transition:background-color .2s,color .2s}
 .tbtn:hover,.tbtn[aria-expanded=true],.tbtn[aria-pressed=true]{background:var(--red-wash)}
+#sync-btn[aria-pressed=true]{background:var(--red);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 14px -8px rgba(226,35,26,.45)}
 .tbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
 .tbtn kbd{margin-left:2px;color:var(--soft)}
 .tbtn .q{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor;font-size:11.5px;line-height:1}
@@ -87,9 +97,13 @@ body.is-fullscreen #fullscreen .fs-off{display:block}
 /* ---------- Stage and panes ---------- */
 .stage{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:var(--gap);padding:var(--gap)}
 body[data-layout=single] .stage{grid-template-columns:minmax(0,1fr)}
+body[data-layout=trio] .stage{grid-template-columns:repeat(3,minmax(0,1fr))}
+body[data-layout=quad] .stage{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pane{grid-column:var(--slot,1);grid-row:1}
+.pane[data-shown=false]{grid-column:1}
 body[data-layout=single] .pane{grid-area:1/1}
 body[data-mode=option] .stage{padding:0}
-.pane{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.pane{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;border:1px solid var(--line);border-radius:14px;overflow:clip;background:var(--surface)}
 body[data-mode=option] .pane{border:0;border-radius:0}
 .pane[data-shown=false]{visibility:hidden;pointer-events:none}
 .pane.is-leaving{visibility:visible;z-index:1}
@@ -98,6 +112,8 @@ body[data-mode=mobile] .pane.is-entering{background:transparent;border-color:tra
 body[data-mode=mobile] .pane.is-entering .pane-view{background:transparent}
 #pane-a[data-shown=true]{view-transition-name:pane-a}
 #pane-b[data-shown=true]{view-transition-name:pane-b}
+#pane-c[data-shown=true]{view-transition-name:pane-c}
+#pane-d[data-shown=true]{view-transition-name:pane-d}
 
 .pane-head{flex:none;display:flex;align-items:center;gap:10px;height:46px;padding:0 6px 0 14px;border-bottom:1px solid var(--line);background:var(--surface);min-width:0}
 body[data-mode=option] .pane-head{display:none}
@@ -107,9 +123,11 @@ body[data-mode=option] .pane.is-away .pane-tools{margin:0}
 body[data-mode=option] .pane.is-away .pane-tools .tbtn{height:32px;border-radius:999px}
 @keyframes chip-in{from{opacity:0;translate:0 10px}}
 .badge{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--text);color:var(--page);font-size:12px;font-weight:500}
-.pane-name{display:flex;align-items:baseline;gap:7px;flex:none;font-size:14px;font-weight:500;white-space:nowrap}
-.pane-name span{font-weight:400;color:var(--soft)}
-.pane-note{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted)}
+.badge-live{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px var(--text)}
+/* The name gives way (ellipsis) before the note's last word or Open can leave the pane; the note goes first. */
+.pane-name{display:block;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:14px;font-weight:500;white-space:nowrap}
+.pane-name span{margin-left:7px;font-weight:400;color:var(--soft)}
+.pane-note{flex:0 1000 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted)}
 .pane-note::before{content:'';display:inline-block;width:3px;height:3px;margin:0 10px 3px 2px;border-radius:50%;background:var(--muted);vertical-align:middle}
 .pane-tools{display:flex;align-items:center;gap:2px;margin-left:auto;flex:none}
 .pane-tools .tbtn{height:30px;padding:0 10px;font-size:13px}
@@ -195,8 +213,12 @@ body[data-mode=mobile] .device-caption{display:flex;align-items:baseline;gap:8px
 .cap-vp{margin-left:4px;padding-left:10px;box-shadow:inset 1px 0 0 var(--line-2)}
 body[data-mode=mobile] #pane-a[data-shown=true] .device{view-transition-name:device-a}
 body[data-mode=mobile] #pane-b[data-shown=true] .device{view-transition-name:device-b}
+body[data-mode=mobile] #pane-c[data-shown=true] .device{view-transition-name:device-c}
+body[data-mode=mobile] #pane-d[data-shown=true] .device{view-transition-name:device-d}
 body[data-mode=mobile] #pane-a[data-shown=true] .device-caption{view-transition-name:cap-a}
 body[data-mode=mobile] #pane-b[data-shown=true] .device-caption{view-transition-name:cap-b}
+body[data-mode=mobile] #pane-c[data-shown=true] .device-caption{view-transition-name:cap-c}
+body[data-mode=mobile] #pane-d[data-shown=true] .device-caption{view-transition-name:cap-d}
 
 /* ---------- Hidden header ---------- */
 body[data-chrome=hidden] .bar{position:fixed;top:0;left:0;right:0;transform:translateY(-100%);view-transition-name:none;transition:transform .42s var(--move),box-shadow .42s}
@@ -236,34 +258,41 @@ body[data-chrome=hidden] .sweep{top:0}
 ::view-transition-old(bar),::view-transition-old(sweep){display:none}
 ::view-transition-old(bar):only-child{display:block}
 ::view-transition-new(bar),::view-transition-new(sweep),::view-transition-group(sweep){animation:none}
-::view-transition-group(pane-a),::view-transition-group(pane-b){overflow:clip;z-index:2}
+::view-transition-group(pane-a),::view-transition-group(pane-b),::view-transition-group(pane-c),::view-transition-group(pane-d){overflow:clip;z-index:2}
 /* An arriving pane slides in beneath the pane that is making room, so the two never overlap translucently. */
-html[data-vt-enter~=a]::view-transition-group(pane-a),html[data-vt-enter~=b]::view-transition-group(pane-b){z-index:1}
-::view-transition-group(device-a),::view-transition-group(device-b),::view-transition-group(cap-a),::view-transition-group(cap-b){z-index:3}
+html[data-vt-enter~=a]::view-transition-group(pane-a),html[data-vt-enter~=b]::view-transition-group(pane-b),html[data-vt-enter~=c]::view-transition-group(pane-c),html[data-vt-enter~=d]::view-transition-group(pane-d){z-index:1}
+::view-transition-group(device-a),::view-transition-group(device-b),::view-transition-group(device-c),::view-transition-group(cap-a),::view-transition-group(cap-b),::view-transition-group(cap-c),::view-transition-group(device-d),::view-transition-group(cap-d){z-index:3}
 ::view-transition-group(bar),::view-transition-group(sweep){z-index:4}
 /* Header toggles: everything moves in lockstep with the bar. */
 html[data-vt-bar=out]::view-transition-group(*){animation-duration:.46s}
 html[data-vt-bar=in]::view-transition-group(*){animation-duration:.6s;animation-timing-function:var(--arrive)}
 /* Each snapshot covers its box from the top left, so a growing pane never shows a gap; a shrinking pane keeps its sharp old picture until the box is nearly final. */
-::view-transition-old(pane-a),::view-transition-new(pane-a),::view-transition-old(pane-b),::view-transition-new(pane-b){width:100%;height:100%;object-fit:cover;object-position:left top}
-::view-transition-old(pane-a),::view-transition-old(pane-b){animation:vt-out .26s var(--move) both}
-::view-transition-new(pane-a),::view-transition-new(pane-b){animation:vt-in .26s var(--move) both}
-html[data-vt-shrink~=a]::view-transition-old(pane-a),html[data-vt-shrink~=b]::view-transition-old(pane-b){animation:vt-out .3s var(--move) .34s both}
-html[data-vt-shrink~=a]::view-transition-new(pane-a),html[data-vt-shrink~=b]::view-transition-new(pane-b){animation:vt-in .3s var(--move) .34s both}
+::view-transition-old(pane-a),::view-transition-new(pane-a),::view-transition-old(pane-b),::view-transition-new(pane-b),::view-transition-old(pane-c),::view-transition-new(pane-c),::view-transition-old(pane-d),::view-transition-new(pane-d){width:100%;height:100%;object-fit:cover;object-position:left top}
+::view-transition-old(pane-a),::view-transition-old(pane-b),::view-transition-old(pane-c),::view-transition-old(pane-d){animation:vt-out .26s var(--move) both}
+::view-transition-new(pane-a),::view-transition-new(pane-b),::view-transition-new(pane-c),::view-transition-new(pane-d){animation:vt-in .26s var(--move) both}
+html[data-vt-shrink~=a]::view-transition-old(pane-a),html[data-vt-shrink~=b]::view-transition-old(pane-b),html[data-vt-shrink~=c]::view-transition-old(pane-c),html[data-vt-shrink~=d]::view-transition-old(pane-d){animation:vt-out .3s var(--move) .34s both}
+html[data-vt-shrink~=a]::view-transition-new(pane-a),html[data-vt-shrink~=b]::view-transition-new(pane-b),html[data-vt-shrink~=c]::view-transition-new(pane-c),html[data-vt-shrink~=d]::view-transition-new(pane-d){animation:vt-in .3s var(--move) .34s both}
 ::view-transition-old(*):only-child,::view-transition-new(*):only-child{animation:none}
 /* Header hide / show: only the height changes, so the new page curtains open at its real size. */
-html[data-vt-chrome]::view-transition-old(pane-a),html[data-vt-chrome]::view-transition-old(pane-b){display:none}
-html[data-vt-chrome]::view-transition-new(pane-a),html[data-vt-chrome]::view-transition-new(pane-b){object-fit:none;object-position:left top;animation:none}
+html[data-vt-chrome]::view-transition-old(pane-a),html[data-vt-chrome]::view-transition-old(pane-b),html[data-vt-chrome]::view-transition-old(pane-c),html[data-vt-chrome]::view-transition-old(pane-d){display:none}
+html[data-vt-chrome]::view-transition-new(pane-a),html[data-vt-chrome]::view-transition-new(pane-b),html[data-vt-chrome]::view-transition-new(pane-c),html[data-vt-chrome]::view-transition-new(pane-d){object-fit:none;object-position:left top;animation:none}
 html[data-vt-enter~=a]::view-transition-group(pane-a),html[data-vt-enter~=a]::view-transition-group(device-a),html[data-vt-enter~=a]::view-transition-group(cap-a){animation:vt-enter-l .72s var(--arrive) both}
-html[data-vt-enter~=b]::view-transition-group(pane-b),html[data-vt-enter~=b]::view-transition-group(device-b),html[data-vt-enter~=b]::view-transition-group(cap-b){animation:vt-enter-r .72s var(--arrive) both}
+html[data-vt-enter~=b]::view-transition-group(pane-b),html[data-vt-enter~=b]::view-transition-group(device-b),html[data-vt-enter~=b]::view-transition-group(cap-b),
+html[data-vt-enter~=c]::view-transition-group(pane-c),html[data-vt-enter~=c]::view-transition-group(device-c),html[data-vt-enter~=c]::view-transition-group(cap-c),html[data-vt-enter~=d]::view-transition-group(pane-d),html[data-vt-enter~=d]::view-transition-group(device-d),html[data-vt-enter~=d]::view-transition-group(cap-d){animation:vt-enter-r .72s var(--arrive) both}
 html[data-vt-exit~=a]::view-transition-group(pane-a),html[data-vt-exit~=a]::view-transition-group(device-a),html[data-vt-exit~=a]::view-transition-group(cap-a){animation:vt-exit-l .46s var(--move) both}
-html[data-vt-exit~=b]::view-transition-group(pane-b),html[data-vt-exit~=b]::view-transition-group(device-b),html[data-vt-exit~=b]::view-transition-group(cap-b){animation:vt-exit-r .46s var(--move) both}
+html[data-vt-exit~=b]::view-transition-group(pane-b),html[data-vt-exit~=b]::view-transition-group(device-b),html[data-vt-exit~=b]::view-transition-group(cap-b),
+html[data-vt-exit~=c]::view-transition-group(pane-c),html[data-vt-exit~=c]::view-transition-group(device-c),html[data-vt-exit~=c]::view-transition-group(cap-c),html[data-vt-exit~=d]::view-transition-group(pane-d),html[data-vt-exit~=d]::view-transition-group(device-d),html[data-vt-exit~=d]::view-transition-group(cap-d){animation:vt-exit-r .46s var(--move) both}
 html[data-vt-rise~=a]::view-transition-group(device-a){animation:vt-rise .76s var(--arrive) .16s both}
 html[data-vt-rise~=b]::view-transition-group(device-b){animation:vt-rise .76s var(--arrive) .26s both}
+html[data-vt-rise~=c]::view-transition-group(device-c){animation:vt-rise .76s var(--arrive) .36s both}
+html[data-vt-rise~=d]::view-transition-group(device-d){animation:vt-rise .76s var(--arrive) .46s both}
 html[data-vt-rise~=a]::view-transition-group(cap-a){animation:vt-cap .6s var(--arrive) .4s both}
 html[data-vt-rise~=b]::view-transition-group(cap-b){animation:vt-cap .6s var(--arrive) .5s both}
+html[data-vt-rise~=c]::view-transition-group(cap-c){animation:vt-cap .6s var(--arrive) .6s both}
+html[data-vt-rise~=d]::view-transition-group(cap-d){animation:vt-cap .6s var(--arrive) .7s both}
 html[data-vt-sink~=a]::view-transition-group(device-a),html[data-vt-sink~=a]::view-transition-group(cap-a),
-html[data-vt-sink~=b]::view-transition-group(device-b),html[data-vt-sink~=b]::view-transition-group(cap-b){animation:vt-sink .34s var(--move) both}
+html[data-vt-sink~=b]::view-transition-group(device-b),html[data-vt-sink~=b]::view-transition-group(cap-b),
+html[data-vt-sink~=c]::view-transition-group(device-c),html[data-vt-sink~=c]::view-transition-group(cap-c),html[data-vt-sink~=d]::view-transition-group(device-d),html[data-vt-sink~=d]::view-transition-group(cap-d){animation:vt-sink .34s var(--move) both}
 html[data-vt-bar=out]::view-transition-group(bar){animation:vt-bar-out .46s var(--move) both}
 html[data-vt-bar=in]::view-transition-group(bar){animation:vt-bar-in .6s var(--arrive) both}
 @keyframes vt-in{from{opacity:0}}
@@ -279,25 +308,33 @@ html[data-vt-bar=in]::view-transition-group(bar){animation:vt-bar-in .6s var(--a
 @keyframes vt-bar-in{from{translate:0 -100%}}
 
 /* ---------- Narrower windows ---------- */
-.bar.is-compact :is(.tools .lbl,#rotate .lbl){display:none}
+.bar.is-compact :is(.tools .tbtn:not(#sync-btn) .lbl,#rotate .lbl){display:none}
+.bar.is-tight :is(#sync-btn .lbl,.ctx .seg-name){display:none}
+.bar.is-tight #sync-btn{padding:0 9px}
 .bar.is-compact :is(.tools .tbtn,#rotate){padding:0 9px}
 .bar.is-wrapped{flex-wrap:wrap;height:auto;row-gap:8px;padding:10px 12px}
 .bar.is-wrapped .controls{order:3;width:100%;flex-wrap:wrap;row-gap:8px}
 @media (max-width:1359px){.brand-title{display:none}}
 @media (max-width:1219px){.tools .lbl,#rotate .lbl{display:none}.tools .tbtn,#rotate{padding:0 9px}.bar{gap:16px}.seg-mode button{padding:0 13px}}
 @media (max-width:1100px){.seg-mode button{padding:0 11px;gap:7px}.controls{gap:10px}.ctx{padding-left:10px}.field{min-width:160px}}
+@media (max-width:1439px){body[data-layout=quad]:not([data-mode=option]) .pane-note{display:none}}
+@media (max-width:1100px){body[data-layout=trio]:not([data-mode=option]) .pane-note{display:none}}
 @media (max-width:899px){
   .bar{flex-wrap:wrap;height:auto;row-gap:8px;padding:10px 12px}
   .controls{order:3;width:100%;flex-wrap:wrap;row-gap:8px}
   body[data-mode=side] .stage{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
+  body[data-mode=side][data-layout=trio] .stage{grid-template-rows:repeat(3,minmax(0,1fr))}
+  body[data-mode=side][data-layout=quad] .stage{grid-template-rows:repeat(4,minmax(0,1fr))}
+  body[data-mode=side] .pane{grid-column:1;grid-row:var(--slot,1)}
+  body[data-mode=side] .pane[data-shown=false]{grid-row:1}
   .pane-note{display:none}
 }
-@media (max-width:600px){.seg-mode svg{display:none}.pane-open{display:none}}
+@media (max-width:600px){.seg-mode svg{display:none}.pane-open{display:none}.ctx .seg-name{display:none}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important;animation-duration:0s!important;animation-delay:0s!important}
 }
 @media (forced-colors:active){
-  .seg button[aria-pressed=true]{forced-color-adjust:none;background:Highlight;color:HighlightText}
+  .seg button[aria-pressed=true],.pick button[aria-pressed=true],.pick button[data-key=c][aria-pressed=true],#sync-btn[aria-pressed=true]{forced-color-adjust:none;background:Highlight;color:HighlightText;box-shadow:none}
   .menu button[aria-checked=true]{outline:1px solid Highlight}
 }

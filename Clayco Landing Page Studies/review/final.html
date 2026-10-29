@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <title>Clayco — Final review</title>
   <link rel="icon" href="../../assets/clayco/clayco.svg">
-  <link rel="stylesheet" href="final.css?v=20261029">
-  <script defer src="final.js?v=20261029b"></script>
+  <link rel="stylesheet" href="final.css?v=20261029d">
+  <script defer src="final.js?v=20261029d"></script>
 </head>
 <body data-mode="side" data-layout="duo" data-model="iphone" data-rot="port" data-chrome="shown">
   <header class="bar" id="bar">
@@ -29,6 +29,17 @@
           <span class="seg-ind" aria-hidden="true"></span>
           <button type="button" data-solo="a" aria-pressed="true" aria-keyshortcuts="A" aria-label="Design A, Sam Alcarez" title="Design A (A)"><b class="seg-letter">A</b><span class="seg-name">Sam Alcarez</span></button>
           <button type="button" data-solo="b" aria-pressed="false" aria-keyshortcuts="B" aria-label="Design B, Dohyoung Kim" title="Design B (B)"><b class="seg-letter">B</b><span class="seg-name">Dohyoung Kim</span></button>
+          <button type="button" data-solo="c" aria-pressed="false" aria-keyshortcuts="C" aria-label="C, Current site (claycorp.com)" title="Current site (C)"><b class="seg-letter">C</b><span class="seg-name">Current site</span></button>
+          <button type="button" data-solo="d" aria-pressed="false" aria-keyshortcuts="D" aria-label="Design D, Kiewit-style study" title="Design D (D)"><b class="seg-letter">D</b><span class="seg-name">Kiewit-style</span></button>
+        </div>
+      </div>
+
+      <div class="ctx" data-ctx="side" hidden>
+        <div class="pick" role="group" aria-label="Compare (two or more)" data-pick="pair">
+          <button type="button" data-key="a" aria-pressed="true" aria-label="Compare design A, Sam Alcarez" title="Design A"><b class="seg-letter">A</b><span class="seg-name">Sam Alcarez</span></button>
+          <button type="button" data-key="b" aria-pressed="true" aria-label="Compare design B, Dohyoung Kim" title="Design B"><b class="seg-letter">B</b><span class="seg-name">Dohyoung Kim</span></button>
+          <button type="button" data-key="c" aria-pressed="false" aria-label="Compare C, Current site (claycorp.com)" title="Current site"><b class="seg-letter">C</b><span class="seg-name">Current site</span></button>
+          <button type="button" data-key="d" aria-pressed="false" aria-label="Compare design D, Kiewit-style study" title="Design D"><b class="seg-letter">D</b><span class="seg-name">Kiewit-style</span></button>
         </div>
       </div>
 
@@ -47,11 +58,11 @@
             <p class="menu-foot" aria-hidden="true"><kbd>[</kbd><kbd>]</kbd> Previous / next device</p>
           </div>
         </div>
-        <div class="seg seg-sm" role="group" aria-label="Show" data-seg="show">
-          <span class="seg-ind" aria-hidden="true"></span>
-          <button type="button" data-show="a" aria-pressed="false" aria-label="Show design A" title="Design A (A)"><b class="seg-letter">A</b></button>
-          <button type="button" data-show="b" aria-pressed="false" aria-label="Show design B" title="Design B (B)"><b class="seg-letter">B</b></button>
-          <button type="button" data-show="both" aria-pressed="true" aria-label="Show both designs" title="Both designs">Both</button>
+        <div class="pick pick-sm" role="group" aria-label="Show (one or more)" data-pick="show">
+          <button type="button" data-key="a" aria-pressed="true" aria-label="Show design A, Sam Alcarez" title="Design A"><b class="seg-letter">A</b></button>
+          <button type="button" data-key="b" aria-pressed="true" aria-label="Show design B, Dohyoung Kim" title="Design B"><b class="seg-letter">B</b></button>
+          <button type="button" data-key="c" aria-pressed="false" aria-label="Show C, Current site (claycorp.com)" title="Current site"><b class="seg-letter">C</b></button>
+          <button type="button" data-key="d" aria-pressed="false" aria-label="Show design D, Kiewit-style study" title="Design D"><b class="seg-letter">D</b></button>
         </div>
         <button type="button" class="tbtn" id="rotate" aria-pressed="false" aria-label="Landscape" aria-keyshortcuts="R" title="Rotate (R)" hidden>
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.25" y="9.25" width="12" height="9" rx="1.6"/><path d="M4.5 13.5V7.75a3 3 0 0 1 3-3h4.75"/><path d="m10.25 2.75 2 2-2 2"/></svg><span class="lbl">Rotate</span>
@@ -60,6 +71,7 @@
     </div>
 
     <div class="tools">
+      <button type="button" class="tbtn" id="sync-btn" aria-pressed="false" aria-label="Scroll together" aria-keyshortcuts="S" title="Scroll together (S)" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.75v14.5M17 4.75v14.5"/><path d="m4.5 16.5 2.5 2.75 2.5-2.75M14.5 16.5l2.5 2.75 2.5-2.75"/><path d="M7 11.5h10"/></svg><span class="lbl">Scroll together</span></button>
       <button type="button" class="tbtn" id="keys-btn" aria-label="Keyboard shortcuts" aria-keyshortcuts="?" aria-expanded="false" aria-controls="legend" title="Keyboard shortcuts (?)"><span class="q" aria-hidden="true">?</span></button>
       <button type="button" class="tbtn" id="hide-btn" aria-label="Hide header" aria-keyshortcuts="H" title="Hide header (H)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 4.75h16.5"/><path d="m7.5 14.25 4.5-4.5 4.5 4.5"/><path d="M12 10v9.25"/></svg><span class="lbl">Hide header</span></button>
       <button type="button" class="tbtn" id="fullscreen" aria-pressed="false" aria-label="Full screen" aria-keyshortcuts="F" title="Full screen (F)"><svg class="fs-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.25 9V4.25H9M15 4.25h4.75V9M19.75 15v4.75H15M9 19.75H4.25V15"/></svg><svg class="fs-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.25V9H4.25M19.75 9H15V4.25M15 19.75V15h4.75M4.25 15H9v4.75"/></svg><span class="lbl">Full screen</span></button>
@@ -121,6 +133,60 @@
       </div>
     </section>
 
+    <section class="pane" id="pane-c" data-pane="c" data-shown="true" aria-labelledby="pane-c-name">
+      <div class="pane-head">
+        <span class="badge badge-live" aria-hidden="true">C</span>
+        <h2 class="pane-name" id="pane-c-name">Current site <span>claycorp.com</span></h2>
+        <span class="pane-note">Homepage as of 29 Oct · images and scripts live</span>
+        <span class="pane-tools">
+          <button type="button" class="tbtn pane-home" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 11.25 12 5l7.25 6.25"/><path d="M6.75 9.75v9.5h10.5v-9.5"/></svg>Home</button>
+          <a class="tbtn pane-open" href="https://claycorp.com/" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16.25 7.75M9.5 7.75h6.75v6.75"/></svg><span class="sr-only"> in a new tab</span></a>
+        </span>
+      </div>
+      <div class="pane-view">
+        <div class="device">
+          <span class="hw hw1" aria-hidden="true"></span><span class="hw hw2" aria-hidden="true"></span><span class="hw hw3" aria-hidden="true"></span><span class="hw hw4" aria-hidden="true"></span><span class="hw hw5" aria-hidden="true"></span>
+          <span class="device-glass" aria-hidden="true"><span class="cam"></span></span>
+          <div class="device-screen">
+            <iframe title="Current site — claycorp.com, captured 29 Oct" src="about:blank" referrerpolicy="no-referrer"></iframe>
+            <div class="status status-ios" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <div class="status status-android" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.5 .4 3.9a10.8 10.8 0 0 1 15.2 0Z"/></svg><svg viewBox="0 0 14 14" width="13" height="13"><path d="M13.5 .5v13H.5Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 24 12" width="22" height="11"><rect x=".75" y=".75" width="20.5" height="10.5" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="2.75" width="16.5" height="6.5" rx="1.2"/><path d="M22.75 4v4a1.6 1.6 0 0 0 0-4Z"/></svg></span></div>
+            <div class="status status-ipad" aria-hidden="true"><span>9:41 <span class="day">Thu 29 Oct</span></span><span class="status-icons"><svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 27 13" width="25" height="12"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <span class="island" aria-hidden="true"></span><span class="punch" aria-hidden="true"></span><span class="gesture" aria-hidden="true"></span>
+          </div>
+        </div>
+        <p class="device-caption" aria-hidden="true"><b class="cap-name">iPhone 18 Pro</b><span class="cap-dot">·</span><span class="cap-size num">402 × 874</span><span class="cap-vp num">402 × 812 viewport</span></p>
+        <span class="load" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="pane" id="pane-d" data-pane="d" data-shown="true" aria-labelledby="pane-d-name">
+      <div class="pane-head">
+        <span class="badge" aria-hidden="true">D</span>
+        <h2 class="pane-name" id="pane-d-name">Kiewit-style <span>study</span></h2>
+        <span class="pane-note">After kiewit.com · 29 Oct</span>
+        <span class="pane-tools">
+          <button type="button" class="tbtn pane-home" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 11.25 12 5l7.25 6.25"/><path d="M6.75 9.75v9.5h10.5v-9.5"/></svg>Home</button>
+          <a class="tbtn pane-open" href="../../animated/clayco-kiewit.html" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16.25 7.75M9.5 7.75h6.75v6.75"/></svg><span class="sr-only"> in a new tab</span></a>
+        </span>
+      </div>
+      <div class="pane-view">
+        <div class="device">
+          <span class="hw hw1" aria-hidden="true"></span><span class="hw hw2" aria-hidden="true"></span><span class="hw hw3" aria-hidden="true"></span><span class="hw hw4" aria-hidden="true"></span><span class="hw hw5" aria-hidden="true"></span>
+          <span class="device-glass" aria-hidden="true"><span class="cam"></span></span>
+          <div class="device-screen">
+            <iframe title="Design D — Kiewit-style study" src="about:blank"></iframe>
+            <div class="status status-ios" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <div class="status status-android" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.5 .4 3.9a10.8 10.8 0 0 1 15.2 0Z"/></svg><svg viewBox="0 0 14 14" width="13" height="13"><path d="M13.5 .5v13H.5Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 24 12" width="22" height="11"><rect x=".75" y=".75" width="20.5" height="10.5" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="2.75" width="16.5" height="6.5" rx="1.2"/><path d="M22.75 4v4a1.6 1.6 0 0 0 0-4Z"/></svg></span></div>
+            <div class="status status-ipad" aria-hidden="true"><span>9:41 <span class="day">Thu 29 Oct</span></span><span class="status-icons"><svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 27 13" width="25" height="12"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <span class="island" aria-hidden="true"></span><span class="punch" aria-hidden="true"></span><span class="gesture" aria-hidden="true"></span>
+          </div>
+        </div>
+        <p class="device-caption" aria-hidden="true"><b class="cap-name">iPhone 18 Pro</b><span class="cap-dot">·</span><span class="cap-size num">402 × 874</span><span class="cap-vp num">402 × 812 viewport</span></p>
+        <span class="load" aria-hidden="true"></span>
+      </div>
+    </section>
+
   </main>
 
   <div class="hot" aria-hidden="true"></div>
@@ -132,7 +198,8 @@
       <div><dt><kbd>1</kbd></dt><dd>Option</dd></div>
       <div><dt><kbd>2</kbd></dt><dd>Side by side</dd></div>
       <div><dt><kbd>3</kbd></dt><dd>Mobile</dd></div>
-      <div><dt><kbd>A</kbd><kbd>B</kbd></dt><dd>Design A or B</dd></div>
+      <div><dt><kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>D</kbd></dt><dd>Design A, B, D or the current site (C)</dd></div>
+      <div><dt><kbd>S</kbd></dt><dd>Scroll together</dd></div>
       <div><dt><kbd>[</kbd><kbd>]</kbd></dt><dd>Previous / next device</dd></div>
       <div><dt><kbd>R</kbd></dt><dd>Rotate iPad</dd></div>
       <div><dt><kbd>H</kbd></dt><dd>Hide or show header</dd></div>
