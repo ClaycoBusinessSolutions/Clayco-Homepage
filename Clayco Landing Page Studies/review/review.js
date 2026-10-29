@@ -1,5 +1,5 @@
 import { MOTION_SECTIONS, MOTION_PRESETS } from './motion-catalog.js';
-import { MotionAdapter } from './motion-adapter.js?v=20261019-offline';
+import { MotionAdapter } from './motion-adapter.js?v=20261029';
 import { RemoteMotionAdapter, FRAME_TARGET, fromFrame } from './motion-bridge.js?v=20261019-offline';
 
 const DESIGNS = {
