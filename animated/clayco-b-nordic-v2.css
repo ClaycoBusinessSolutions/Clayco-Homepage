@@ -101,9 +101,6 @@ html body[data-theme="clayco-b"] .cb-ddb-copy{display:block;padding:14px 0 0}
 html body[data-theme="clayco-b"] .cb-ddb-name{margin:4px 0 2px}
 html body[data-theme="clayco-b"] .cb-ddb-name{font:400 19px/1.25 var(--font);letter-spacing:0}
 html body[data-theme="clayco-b"] .cb-ddb-loc{font-size:15px;color:var(--n-muted)}
-html body[data-theme="clayco-b"] .cb-ddb-roles{gap:0;margin-top:14px;border-top:1px solid var(--n-line);font-size:15px}
-html body[data-theme="clayco-b"] .cb-ddb-roles li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--n-line)}
-html body[data-theme="clayco-b"] .cb-ddb-roles li > span{color:var(--n-muted);text-align:right}
 /* news */
 html body[data-theme="clayco-b"] .cb-news-head{margin-bottom:20px}
 html body[data-theme="clayco-b"] .cb-insight-title{font:400 24px/1.2 var(--font)}
@@ -532,9 +529,6 @@ html body[data-theme="clayco-b"] .n-clabel{display:inline-block}
 html body[data-theme="clayco-b"] .n-cword{display:inline-block;white-space:nowrap}
 html body[data-theme="clayco-b"] .n-cmask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
 html body[data-theme="clayco-b"] .n-cmask > span{display:inline-block}
-/* Case-study team rows draw as hairlines once the copy has landed. */
-html body[data-theme="clayco-b"] .cb-ddb-roles li[data-n-rule]{border-bottom-color:transparent;--n-rule:var(--n-line)}
-html body[data-theme="clayco-b"] .cb-ddb-roles li[data-n-rule]::before{top:auto;bottom:-1px}
 /* Link word roll (pointer devices): on hover the word leaves upwards, its copy rises from below, a 4px square
    marks the link; leaving reverses it. Keyboard focus shows the square at once and leaves the label still.
    The copies sit out of flow and never select, so a label copies as one line of words (a grid would break

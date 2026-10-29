@@ -222,7 +222,7 @@
 
     /* Rules: [data-n-rule] gets a drawn ::before (CSS). Adding .is-set draws it. */
     const RULES = [
-      '.cb-door-list', '.cb-door-list > li', '.section-head', '.cb-flow-step', '.cb-ddb', '.cb-ddb-roles li',
+      '.cb-door-list', '.cb-door-list > li', '.section-head', '.cb-flow-step', '.cb-ddb',
       '.news-card--story', '.cb-filters', '.cf-office',
     ].join(',');
     document.querySelectorAll(RULES).forEach(el => el.setAttribute('data-n-rule', ''));
@@ -355,8 +355,6 @@
       media.querySelectorAll(':scope > :is(img, .n-clip)').forEach(el => play(el, [{ transform: 'translateY(6%) scale(1.1)' }, { transform: 'none' }], { duration: 2400, delay, easing: OUT }));
       if (again) return; // a replay moves the photograph only; its caption stays put
       captionOf(media).forEach((cap, i) => { cap.classList.remove('n-wait'); arrive(cap, delay + 320 + i * 60, 10); });
-      // A case study's team rows draw as hairlines once its copy has landed.
-      media.closest('.cb-ddb-item')?.querySelectorAll('.cb-ddb-roles li').forEach((li, i) => setRule(li, delay + 560 + i * 90));
     };
     // The window (vonder's preloader hole and hero growth): an opening centred on the visible part of the
     // frame widens to the full frame at the frame's aspect ratio (inset values interpolate linearly), while

@@ -38,8 +38,6 @@ html:has(.cs-header) #home { scroll-margin-top: 100vh; }
 .cb-ddb-item a:hover .cb-ddb-thumb img { transform: scale(1.04); }
 .cb-ddb-copy { display: grid; gap: 4px; padding-right: 30px; }
 .cb-ddb-num { display: none; }
-.cb-ddb-roles { display: grid; gap: 2px; margin-top: 8px; font-size: 16px; color: var(--ink); }
-.cb-ddb-roles b { font-weight: 500; }
 @media (max-width: 1099px) { .cb-ddb-list { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Project finder: smaller tiles, more projects in view ---------- */
