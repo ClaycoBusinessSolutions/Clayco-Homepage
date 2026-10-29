@@ -303,15 +303,15 @@
 
     // Moving photographs (Seedance 2.5 clips, Kim 29 Oct): a media box with data-video gets a muted video over
     // its photograph, which stays underneath as the poster and the motion-off view. Clips play while on screen
-    // and pause off it; the band's crane shot starts with its window, once each time it comes into view; a
-    // door's clip plays only while the door is hovered or focused.
+    // and pause off it; the band's montage (Sam's hero video) starts with its window each time it comes into
+    // view, and loops like the others; a door's clip plays only while the door is hovered or focused.
     const clips = new Map();
     const cranes = new Set(); // band clips waiting for their figure to show
     const clipOf = media => {
       let video = clips.get(media);
       if (video) return video;
       video = document.createElement('video');
-      Object.assign(video, { muted: true, playsInline: true, preload: 'none', loop: !media.closest('.cb-photo') });
+      Object.assign(video, { muted: true, playsInline: true, preload: 'none', loop: true });
       video.className = 'n-clip'; video.setAttribute('aria-hidden', 'true'); video.setAttribute('muted', '');
       video.src = media.dataset.video;
       video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });

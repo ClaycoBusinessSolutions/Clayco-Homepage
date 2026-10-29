@@ -602,48 +602,17 @@ html body[data-theme="clayco-b"] .cf-social-link--youtube svg{height:22px}
 @media (min-width:1280px){html body[data-theme="clayco-b"] .cf-base .cf-link{white-space:nowrap}}
 @media (prefers-reduced-motion:reduce){html body[data-theme="clayco-b"] .cf-social-link{transition:none}}
 
-/* ---------- Family of companies and Offices, cleaned up (Kim, 29 Oct) ---------- */
-/* Logos only. Clayco, LJC and CRG on the first line, the rest on the second, on the same four columns. */
-@media (min-width:768px){
- html body[data-theme="clayco-b"] .cf--final .cf-family-row{grid-template-columns:repeat(4,minmax(0,1fr))}
- html body[data-theme="clayco-b"] .cf--final .cf-family-row > li:nth-child(-n+3){grid-row:1}
- html body[data-theme="clayco-b"] .cf--final .cf-family-row > li:nth-child(n+4){grid-row:2}
-}
-html body[data-theme="clayco-b"] .cf--final .cf-company{padding-bottom:16px}
-/* Offices: one line per city. Phones and narrow windows keep the stacked address. */
-html body[data-theme="clayco-b"] .cf-office-line{display:block}
-@media (min-width:768px){
- html body[data-theme="clayco-b"] .cf--final .cf-office-list{grid-template-columns:minmax(0,1fr);gap:0}
- html body[data-theme="clayco-b"] .cf--final .cf-office{display:grid;grid-template-columns:calc(clamp(20px,calc(17px + .6vw),26px) * 7) minmax(0,1fr);column-gap:var(--n-gap);align-items:baseline;padding:18px 0 16px}
- html body[data-theme="clayco-b"] .cf--final .cf-office-name{margin:0}
- html body[data-theme="clayco-b"] .cf--final .cf-office-more{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px}
- html body[data-theme="clayco-b"] .cf--final .cf-office-line{display:inline}
- html body[data-theme="clayco-b"] .cf--final .cf-office-line + .cf-office-line::before{content:", "}
- html body[data-theme="clayco-b"] .cf--final .cf-office-phone{margin:0}
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:15px}
-}
-/* The city column fits "South Carolina" (about seven times its size). Every office keeps to one line, so the
-   rows stay even; the longest address and phone need about 553px at 15px, so where the line is shorter the
-   details step down to 14px, and to 13px in the narrowest desktop column (1100–1199). */
-@media (min-width:768px){
- html body[data-theme="clayco-b"] .cf--final .cf-office-more{flex-wrap:nowrap}
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){white-space:nowrap}
-}
-@media (min-width:768px) and (max-width:899px),(min-width:1200px) and (max-width:1279px){
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:14px}
-}
-@media (min-width:1100px) and (max-width:1199px){
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:13px}
- html body[data-theme="clayco-b"] .cf--final .cf-office-more{column-gap:14px}
-}
-/* With a mouse, the line shows the city alone; hovering it slides the city across and wipes its address
-   and phone in from the left. Keyboard focus anywhere in the list shows every office, Raleigh (no phone) too.
-   The address and phone take their place in the line all along, so nothing below ever moves. */
-@media (min-width:768px) and (hover:hover) and (pointer:fine){
- html body[data-theme="clayco-b"] .cf--final .cf-office-name{transition:transform .55s cubic-bezier(.16,1,.3,1)}
- html body[data-theme="clayco-b"] .cf--final .cf-office :is(.cf-office-address,.cf-office-phone){opacity:0;transform:translateX(-16px);clip-path:inset(0 100% 0 0);transition:opacity .3s cubic-bezier(.33,1,.68,1),transform .6s cubic-bezier(.16,1,.3,1),clip-path .6s cubic-bezier(.16,1,.3,1)}
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office:hover,.cf-office-list:focus-within .cf-office) :is(.cf-office-address,.cf-office-phone){opacity:1;transform:none;clip-path:inset(-8px -8px -8px -8px)}
- html body[data-theme="clayco-b"] .cf--final :is(.cf-office:hover,.cf-office-list:focus-within .cf-office) .cf-office-phone{transition-delay:.06s}
- html body[data-theme="clayco-b"] .cf--final .cf-office:hover .cf-office-name{transform:translateX(12px)}
-}
-@media (prefers-reduced-motion:reduce){html body[data-theme="clayco-b"] .cf--final .cf-office :is(.cf-office-name,.cf-office-address,.cf-office-phone){transition:none!important;transform:none!important}}
+/* ---------- Family of companies, cleaned up (Kim, 29 Oct) ---------- */
+/* Logos only, larger and of one weight: every mark gets the same area — its width is √(its aspect) × --s —
+   so Ventana's long wordmark and CRG's compact one read alike. Six marks, three to a line from 768px:
+   Clayco, LJC and CRG, then Concrete Strategies, Ventana and Clayco Rising. */
+@media (min-width:768px){html body[data-theme="clayco-b"] .cf--final .cf-family-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
+html body[data-theme="clayco-b"] .cf--final .cf-company{padding-bottom:20px}
+html body[data-theme="clayco-b"] .cf--final .cf-company-mark{--s:clamp(60px,calc(48px + 2.4vw),84px);display:flex;align-items:center;min-height:calc(var(--s) * .66)}
+html body[data-theme="clayco-b"] .cf--final .cf-company-mark > :is(img,svg){width:calc(var(--k,1.9) * var(--s));height:auto;max-width:100%;max-height:none}
+
+/* The band (Kim, 29 Oct): Sam's construction montage, a little taller than the photograph was, framed on its
+   centre: half the window's width up to 820px on wider screens (was 41.667vw up to 680px), 5:4 on phones (was 4:3). */
+html body[data-theme="clayco-b"] .cb-photo .media{height:min(50vw,820px)}
+@media (max-width:767px){html body[data-theme="clayco-b"] .cb-photo .media{aspect-ratio:5/4;height:auto}}
+html body[data-theme="clayco-b"] .cb-photo :is(img,.media .n-clip){object-position:50% 50%}
