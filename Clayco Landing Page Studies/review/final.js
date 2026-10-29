@@ -51,6 +51,8 @@
     if (S.mode === 'mobile') S.show = design === 'both' ? 'both' : picked || 'both';
     if (query.get('rot') === 'land' && MODELS[S.model].rotates) S.rot = 'land';
   }
+  // Task-first's two open review calls (?window=line, ?footer=uncover) reach every page pane B loads, and stay in the address.
+  const SWITCHES = [...new URLSearchParams(location.search)].filter(([k, v]) => (k === 'window' && v === 'line') || (k === 'footer' && v === 'uncover'));
   let lastDesktop = S.mode === 'mobile' ? 'side' : S.mode;
   const shown = () => (S.mode === 'side' ? KEYS : S.mode === 'option' ? [S.solo] : S.show === 'both' ? KEYS : [S.show]);
   function dims() {
@@ -95,7 +97,9 @@
       : line.animate([{ transform: at, opacity: 1 }, { transform: 'scaleX(1)', opacity: 0 }], { duration: 480, easing: MOVE });
   }
   function load(key, page = DESIGNS[key].home) {
-    pages[key] = new URL(page, location.href).href;
+    const url = new URL(page, location.href);
+    if (key === 'b') SWITCHES.forEach(([k, v]) => url.searchParams.set(k, v));
+    pages[key] = url.href;
     loading(key, true);
     frames[key].src = pages[key];
     renderPane(key);
@@ -209,6 +213,7 @@
       url.searchParams.set('device', S.model);
       if (MODELS[S.model].rotates && S.rot === 'land') url.searchParams.set('rot', 'land');
     }
+    SWITCHES.forEach(([k, v]) => url.searchParams.set(k, v));
     history.replaceState(null, '', url);
   }
   const barHeight = () => html.style.setProperty('--bar-real', `${bar.offsetHeight}px`);
