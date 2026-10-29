@@ -107,7 +107,10 @@
 
   /* ------------------------------------------------------------ search (in-page over D.searchIndex; nothing is submitted) */
   let INDEX = { items: [], suggested: [] };
-  try { INDEX = JSON.parse($('#kd-search-data').textContent); } catch (_) { /* keep empty */ }
+  if (window.KD_SEARCH && Array.isArray(window.KD_SEARCH.items)) INDEX = window.KD_SEARCH;
+  // Only web and relative addresses become links (the index is the page's own data, but a javascript: or data:
+  // address in it should never be clickable).
+  const webHref = u => { try { const url = new URL(String(u), location.href); return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : ''; } catch (_) { return ''; } };
   const searchBtn = $('.hd-search');
   const srch = $('#kd-search');
   const fold = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '');
@@ -156,9 +159,11 @@
     const found = results(q);
     count.textContent = found.length ? `${found.length} result${found.length === 1 ? '' : 's'}` : 'No results';
     found.forEach(it => {
+      const href = webHref(it.url);
+      if (!href) return;
       const li = el('li');
       const a = el('a');
-      a.href = it.url;
+      a.href = href;
       if (/^https?:/.test(it.url)) { a.target = '_blank'; a.rel = 'noopener'; }
       a.append(el('span', 'sr-type', it.type), el('span', 'sr-title', it.title));
       if (it.subtitle) a.append(el('span', 'sr-sub', it.subtitle));
