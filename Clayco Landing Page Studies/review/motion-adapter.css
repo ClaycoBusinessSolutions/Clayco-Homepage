@@ -126,3 +126,8 @@
   [data-review-designer="sam-bromley"] .careers { grid-template-columns:minmax(0,1fr); }
   [data-review-designer="sam-bromley"] .careers > * { min-width:0; overflow-wrap:anywhere; }
 }
+
+/* Task-first's footer ends on its contact base, 28px from the foot; the deck's round buttons float 18px from the
+   window's foot and are 48px tall, so inside the deck the footer keeps 88px below its last line (29 Oct).
+   Only Task-first's footer carries .cf--final; this file reaches deck frames only, never final.html. */
+html body[data-theme] .cf.cf--final { padding-bottom: 88px; }

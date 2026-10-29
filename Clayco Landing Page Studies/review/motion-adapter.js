@@ -1,6 +1,6 @@
 import { MOTION_SECTIONS } from './motion-catalog.js';
 
-const CSS_URL = new URL('./motion-adapter.css?v=sam-b-20261019-5', import.meta.url).href;
+const CSS_URL = new URL('./motion-adapter.css?v=20261029-base', import.meta.url).href;
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
 const WIPE = 'cubic-bezier(.77,0,.18,1)';
 const MAPS = {

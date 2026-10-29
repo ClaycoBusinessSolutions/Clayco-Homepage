@@ -5,7 +5,7 @@
    clayco-b-motion.js (drawn rules, word masks, the finder indicator, the footer shade); the vonder
    round's states (window, panel shade, inked thesis, typeset labels) close the file. */
 html body[data-theme="clayco-b"]{
- --n-paper:#f6f6f3; --n-panel:#e9eae6; --n-panel-2:#dcded9;
+ --n-paper:#f6f6f3; --n-panel:#e9eae6; --n-panel-2:#dcded9; --n-warm:#fbf9f4;
  --n-ink:#1b1f1e; --n-muted:#5b625f; --n-line:rgb(27 31 30 / .14);
  --n-red:#E2231A; --n-red-text:#c41e16;
  --n-gap:clamp(12px,1.67vw,32px); --n-row:clamp(28px,2.5vw,48px); --n-section:clamp(48px,5vw,96px);
@@ -83,7 +83,8 @@ html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags{position:absolute;top:
 html body[data-theme="clayco-b"] .cb-proj[data-current="false"] .cb-proj-tags, html body[data-theme="clayco-b"] .cb-proj .tag+.tag{display:none}
 html body[data-theme="clayco-b"] .cb-finder-more{min-height:52px;padding:0 28px;border:1px solid var(--n-ink);border-radius:0;background:none;font:500 16px/1 var(--font)}
 /* integrated */
-html body[data-theme="clayco-b"] .section--panel{background:var(--n-panel)}
+/* Sections 03 and 05: a shade brighter and warmer than the page (Kim, 29 Oct), not concrete grey. */
+html body[data-theme="clayco-b"] .section--panel{background:var(--n-warm)}
 html body[data-theme="clayco-b"] .cb-flow{border-top:0;gap:0 var(--n-gap)}
 html body[data-theme="clayco-b"] .cb-flow-step{padding:16px 0 0;border-top:1px solid var(--n-ink);border-left:0;background:none;gap:12px}
 html body[data-theme="clayco-b"] .cb-flow-title{font:400 clamp(20px,calc(18.45px + .385vw),26px)/1.2 var(--font);letter-spacing:-.006em}
@@ -150,10 +151,10 @@ html body[data-theme="clayco-b"] .cf-company{border:0;background:var(--n-red);mi
 
 /* ---------- Motion states (clayco-b-motion.js) ---------- */
 /* The drawn rule replaces the border's colour, not its box, so motion and static layouts measure the same. */
-html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office)[data-n-rule]{border-top-color:transparent}
+html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office,.cf-base)[data-n-rule]{border-top-color:transparent}
 html body[data-theme="clayco-b"] :is(.cb-ddb-item,.news-card--story)[data-n-rule] > a{border-top-color:transparent}
 html body[data-theme="clayco-b"] .cb-door-list > li[data-n-rule] > .cb-door{border-bottom-color:transparent}
-html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office)[data-n-rule]::before{top:-1px}
+html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.cb-filters,.cf-office,.cf-base)[data-n-rule]::before{top:-1px}
 [data-n-rule]{position:relative}
 [data-n-rule]::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--n-rule,var(--n-line));transform-origin:0 50%;pointer-events:none}
 :is(.section-head,.cb-door-list,.cb-flow-step,.cb-ddb,.news-card--story)[data-n-rule]{--n-rule:var(--n-ink)}
@@ -161,11 +162,13 @@ html body[data-theme="clayco-b"] :is(.section-head,.cb-door-list,.cb-flow-step,.
 .cb-door-list > li[data-n-rule]::before{top:auto;bottom:0}
 /* Row rules are hairlines; the ink colour set on their list must not cascade into them. */
 .cb-door-list > li[data-n-rule], .cb-ddb-item[data-n-rule]{--n-rule:var(--n-line)}
-.cf-office[data-n-rule]{--n-rule:rgb(255 255 255 / .38)}
+:is(.cf-office,.cf-base)[data-n-rule]{--n-rule:rgb(255 255 255 / .38)}
 html.cbm [data-n-rule]:not(.is-set)::before{transform:scaleX(0)}
 html.cbm [data-n-rule].is-set::before{transition:transform 900ms cubic-bezier(.65,0,.35,1) var(--n-d,0ms)}
 html.cbm .n-wait[data-n-rule] > *, html.cbm .n-wait:not([data-n-rule]):not(.media){opacity:0}
 html.cbm .media.n-wait{clip-path:inset(100% 0 0 0)}
+/* The contact base's groups and emails sit in display:contents wrappers, which can't be hidden themselves. */
+html.cbm .cf-base.n-wait :is(.cf-base-groups,.cf-base-mail) > *{opacity:0}
 .n-mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
 .n-mask > span{display:inline-block}
 .cb-filter-chips.has-indicator{position:relative}
@@ -178,7 +181,6 @@ html.motion-off body[data-theme="clayco-b"] .n-indicator{display:none}
 @media (prefers-reduced-motion:reduce){html.cbm [data-n-rule]::before{transform:none!important}html.cbm .n-wait{opacity:1!important;clip-path:none!important}}
 /* Reset reads like the count beside it: sentence case, with a quiet rule. */
 html body[data-theme="clayco-b"] .cb-finder-reset{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none}
-html body[data-theme="clayco-b"] .cf-offices-count{font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none}
 /* The band caption now sits on paper, so its focus ring is red, not the white it had over the photo. */
 html body[data-theme="clayco-b"] .cb-photo-link:focus-visible{outline-color:var(--n-red)}
 @media (max-width:599px){
@@ -239,10 +241,6 @@ html body[data-theme="clayco-b"] .cf-family-row{gap:0 var(--n-gap);background:no
 html body[data-theme="clayco-b"] .cf-company{min-height:0;padding:16px 0 20px;border:0;border-top:1px solid rgb(255 255 255/.38)}
 html body[data-theme="clayco-b"] .cf-company-desc{font-size:14px;line-height:1.4}
 html body[data-theme="clayco-b"] .cf-label{font-size:16px}
-html body[data-theme="clayco-b"] :is(.cf-note,.cf-bottom .concept-tag,.cf-motion){font-size:14px;line-height:1.45}
-html body[data-theme="clayco-b"] .cf-note{max-width:72ch}
-html body[data-theme="clayco-b"] .cf-bottom .concept-tag{padding:0;border:0;gap:8px}
-html body[data-theme="clayco-b"] .cf-motion{padding:0;border:0;text-decoration:underline 1px rgb(255 255 255/.5);text-underline-offset:.3em}
 /* Project page: the lede steps below the section titles, body copy matches home, logos and milestones ruled. */
 html body[data-theme="clayco-b"] .cp-crumbs ol{font-size:16px}
 html body[data-theme="clayco-b"] .cp-summary{font-size:clamp(24px,calc(18px + 1vw),30px);line-height:1.28;max-width:34ch}
@@ -342,7 +340,6 @@ html body[data-theme="clayco-b"] .cf-sign{max-width:none;text-wrap:balance}
  html body[data-theme="clayco-b"] .cf-top{row-gap:48px}
  html body[data-theme="clayco-b"] .cf-sign{grid-column:1/-1;grid-row:1;margin:0}
  html body[data-theme="clayco-b"] .cf-brand>.wordmark{grid-column:1;grid-row:2;align-self:start;margin-top:4px}
- html body[data-theme="clayco-b"] .cf-contact{grid-column:2;grid-row:2}
 }
 @media (max-width:767px){html body[data-theme="clayco-b"] .cf-sign{font-size:clamp(28px,10.4vw,56px);line-height:1;letter-spacing:-.025em}}
 html body[data-theme="clayco-b"] :is(.cb-market-line,.cf-company-desc,.cb-ddb-sub){text-wrap:pretty}
@@ -414,16 +411,11 @@ html body[data-theme="clayco-b"] .cp-photo-zoom{display:none}
 html body[data-theme="clayco-b"] .cf-heading{margin:0 0 24px;font:400 clamp(26px,calc(22px + 1vw),38px)/1.1 var(--font);letter-spacing:-.012em;color:#fff}
 html body[data-theme="clayco-b"] .cf-offices-head{align-items:baseline}
 html body[data-theme="clayco-b"] .cf-offices-head .cf-heading{margin-bottom:0}
-html body[data-theme="clayco-b"] .cf-offices-count{font:500 15px/1.3 var(--font)}
 /* Level 2: city and company names; level 3: addresses, phones and descriptions. */
 html body[data-theme="clayco-b"] .cf-office-name{margin:0 0 10px;font:400 clamp(20px,calc(17px + .6vw),26px)/1.2 var(--font);letter-spacing:-.006em}
 html body[data-theme="clayco-b"] :is(.cf-office-address,.cf-office-phone){font-size:16px;line-height:1.5}
 html body[data-theme="clayco-b"] .cf-office-phone{font-weight:500;text-decoration:underline 1px rgb(255 255 255/.5);text-underline-offset:.3em}
 /* Contact: a ruled list at reading size; a label sits left of its address where there is one. */
-html body[data-theme="clayco-b"] .cf-contact ul{display:grid;gap:0;border-top:1px solid rgb(255 255 255/.38)}
-html body[data-theme="clayco-b"] .cf-contact li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid rgb(255 255 255/.38)}
-html body[data-theme="clayco-b"] .cf-contact .cf-label{margin:0;font:400 clamp(18px,calc(16px + .4vw),22px)/1.3 var(--font);color:#fff}
-html body[data-theme="clayco-b"] .cf-contact .cf-link{min-height:0;padding-bottom:4px;font:500 clamp(18px,calc(16px + .4vw),22px)/1.3 var(--font)}
 /* Family of companies: on hover a white rule draws across the cell's top and the mark lifts. */
 html body[data-theme="clayco-b"] .cf-company{position:relative}
 html body[data-theme="clayco-b"] .cf-company::before{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:#fff;transform:scaleX(0);transform-origin:right;transition:transform .735s cubic-bezier(.625,.05,0,1)}
@@ -487,23 +479,18 @@ html.motion-off body[data-theme="clayco-b"] :is(.cb-door,.cb-door-media,.cb-door
 /* Case studies: the text block spans the card, so the team rules run the full width. */
 html body[data-theme="clayco-b"] .cb-ddb-item a{align-items:stretch}
 
-/* ---------- Footer reorganised (29 Oct): a signature, then three sections — Contact, Family of companies,
+/* ---------- Footer reorganised (29 Oct): a signature, then two sections — Family of companies and
    Offices — each opening on one full-width rule with its heading in a left column and its content on the
    right; even space between them and no doubled rules. ---------- */
 html body[data-theme="clayco-b"] .cf-brand{display:contents}
 html body[data-theme="clayco-b"] .cf-top{display:grid;grid-template-columns:minmax(0,1fr);row-gap:0;padding:0;border:0}
 html body[data-theme="clayco-b"] .cf-brand>.wordmark{grid-column:1;grid-row:1;width:clamp(120px,10vw,168px);margin:0 0 clamp(20px,2vw,32px)}
 html body[data-theme="clayco-b"] .cf-sign{grid-column:1;grid-row:2;margin:0 0 clamp(56px,6vw,104px)}
-html body[data-theme="clayco-b"] .cf-contact{grid-column:1;grid-row:3}
-html body[data-theme="clayco-b"] :is(.cf-contact,.cf-family,.cf-offices){display:grid;grid-template-columns:minmax(0,1fr);row-gap:24px;margin:0;padding-block:clamp(36px,3.6vw,56px) clamp(48px,4.6vw,72px);border:0;border-top:1px solid rgb(255 255 255/.38)}
-html body[data-theme="clayco-b"] :is(.cf-contact,.cf-family,.cf-offices) .cf-heading{margin:0}
+html body[data-theme="clayco-b"] :is(.cf-family,.cf-offices){display:grid;grid-template-columns:minmax(0,1fr);row-gap:24px;margin:0;padding-block:clamp(36px,3.6vw,56px) clamp(48px,4.6vw,72px);border:0;border-top:1px solid rgb(255 255 255/.38)}
+html body[data-theme="clayco-b"] :is(.cf-family,.cf-offices) .cf-heading{margin:0}
 html body[data-theme="clayco-b"] .cf-offices-head{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
-html body[data-theme="clayco-b"] .cf-offices-count{margin:0}
-html body[data-theme="clayco-b"] .cf-bottom{margin-top:0;padding-top:28px;border-top:1px solid rgb(255 255 255/.38)}
 @media (min-width:1100px){
- html body[data-theme="clayco-b"] :is(.cf-contact,.cf-family,.cf-offices){grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--n-gap);row-gap:0;align-items:start}
- html body[data-theme="clayco-b"] .cf-contact ul{border-top:0}
- html body[data-theme="clayco-b"] .cf-contact li:first-child{padding-top:0}
+ html body[data-theme="clayco-b"] :is(.cf-family,.cf-offices){grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--n-gap);row-gap:0;align-items:start}
  html body[data-theme="clayco-b"] .cf--final .cf-family-row{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:clamp(20px,2vw,32px)}
  html body[data-theme="clayco-b"] .cf-family-row .cf-company{padding-top:16px}
  html body[data-theme="clayco-b"] .cf-office-list{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -546,3 +533,117 @@ html.cbm a.n-rolls:focus-visible::before{transform:translateY(-50%) scale(0);tra
 /* Left mid-roll: the label rolls straight back (clayco-b-motion.js adds .n-back). */
 html.cbm a.n-back:not(:hover) .n-ro{transition-delay:calc(var(--i) * 55ms)}
 html.cbm .cf a.n-rolls::before{background:currentColor}
+
+/* ---------- Contact base (Kim, 29 Oct): the contact moves to the foot of the footer in vonder.ai's
+   arrangement — small capitals in groups, the trade emails beneath them, Clayco's social icons over the
+   year on the right — a step larger than vonder's 11px. The groups and emails sit on the Offices' columns
+   above (one grid, the groups wrapper set to contents). Vonder dims its links to half and lights them on
+   hover; white at half on Clayco red is 2:1, so the type stays white and the hover is vonder's word roll and
+   square (clayco-b-motion.js). The icons sit at 85% (3.7:1, above the 3:1 for graphics) and light up. The
+   lines slide up out of their own baselines as the base arrives. ---------- */
+html body[data-theme="clayco-b"] .cf-base{--g2:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--g2);row-gap:28px;padding-top:clamp(32px,3vw,48px);border-top:1px solid rgb(255 255 255/.38);font:500 clamp(12px,calc(10.4px + .22vw),14px)/1.3 var(--font);letter-spacing:.05em;text-transform:uppercase;color:#fff}
+html body[data-theme="clayco-b"] .cf-base-groups{display:contents}
+/* Phones and tablets: the office list's two columns, in source order — Contact | Trade partners, then Legal.
+   Phones then take the icons, the emails and the year one row each; tablets set the icons level with
+   Legal's last line and the year beside the emails. */
+html body[data-theme="clayco-b"] .cf-base-group--contact{grid-column:1;grid-row:1}
+html body[data-theme="clayco-b"] .cf-base-group--trade{grid-column:2;grid-row:1}
+html body[data-theme="clayco-b"] .cf-base-group--legal{grid-column:1;grid-row:2}
+html body[data-theme="clayco-b"] .cf-social{grid-column:1/-1;grid-row:3;justify-self:start}
+html body[data-theme="clayco-b"] .cf-base-mail{grid-column:1/-1;grid-row:4;display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:0}
+html body[data-theme="clayco-b"] .cf-copy{grid-column:1/-1;grid-row:5;justify-self:start;margin:0}
+html body[data-theme="clayco-b"] .cf-base-head{margin:0 0 10px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+/* 9px between lines keeps every link 24px from the next, centre to centre (WCAG 2.5.8 spacing). */
+html body[data-theme="clayco-b"] .cf-base-group ul{display:grid;gap:9px;justify-items:start}
+/* A label that has to wrap breaks into two even lines, never a lone word. */
+html body[data-theme="clayco-b"] .cf-base .cf-link{display:inline-block;min-height:0;padding:0;border:0;background:none;font:400 1em/1.3 var(--font);letter-spacing:inherit;color:inherit;text-wrap:balance}
+html body[data-theme="clayco-b"] .cf-base .cf-link::after{inset:-3px -4px}
+html body[data-theme="clayco-b"] .cf-base-line{display:inline-flex;flex-wrap:wrap;gap:0 .5em}
+html body[data-theme="clayco-b"] .cf-base-email{font-weight:400;text-decoration:underline 1px rgb(255 255 255/.5);text-underline-offset:.35em}
+html body[data-theme="clayco-b"] .cf-base-email:is(:hover,:focus-visible){text-decoration-color:#fff}
+/* Icons: about 12px between glyphs (Facebook's 24px minimum target adds 1.7px either side), each glyph
+   sized to the others' optical height; 32px tall targets, 44px square on touch screens. */
+html body[data-theme="clayco-b"] .cf-social{display:flex;align-items:center;gap:0;margin:0 -6px}
+html body[data-theme="clayco-b"] .cf-social-link{display:flex;align-items:center;justify-content:center;min-width:24px;height:32px;padding:0 6px;color:#fff;opacity:.85;transition:opacity .2s}
+html body[data-theme="clayco-b"] .cf-social-link:is(:hover,:focus-visible){opacity:1}
+html body[data-theme="clayco-b"] .cf-social-link svg{display:block;width:auto;height:18px}
+html body[data-theme="clayco-b"] .cf-social-link--twitter svg{height:21px}
+html body[data-theme="clayco-b"] .cf-social-link--youtube svg{height:22px}
+@media (pointer:coarse){
+ html body[data-theme="clayco-b"] .cf-base-group ul{gap:12px}
+ html body[data-theme="clayco-b"] .cf-social{margin:0 -11px 0 -13px}
+ html body[data-theme="clayco-b"] .cf-social-link{width:44px;height:44px;padding:0}
+}
+/* From 600px the office list's gutter widens; the base keeps to it. */
+@media (min-width:600px){html body[data-theme="clayco-b"] .cf-base{--g2:clamp(20px,3vw,48px)}}
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .cf-social{grid-column:2;grid-row:2;justify-self:end;align-self:end;margin-bottom:-7px}
+ html body[data-theme="clayco-b"] .cf-base-mail{grid-column:1;grid-row:3}
+ html body[data-theme="clayco-b"] .cf-copy{grid-column:2;grid-row:3;justify-self:end;align-self:end}
+}
+/* Desktop: the Offices' tracks — the 4fr heading column, then the office list's three columns — so Contact
+   sits under "Offices", Trade partners and Legal under the first two office columns, the icons and the year
+   at the right; the second email starts on the first office column. */
+@media (min-width:1100px){
+ html body[data-theme="clayco-b"] .cf-base{grid-template-columns:calc((100% - var(--n-gap)) / 3 + var(--n-gap) - var(--g2)) repeat(3,minmax(0,1fr));row-gap:clamp(32px,3vw,48px)}
+ html body[data-theme="clayco-b"] .cf-base-group--trade{grid-column:2;grid-row:1}
+ html body[data-theme="clayco-b"] .cf-base-group--legal{grid-column:3;grid-row:1}
+ html body[data-theme="clayco-b"] .cf-social{grid-column:4;grid-row:1}
+ html body[data-theme="clayco-b"] .cf-base-mail{display:contents}
+ html body[data-theme="clayco-b"] .cf-base-line{grid-row:2;align-self:end}
+ html body[data-theme="clayco-b"] .cf-base-line:first-child{grid-column:1}
+ html body[data-theme="clayco-b"] .cf-base-line + .cf-base-line{grid-column:2/4}
+ html body[data-theme="clayco-b"] .cf-copy{grid-column:4;grid-row:2}
+}
+@media (min-width:768px) and (pointer:coarse){html body[data-theme="clayco-b"] .cf-social{margin-bottom:-13px}}
+/* The emails stay on one line from 1200px (the second runs into the empty start of the icons' column at
+   most); the longest labels from 1280px, where at least 27px stays clear of the next column. */
+@media (min-width:1200px){html body[data-theme="clayco-b"] .cf-base-line{flex-wrap:nowrap;white-space:nowrap}}
+@media (min-width:1280px){html body[data-theme="clayco-b"] .cf-base .cf-link{white-space:nowrap}}
+@media (prefers-reduced-motion:reduce){html body[data-theme="clayco-b"] .cf-social-link{transition:none}}
+
+/* ---------- Family of companies and Offices, cleaned up (Kim, 29 Oct) ---------- */
+/* Logos only. Clayco, LJC and CRG on the first line, the rest on the second, on the same four columns. */
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .cf--final .cf-family-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+ html body[data-theme="clayco-b"] .cf--final .cf-family-row > li:nth-child(-n+3){grid-row:1}
+ html body[data-theme="clayco-b"] .cf--final .cf-family-row > li:nth-child(n+4){grid-row:2}
+}
+html body[data-theme="clayco-b"] .cf--final .cf-company{padding-bottom:16px}
+/* Offices: one line per city. Phones and narrow windows keep the stacked address. */
+html body[data-theme="clayco-b"] .cf-office-line{display:block}
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .cf--final .cf-office-list{grid-template-columns:minmax(0,1fr);gap:0}
+ html body[data-theme="clayco-b"] .cf--final .cf-office{display:grid;grid-template-columns:calc(clamp(20px,calc(17px + .6vw),26px) * 7) minmax(0,1fr);column-gap:var(--n-gap);align-items:baseline;padding:18px 0 16px}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-name{margin:0}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-more{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-line{display:inline}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-line + .cf-office-line::before{content:", "}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-phone{margin:0}
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:15px}
+}
+/* The city column fits "South Carolina" (about seven times its size). Every office keeps to one line, so the
+   rows stay even; the longest address and phone need about 553px at 15px, so where the line is shorter the
+   details step down to 14px, and to 13px in the narrowest desktop column (1100–1199). */
+@media (min-width:768px){
+ html body[data-theme="clayco-b"] .cf--final .cf-office-more{flex-wrap:nowrap}
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){white-space:nowrap}
+}
+@media (min-width:768px) and (max-width:899px),(min-width:1200px) and (max-width:1279px){
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:14px}
+}
+@media (min-width:1100px) and (max-width:1199px){
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office-address,.cf-office-phone){font-size:13px}
+ html body[data-theme="clayco-b"] .cf--final .cf-office-more{column-gap:14px}
+}
+/* With a mouse, the line shows the city alone; hovering it slides the city across and wipes its address
+   and phone in from the left. Keyboard focus anywhere in the list shows every office, Raleigh (no phone) too.
+   The address and phone take their place in the line all along, so nothing below ever moves. */
+@media (min-width:768px) and (hover:hover) and (pointer:fine){
+ html body[data-theme="clayco-b"] .cf--final .cf-office-name{transition:transform .55s cubic-bezier(.16,1,.3,1)}
+ html body[data-theme="clayco-b"] .cf--final .cf-office :is(.cf-office-address,.cf-office-phone){opacity:0;transform:translateX(-16px);clip-path:inset(0 100% 0 0);transition:opacity .3s cubic-bezier(.33,1,.68,1),transform .6s cubic-bezier(.16,1,.3,1),clip-path .6s cubic-bezier(.16,1,.3,1)}
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office:hover,.cf-office-list:focus-within .cf-office) :is(.cf-office-address,.cf-office-phone){opacity:1;transform:none;clip-path:inset(-8px -8px -8px -8px)}
+ html body[data-theme="clayco-b"] .cf--final :is(.cf-office:hover,.cf-office-list:focus-within .cf-office) .cf-office-phone{transition-delay:.06s}
+ html body[data-theme="clayco-b"] .cf--final .cf-office:hover .cf-office-name{transform:translateX(12px)}
+}
+@media (prefers-reduced-motion:reduce){html body[data-theme="clayco-b"] .cf--final .cf-office :is(.cf-office-name,.cf-office-address,.cf-office-phone){transition:none!important;transform:none!important}}

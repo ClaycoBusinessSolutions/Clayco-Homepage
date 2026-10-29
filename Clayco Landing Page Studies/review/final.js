@@ -1,6 +1,6 @@
-/* Final review: the two finalist designs, presented three ways — Option (one design fills the
-   stage), Side by side (both at desktop width, scaled to fit) and Mobile (CSS-drawn devices with
-   one design or both). Classic script so it also opens from disk. */
+/* Final review: the two finalist designs, the current claycorp.com and the Kiewit-style study, presented
+   three ways — Option (one fills the stage), Side by side (any two or more at desktop width, scaled to fit)
+   and Mobile (CSS-drawn devices showing any one or more). Classic script so it also opens from disk. */
 (() => {
   'use strict';
   const DESIGNS = {
@@ -10,6 +10,12 @@
       // Task-first hands these links to its host page when embedded (see animated/README.md).
       routes: { projects: '../../animated/project-clayco-b.html', cases: '../../animated/clayco-case-studies.html', ljc: '../../animated/project-ljc.html', reverberation: '../../animated/reverberation.html' },
     },
+    // The current claycorp.com, for reference (29 Oct): its homepage HTML captured onto this origin
+    // (tools/capture-claycorp.py), so it scrolls with the others; images, styles, scripts and links come
+    // from claycorp.com, live. Open goes to the live site. Loaded the first time it shows.
+    c: { home: 'designs/claycorp-current/index.html', open: 'https://claycorp.com/', lazy: true },
+    // Option D (29 Oct): Clayco's homepage in kiewit.com's design language (animated/KIEWIT-STUDY.md).
+    d: { home: '../../animated/clayco-kiewit.html', lazy: true },
   };
   const DESKTOP_WIDTH = 1280;  // side by side, each design lays out as on a 1280px laptop
   // Screen = the CSS px viewport each device gives the page (the body adds the bezel); status = its status bar.
@@ -22,8 +28,11 @@
   const ORDER = Object.keys(MODELS);
   const PHONE_BOX = Object.values(MODELS).filter(m => !m.rotates)
     .reduce((box, m) => ({ dw: Math.max(box.dw, m.w + 2 * m.bezel), dh: Math.max(box.dh, m.h + 2 * m.bezel) }), { dw: 0, dh: 0 });
-  const KEYS = ['a', 'b'];
-  const LABELS = { a: 'A · Sam Alcarez, Tweaked original', b: 'B · Dohyoung Kim, Task-first' };
+  const KEYS = ['a', 'b', 'c', 'd'];
+  const LABELS = { a: 'A · Sam Alcarez, Tweaked original', b: 'B · Dohyoung Kim, Task-first', c: 'C · the current claycorp.com', d: 'D · Kiewit-style study' };
+  const ordered = keys => KEYS.filter(key => keys.includes(key));
+  // Side by side compares any two or more; Mobile shows any one or more devices.
+  const MIN = { pair: 2, show: 1 };
   const MODE_LABELS = { option: 'Option', side: 'Side by side', mobile: 'Mobile' };
   const PAD_Y = 24, PAD_X = 28, CAPTION = 40;
   const MOVE = 'cubic-bezier(.65,0,.35,1)', ARRIVE = 'cubic-bezier(.16,1,.3,1)', DURATION = 700;
@@ -33,28 +42,32 @@
   const html = document.documentElement, body = document.body, stage = $('#stage'), bar = $('#bar');
   const panes = Object.fromEntries(KEYS.map(key => [key, $(`#pane-${key}`)]));
   const frames = Object.fromEntries(KEYS.map(key => [key, $('iframe', panes[key])]));
-  const pages = { a: DESIGNS.a.home, b: DESIGNS.b.home };
+  const pages = Object.fromEntries(KEYS.map(key => [key, DESIGNS[key].home]));
+  const joining = new Set();  // panes (re)loaded by the review, which join the others while scrolling together
   const sameOrigin = event => event.origin === location.origin || (location.protocol === 'file:' && event.origin === 'null');
 
   // ---------- State, read from the address; old ?view=a|b|side&device=phone links still open ----------
-  const S = { mode: 'side', solo: 'a', show: 'both', model: 'iphone', rot: 'port', chrome: 'shown' };
+  const S = { mode: 'side', solo: 'a', pair: ['a', 'b'], show: ['a', 'b'], model: 'iphone', rot: 'port', chrome: 'shown', sync: false };
   {
     const query = new URLSearchParams(location.search);
     const mode = query.get('mode'), design = query.get('design'), device = query.get('device'), view = query.get('view');
-    const single = value => (value === 'a' || value === 'b' ? value : null);
+    const single = value => (KEYS.includes(value) ? value : null);
+    const list = value => ordered((value || '').split(','));
     if (MODELS[device]) S.model = device;
     if (['option', 'side', 'mobile'].includes(mode)) S.mode = mode;
     else if (device === 'phone') S.mode = 'mobile';
     else if (single(view)) S.mode = 'option';
     const picked = single(design) || single(view);
     if (picked) S.solo = picked;
-    if (S.mode === 'mobile') S.show = design === 'both' ? 'both' : picked || 'both';
+    if (list(query.get('compare')).length >= MIN.pair) S.pair = list(query.get('compare'));
+    if (S.mode === 'mobile') S.show = design === 'both' ? ['a', 'b'] : list(design).length ? list(design) : picked ? [picked] : ['a', 'b'];
     if (query.get('rot') === 'land' && MODELS[S.model].rotates) S.rot = 'land';
+    S.sync = query.get('sync') === '1' && location.protocol !== 'file:';
   }
   // Task-first's two open review calls (?window=line, ?footer=uncover) reach every page pane B loads, and stay in the address.
   const SWITCHES = [...new URLSearchParams(location.search)].filter(([k, v]) => (k === 'window' && v === 'line') || (k === 'footer' && v === 'uncover'));
   let lastDesktop = S.mode === 'mobile' ? 'side' : S.mode;
-  const shown = () => (S.mode === 'side' ? KEYS : S.mode === 'option' ? [S.solo] : S.show === 'both' ? KEYS : [S.show]);
+  const shown = () => (S.mode === 'side' ? S.pair : S.mode === 'option' ? [S.solo] : S.show);
   function dims() {
     const m = MODELS[S.model], land = S.rot === 'land' && m.rotates;
     const sw = land ? m.h : m.w, sh = land ? m.w : m.h;
@@ -74,8 +87,8 @@
     if (event.target.closest?.('#device-menu')) return;
     const action = {
       '1': () => setMode('option'), '2': () => setMode('side'), '3': () => setMode('mobile'),
-      a: () => pick('a'), b: () => pick('b'), '[': () => cycle(-1), ']': () => cycle(1), r: rotate,
-      h: toggleChrome, f: toggleFullscreen, m: () => setMode('mobile'), d: () => { if (S.mode === 'mobile') setMode(lastDesktop); }, '?': () => toggleLegend(),
+      a: () => pick('a'), b: () => pick('b'), c: () => pick('c'), d: () => pick('d'), '[': () => cycle(-1), ']': () => cycle(1), r: rotate,
+      h: toggleChrome, f: toggleFullscreen, s: () => toggleSync(), m: () => setMode('mobile'), '?': () => toggleLegend(),
     }[event.key.length === 1 ? event.key.toLowerCase() : ''];
     if (!action) return;
     event.preventDefault();
@@ -109,7 +122,7 @@
     const atHome = here === new URL(DESIGNS[key].home, location.href).pathname;
     $('.pane-home', panes[key]).hidden = atHome;
     panes[key].classList.toggle('is-away', !atHome);
-    $('.pane-open', panes[key]).href = pages[key];
+    $('.pane-open', panes[key]).href = (atHome && DESIGNS[key].open) || pages[key];
   }
   function prepare(key) {
     let doc;
@@ -126,10 +139,16 @@
     if (!doc.documentElement.dataset.finalLinks) {
       doc.documentElement.dataset.finalLinks = '';
       doc.addEventListener('keydown', onKey);
+      doc.defaultView.addEventListener('scroll', () => follow(key), { passive: true });
       doc.addEventListener('pointerdown', () => { closeMenu(); toggleLegend(false); }, true);
       doc.addEventListener('click', event => {
         const a = event.target.closest?.('a[href]');
         if (!a || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const raw = a.getAttribute('href');
+        if (raw?.startsWith('#') && raw.length > 1 && doc.getElementById(decodeURIComponent(raw.slice(1)))) {
+          // The capture's <base> would turn #main into claycorp.com/#main; stay on the page instead.
+          event.preventDefault(); doc.getElementById(decodeURIComponent(raw.slice(1))).scrollIntoView(); return;
+        }
         const url = new URL(a.href, doc.baseURI);
         if (/^https?:$/.test(url.protocol) && url.origin !== location.origin) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
       }, true);
@@ -165,6 +184,14 @@
     if (frames[key].src === 'about:blank') return;
     loading(key, false);
     prepare(key); renderPane(key); settleReveals(key);
+    // A pane the review (re)loads while scrolling together joins the others where they are: at the pane
+    // scrolled last, or the furthest down. Its own navigation (a project page, a deep link) keeps its place.
+    if (joining.delete(key) && S.sync && shown().includes(key) && winOf(key)) {
+      const others = shown().filter(k => k !== key && winOf(k));
+      const ref = others.includes(lastScrolled) ? lastScrolled : others.sort((x, y) => winOf(y).scrollY - winOf(x).scrollY)[0];
+      if (ref) winOf(key).scrollTo({ top: winOf(ref).scrollY, behavior: 'instant' });
+    }
+    if (winOf(key)) at[key] = winOf(key).scrollY;
     // From disk the page is another origin: its packaged bridge applies the device scrollbar style.
     if (location.protocol === 'file:') frames[key].contentWindow?.postMessage({ type: 'review-motion', method: 'device', device: S.mode === 'mobile' ? 'mobile' : 'desktop' }, '*');
   }));
@@ -208,30 +235,43 @@
     url.search = '';
     if (S.mode !== 'side') url.searchParams.set('mode', S.mode);
     if (S.mode === 'option') url.searchParams.set('design', S.solo);
+    if (S.pair.join() !== 'a,b') url.searchParams.set('compare', S.pair.join());
     if (S.mode === 'mobile') {
-      url.searchParams.set('design', S.show);
+      url.searchParams.set('design', S.show.join() === 'a,b' ? 'both' : S.show.join());
       url.searchParams.set('device', S.model);
       if (MODELS[S.model].rotates && S.rot === 'land') url.searchParams.set('rot', 'land');
     }
+    if (S.sync) url.searchParams.set('sync', '1');
     SWITCHES.forEach(([k, v]) => url.searchParams.set(k, v));
+    url.search = url.search.replace(/%2C/gi, ',');
     history.replaceState(null, '', url);
   }
   const barHeight = () => html.style.setProperty('--bar-real', `${bar.offsetHeight}px`);
   const tools = $('.tools', bar);
+  // The bar gives up room in stages: the tool labels, then Scroll together's label and the design names,
+  // and only then wraps onto two rows.
   function fitBar() {
-    bar.classList.remove('is-compact', 'is-wrapped');
+    bar.classList.remove('is-compact', 'is-tight', 'is-wrapped');
     const over = () => tools.getBoundingClientRect().right > bar.getBoundingClientRect().right - parseFloat(getComputedStyle(bar).paddingRight) + .5;
-    if (over()) bar.classList.add('is-compact');
-    if (over()) bar.classList.add('is-wrapped');
+    for (const stage of ['is-compact', 'is-tight', 'is-wrapped']) if (over()) bar.classList.add(stage);
   }
   let booted = false;
   function render() {
     const show = shown(), d = dims();
-    Object.assign(body.dataset, { mode: S.mode, layout: show.length > 1 ? 'duo' : 'single', model: S.model, rot: S.rot, chrome: S.chrome });
+    Object.assign(body.dataset, { mode: S.mode, layout: ['single', 'duo', 'trio', 'quad'][show.length - 1], model: S.model, rot: S.rot, chrome: S.chrome });
     for (const name of ['sw', 'sh', 'dw', 'dh', 'bezel', 'status']) body.style.setProperty(`--${name}`, `${d[name]}px`);
-    KEYS.forEach(key => { panes[key].dataset.shown = String(show.includes(key)); });
-    press('mode', S.mode); press('solo', S.solo); press('show', S.show);
+    // Each shown pane takes the next column (or row) in A–D order; the others wait, hidden, in the first.
+    KEYS.forEach(key => { const at = show.indexOf(key); panes[key].dataset.shown = String(at >= 0); panes[key].style.setProperty('--slot', String(at + 1 || 1)); });
+    press('mode', S.mode); press('solo', S.solo);
+    $$('[data-pick]').forEach(group => {
+      const set = S[group.dataset.pick];
+      $$('button', group).forEach(b => b.setAttribute('aria-pressed', String(set.includes(b.dataset.key))));
+    });
     $$('[data-ctx]').forEach(el => { const on = el.dataset.ctx === S.mode; if (el.hidden === on) { el.hidden = !on; if (on) arrive(el); } });
+    // Scroll together needs two panes on screen, and pages it can reach (from disk, every frame is another origin).
+    const together = show.length > 1 && location.protocol !== 'file:';
+    if (syncButton.hidden === together) { syncButton.hidden = !together; if (together) arrive(syncButton); }
+    syncButton.setAttribute('aria-pressed', String(S.sync && together));
     const rotateButton = $('#rotate'), rotates = Boolean(MODELS[S.model].rotates);
     if (rotateButton.hidden === rotates) { rotateButton.hidden = !rotates; if (rotates) arrive(rotateButton); }
     rotateButton.setAttribute('aria-pressed', String(S.rot === 'land'));
@@ -249,10 +289,13 @@
     $$('.cap-vp').forEach(el => { el.textContent = `${d.sw} × ${d.sh - d.status} viewport`; });
     fitBar(); fit(); indicators(); barHeight(); urlState();
   }
-  function announce() {
+  function announce(onlySync = false) {
+    if (onlySync) { $('#announce').textContent = `Scroll together ${S.sync ? 'on' : 'off'}`; return; }
     const parts = [MODE_LABELS[S.mode]];
     if (S.mode === 'option') parts.push(LABELS[S.solo]);
-    if (S.mode === 'mobile') parts.push(dims().name, S.show === 'both' ? 'both designs' : LABELS[S.show]);
+    if (S.mode === 'side') parts.push(S.pair.map(key => LABELS[key]).join(', '));
+    if (S.mode === 'mobile') parts.push(dims().name, S.show.map(key => LABELS[key]).join(', '));
+    if (S.sync && shown().length > 1) parts.push('scrolling together');
     if (S.chrome === 'hidden') parts.push('header hidden');
     $('#announce').textContent = parts.join(' · ');
   }
@@ -268,7 +311,9 @@
       } catch { return null; }
     });
   }
+  let holding = 0;  // until then, scroll events are the review's own hold, not a reader's
   function restore(saved) {
+    holding = performance.now() + 400;
     requestAnimationFrame(() => requestAnimationFrame(() => saved.forEach(a => {
       if (a && a.el.isConnected) a.win.scrollTo({ top: a.win.scrollY + a.el.getBoundingClientRect().top - a.top, behavior: 'instant' });
     })));
@@ -327,7 +372,7 @@
       const el = panes[key];
       if (el.dataset.shown !== 'true') return;
       if (plan.vtEnter.includes(key)) {
-        anims.push(el.animate([{ opacity: 0, translate: `${key === 'a' ? -8 : 8}% 0` }, { opacity: 1, translate: '0 0' }], { duration: 720, easing: ARRIVE }));
+        anims.push(el.animate([{ opacity: 0, translate: `${el.style.getPropertyValue('--slot') === '1' ? -8 : 8}% 0` }, { opacity: 1, translate: '0 0' }], { duration: 720, easing: ARRIVE }));
       } else {
         const a = before[key], b = el.getBoundingClientRect();
         if (a.width && b.width && Math.abs(a.left - b.left) + Math.abs(a.top - b.top) + Math.abs(a.width - b.width) + Math.abs(a.height - b.height) > 1) {
@@ -348,10 +393,10 @@
     track(anims, () => {});
     sweep();
   }
-  // Option A ↔ B: the next design wipes in from its side behind a red hairline.
-  // Mobile A ↔ B: the devices trade places, the outgoing one sliding away.
-  function swap(from, update) {
-    const to = from === 'a' ? 'b' : 'a', dir = to === 'b' ? 1 : -1;
+  // Option, one design to another: the next wipes in from its side (A–D order) behind a red hairline.
+  // Mobile, one device to another: the devices trade places, the outgoing one sliding away.
+  function swap(from, to, update) {
+    const dir = KEYS.indexOf(to) > KEYS.indexOf(from) ? 1 : -1;
     update();
     if (reduce.matches) return;
     const incoming = panes[to], outgoing = panes[from], anims = [];
@@ -423,24 +468,28 @@
     settle();
     const before = { ...S, shown: shown(), size: sizeKey() };
     Object.assign(S, patch);
-    if (Object.keys(S).every(k => S[k] === before[k])) return;
+    if (Object.keys(S).every(k => String(S[k]) === String(before[k]))) return;
     closeMenu();
     if (before.mode !== 'mobile') lastDesktop = before.mode;
     const after = shown(), reload = before.size !== sizeKey(), chrome = before.chrome !== S.chrome;
-    const saved = reload ? null : anchors();
+    // Turning Scroll together on or off moves nothing, so there is no place to hold.
+    const onlySync = Object.keys(S).every(k => k === 'sync' || String(S[k]) === String(before[k]));
+    const saved = reload || onlySync ? null : anchors();
     const update = () => {
       if (chrome) { body.classList.add('chrome-switch'); requestAnimationFrame(() => requestAnimationFrame(() => body.classList.remove('chrome-switch'))); }
       render();
       if (chrome) chromeChanged();
-      if (reload) KEYS.forEach(key => load(key, pages[key]));
-      else restore(saved);
+      // A new width reloads every pane that has loaded; the current site's pane loads the first time it shows.
+      if (reload) KEYS.forEach(key => { if (frames[key].getAttribute('src') !== 'about:blank' || after.includes(key)) { joining.add(key); load(key, pages[key]); } });
+      else if (saved) { restore(saved); after.forEach(key => { if (frames[key].getAttribute('src') === 'about:blank') { joining.add(key); load(key); } }); }
+      if (S.sync && !before.sync) align();
       requestAnimationFrame(() => KEYS.forEach(revealVisible));
     };
     const same = before.mode === S.mode && !chrome;
-    if (same && S.mode === 'option' && before.solo !== S.solo) swap(before.solo, update);
+    if (same && S.mode === 'option' && before.solo !== S.solo) swap(before.solo, S.solo, update);
     else if (same && S.mode === 'mobile' && before.model !== S.model) morph(update);
     else if (same && S.mode === 'mobile' && before.rot !== S.rot) turn(before.rot !== 'land', update);
-    else if (same && S.mode === 'mobile' && before.show !== S.show && before.show !== 'both' && S.show !== 'both') swap(before.show, update);
+    else if (same && S.mode === 'mobile' && before.show.length === 1 && S.show.length === 1 && before.show[0] !== S.show[0]) swap(before.show[0], S.show[0], update);
     else if (same && before.shown.join() === after.join() && !reload) update();
     else {
       const plan = { vtEnter: [], vtExit: [], vtRise: [], vtSink: [], vtBar: '' };
@@ -456,24 +505,40 @@
       for (const name of ['vtEnter', 'vtExit', 'vtRise', 'vtSink']) plan[name] = plan[name].join(' ');
       layout(update, plan);
     }
-    announce();
+    announce(onlySync);
   }
   function setMode(next) {
     if (next === S.mode) return;
     const patch = { mode: next };
-    if (next === 'mobile') patch.show = S.mode === 'option' ? S.solo : 'both';
-    if (next === 'option' && S.mode === 'mobile' && S.show !== 'both') patch.solo = S.show;
+    if (next === 'mobile') patch.show = S.mode === 'option' ? [S.solo] : S.pair;
+    if (next === 'option' && S.mode === 'mobile' && S.show.length === 1) patch.solo = S.show[0];
+    if (next === 'option' && !shown().includes(patch.solo || S.solo)) patch.solo = shown()[0];
+    if (next === 'side' && S.mode === 'mobile' && S.show.length < MIN.pair && !S.pair.includes(S.show[0])) patch.pair = ordered([...S.pair, S.show[0]]);
+    // Into Side by side: what was on screen stays on screen, joined by the others in the comparison.
+    if (next === 'side' && S.mode === 'mobile' && S.show.length >= MIN.pair) patch.pair = S.show;
+    if (next === 'side' && S.mode === 'option' && !S.pair.includes(S.solo)) patch.pair = ordered([...S.pair, S.solo]);
     change(patch);
   }
   function pick(key) {
     if (S.mode === 'side') change({ mode: 'option', solo: key });
     else if (S.mode === 'option') change({ solo: key });
-    else change({ show: key, solo: key });
+    else change({ show: [key], solo: key });
+  }
+  // A compare chip adds or removes its pane; the last two side by side (or the last device) stay.
+  function toggle(name, key, button) {
+    const set = S[name], on = set.includes(key);
+    if (on && set.length <= MIN[name]) {
+      $('#announce').textContent = name === 'pair' ? 'Side by side keeps at least two.' : 'Mobile keeps at least one device.';
+      if (!reduce.matches) button.animate([{ translate: '0 0' }, { translate: '-3px 0' }, { translate: '3px 0' }, { translate: '0 0' }], { duration: 260, easing: MOVE });
+      else { button.classList.add('is-refused'); setTimeout(() => button.classList.remove('is-refused'), 600); }
+      return;
+    }
+    change({ [name]: KEYS.filter(k => (k === key ? !on : set.includes(k))) });
   }
   function setModel(model) {
     const patch = { model };
     if (!MODELS[model].rotates) patch.rot = 'port';
-    if (S.mode !== 'mobile') Object.assign(patch, { mode: 'mobile', show: S.mode === 'option' ? S.solo : 'both' });
+    if (S.mode !== 'mobile') Object.assign(patch, { mode: 'mobile', show: S.mode === 'option' ? [S.solo] : S.pair });
     change(patch);
   }
   function cycle(step) {
@@ -482,6 +547,42 @@
   }
   function rotate() {
     if (S.mode === 'mobile' && MODELS[S.model].rotates) change({ rot: S.rot === 'land' ? 'port' : 'land' });
+  }
+
+  // ---------- Scroll together ----------
+  // Every pane on screen follows the one being scrolled (each page's own CSS px, which side by side and in
+  // devices are drawn at the same scale). In step, a follower goes to the same distance from its top. Out of
+  // step — a shorter page waiting at its end — it moves by the same amount going down, and in proportion going
+  // up (at most four times the leader's move), so the panes close up towards the top without a jump. While a pane leads (160 ms after its
+  // last scroll), the others' scroll events are its followers' replies and are not passed on.
+  const syncButton = $('#sync-btn');
+  const at = {};  // each pane's scrollY at its last scroll event (set on load too)
+  let lead = null, leadUntil = 0, lastScrolled = null;
+  const winOf = key => { try { return frames[key].contentWindow?.document ? frames[key].contentWindow : null; } catch { return null; } };
+  function follow(key, absolute = false) {
+    const from = winOf(key);
+    if (!from) return;
+    const y = from.scrollY, was = at[key] ?? y, now = performance.now();
+    at[key] = y;
+    if (!absolute && (now < holding || (lead && lead !== key && now < leadUntil))) return;
+    lastScrolled = key;
+    if (!S.sync || shown().length < 2 || !shown().includes(key)) return;
+    lead = key; leadUntil = now + 160;
+    shown().forEach(other => {
+      const win = other !== key && winOf(other);
+      if (!win) return;
+      const inStep = absolute || Math.abs(win.scrollY - was) <= 1;
+      const step = Math.abs(y - was) * 4;
+      const target = inStep ? y : y < was && was > 0 ? Math.max(win.scrollY * y / was, win.scrollY - step) : win.scrollY + y - was;
+      if (Math.abs(win.scrollY - target) > .5) win.scrollTo({ top: target, behavior: 'instant' });
+      at[other] = win.scrollY;
+    });
+  }
+  // Turning it on lines the others up with the pane last scrolled (or the first on screen).
+  const align = () => follow(shown().includes(lastScrolled) ? lastScrolled : shown()[0], true);
+  function toggleSync() {
+    if (shown().length < 2) return;
+    change({ sync: !S.sync });
   }
 
   // ---------- Header: hide, reveal from the top edge or the pill, peek ----------
@@ -595,8 +696,9 @@
   // ---------- Wiring ----------
   $$('[data-seg=mode] button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
   $$('[data-seg=solo] button').forEach(b => b.addEventListener('click', () => pick(b.dataset.solo)));
-  $$('[data-seg=show] button').forEach(b => b.addEventListener('click', () => (b.dataset.show === 'both' ? change({ show: 'both' }) : pick(b.dataset.show))));
+  $$('[data-pick]').forEach(group => $$('button', group).forEach(b => b.addEventListener('click', () => toggle(group.dataset.pick, b.dataset.key, b))));
   $('#rotate').addEventListener('click', rotate);
+  syncButton.addEventListener('click', toggleSync);
   KEYS.forEach(key => $('.pane-home', panes[key]).addEventListener('click', () => load(key)));
   document.addEventListener('keydown', onKey);
   addEventListener('resize', () => { fitBar(); fit(); indicators(true); barHeight(); }, { passive: true });
@@ -630,5 +732,5 @@
       if (S.mode === 'mobile') $('.device', panes[key]).animate([{ opacity: 0, translate: '0 64px' }, { opacity: 1, translate: '0 0' }], { duration: 820, delay: 160 + i * 90, easing: ARRIVE, fill: 'backwards' });
     });
   }
-  KEYS.forEach(key => load(key));
+  KEYS.forEach(key => { if (!DESIGNS[key].lazy || shown().includes(key)) { joining.add(key); load(key); } });
 })();

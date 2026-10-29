@@ -31,7 +31,7 @@ body[data-theme="clayco-b"] .cp-summary { font-weight: 400; letter-spacing: -.01
 /* RBB's typesetting habits: balanced titles, no orphans in copy, figures that line up. */
 body[data-theme="clayco-b"] :is(.section-title, .cp-title, .news-title, .cb-proj-title, .cb-market-name, .cb-door-label, .cc-more-name) { text-wrap: balance; }
 body[data-theme="clayco-b"] main p { text-wrap: pretty; }
-body[data-theme="clayco-b"] :is(.cb-ddb-num, .cb-door-num, .cb-finder-count, .cb-flow-num, .cb-market-count, .cf-offices-count, .chip-count, .search-count, time) { font-variant-numeric: tabular-nums; }
+body[data-theme="clayco-b"] :is(.cb-ddb-num, .cb-door-num, .cb-finder-count, .cb-flow-num, .cb-market-count, .chip-count, .search-count, time) { font-variant-numeric: tabular-nums; }
 
 /* ---------- Links and arrows: quiet underline, thin drawn arrows ---------- */
 /* Underline draw (PATH menu links): a faint rule, with the ink rule drawing in from the left on hover. */
@@ -68,7 +68,7 @@ body[data-theme="clayco-b"] .cb-finder-reset:hover { color: var(--red); }
 
 
 /* ---------- Footer: same red, lighter voice ---------- */
-body[data-theme="clayco-b"] :is(.cf-company, .concept-tag, .cf-motion, .cb-finder-more) { border-radius: 0; }
+body[data-theme="clayco-b"] :is(.cf-company, .cb-finder-more) { border-radius: 0; }
 body[data-theme="clayco-b"] .cf-office-name { font-size: 20px; }
 
 /* ---------- Project page and case studies: ruled rows instead of boxes ---------- */

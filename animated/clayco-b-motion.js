@@ -7,8 +7,8 @@
    photographs open as a window, the 03 thesis is pencilled then inked, the concrete panels and the
    footer arrive out of shade, large photographs drift inside their frames, labels are typeset by
    character and text links roll their label. No smooth-scroll hijack: native scroll stays native; only the values follow it.
-   Nothing is hidden unless this script is running (html.cbm). Reduced motion, ?motion=off,
-   the footer Pause motion button and the review deck (html.motion-off) settle everything. */
+   Nothing is hidden unless this script is running (html.cbm). Reduced motion, ?motion=off
+   and the review deck (html.motion-off) settle everything. */
 (() => {
   'use strict';
   const root = document.documentElement;
@@ -39,6 +39,7 @@
     const WIPE = 'cubic-bezier(.65,0,.15,1)';  // the window's opening and image growth (vonder's "wipe")
     const P2OUT = 'cubic-bezier(.215,.61,.355,1)'; // the window's shade (power2-out)
     const CHAR = 'cubic-bezier(0,.63,.17,1)';  // typeset characters
+    const SLIDE = 'cubic-bezier(0,.79,.17,1)'; // vonder's footer lines
     // Kim's two open calls for the review (29 Oct): ?window=line opens the windows as a full-width hairline
     // (the spec's fallback); ?footer=uncover brings back the spec's 120–180px uncover, which cuts the wordmark.
     const ask = new URLSearchParams(location.search);
@@ -223,7 +224,7 @@
     /* Rules: [data-n-rule] gets a drawn ::before (CSS). Adding .is-set draws it. */
     const RULES = [
       '.cb-door-list', '.cb-door-list > li', '.section-head', '.cb-flow-step', '.cb-ddb',
-      '.news-card--story', '.cb-filters', '.cf-office',
+      '.news-card--story', '.cb-filters', '.cf-office', '.cf-base',
     ].join(',');
     document.querySelectorAll(RULES).forEach(el => el.setAttribute('data-n-rule', ''));
     const setRule = (el, delay) => { el.style.setProperty('--n-d', `${delay}ms`); el.classList.add('is-set'); };
@@ -274,7 +275,7 @@
        unselectable. Email and phone links keep their plain text, so an address copies as written. */
     const rolls = [];
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      document.querySelectorAll('main a.text-link, a.cb-photo-link, .cf-contact a.cf-link:not([href^="mailto:"], [href^="tel:"])').forEach(a => {
+      document.querySelectorAll('main a.text-link, a.cb-photo-link, .cf-base a.cf-link:not([href^="mailto:"], [href^="tel:"])').forEach(a => {
         const node = [...a.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
         if (!node) return;
         const roll = document.createElement('span'); roll.className = 'n-roll';
@@ -291,7 +292,8 @@
         // Left before the roll lands (under a second), the label rolls straight back instead of waiting out
         // the return delay, so it is never blank between the two.
         let since = 0, back;
-        a.addEventListener('pointerenter', () => { since = performance.now(); });
+        // A hover during the contact base's word entrance finishes it first, so the label never shows twice.
+        a.addEventListener('pointerenter', () => { since = performance.now(); a.querySelectorAll('.n-ro').forEach(w => w.getAnimations().forEach(x => running.has(x) && x.finish())); });
         a.addEventListener('pointerleave', () => {
           if (performance.now() - since > 1000) return;
           a.classList.add('n-back'); clearTimeout(back); back = setTimeout(() => a.classList.remove('n-back'), 1000);
@@ -456,6 +458,25 @@
     });
     document.querySelectorAll('main .section-head, main .cb-news-head, main .cb-ddb, main .cb-flow-step, main .news-card--story, main .cb-filters, .cf-office')
       .forEach(el => queue(el, d => setOut(el, d)));
+    // The contact base arrives as vonder's footer does: its rule draws, then each line slides up out of its own
+    // baseline, a line every 55 ms, the groups side by side. A link that carries the roll moves word by word
+    // (each word's mask is the roll's own, 55 ms apart); any other line moves whole, its clip following the
+    // move so it never shows outside its place (with room below for an email's underline).
+    const base = document.querySelector('.cf-base');
+    if (base) queue(base, d => {
+      base.classList.remove('n-wait'); setRule(base, d);
+      const from = at => d + 240 + at * 55;
+      const line = (el, at) => {
+        const words = el.querySelectorAll('.n-rw > .n-ro');
+        if (words.length) { words.forEach((w, k) => play(w, [{ transform: 'translateY(100%)' }, { transform: 'none' }], { duration: 551, delay: from(at + k), easing: SLIDE })); return; }
+        play(el, [{ transform: 'translateY(100%)', clipPath: 'inset(0 0 100% 0)' }, { transform: 'none', clipPath: 'inset(0 0 -.5em 0)' }], { duration: 551, delay: from(at), easing: SLIDE });
+      };
+      // Steps follow the rows as laid out at this width (lines within 4px share a row); icons ripple 27 ms apart.
+      const els = [...base.querySelectorAll('.cf-base-head, .cf-base-group li, .cf-social li, .cf-base-line, .cf-copy')];
+      const tops = els.map(el => el.getBoundingClientRect().top);
+      const rows = [...new Set(tops)].sort((a, b) => a - b).reduce((r, t) => (r.length && t - r[r.length - 1] <= 4 ? r : [...r, t]), []);
+      els.forEach((el, i) => line(el, rows.filter(t => t <= tops[i] + 4).length - 1 + (el.closest('.cf-social') ? [...el.parentElement.children].indexOf(el) * .5 : 0)));
+    });
     // Without the footer lift (phones, tablets) the sign-off still makes an entrance: it rises by line.
     const sign = document.querySelector('.cf-sign');
     if (sign && !desk.matches) queue(sign, d => { sign.classList.remove('n-wait'); riseLines(sign, d, 90, 30); });

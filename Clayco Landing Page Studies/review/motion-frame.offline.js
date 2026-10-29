@@ -391,7 +391,7 @@ return {MOTION_SECTIONS, MOTION_PRESETS, MOTION_SCHEMA_VERSION};
 __modules['motion-adapter.js'] = (() => {
 const {MOTION_SECTIONS} = __modules['motion-catalog.js'];
 
-const CSS_URL = new URL('./motion-adapter.css?v=sam-b-20261019-5', __bundleURL).href;
+const CSS_URL = new URL('./motion-adapter.css?v=20261029-base', __bundleURL).href;
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
 const WIPE = 'cubic-bezier(.77,0,.18,1)';
 const MAPS = {
