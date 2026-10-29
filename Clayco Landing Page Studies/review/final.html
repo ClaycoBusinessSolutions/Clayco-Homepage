@@ -4,71 +4,144 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Clayco — Final Two</title>
+  <title>Clayco — Final review</title>
   <link rel="icon" href="../../assets/clayco/clayco.svg">
-  <link rel="stylesheet" href="final.css?v=20261028">
-  <script defer src="final.js?v=20261028"></script>
+  <link rel="stylesheet" href="final.css?v=20261029">
+  <script defer src="final.js?v=20261029"></script>
 </head>
-<body data-view="side" data-device="desktop">
-  <header class="bar">
-    <div class="bar-id"><img class="bar-logo" src="../../assets/clayco/clayco.svg" alt="Clayco" width="128" height="34"><span class="bar-title">Website refresh<span>Final review · two designs</span></span></div>
-    <nav class="views" aria-label="View">
-      <button type="button" data-view="side" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="4.75" width="8" height="14.5" rx="1"/><rect x="13.25" y="4.75" width="8" height="14.5" rx="1"/></svg>Side by side</button>
-      <button type="button" data-view="a" aria-pressed="false"><b>A</b>Sam Alcarez</button>
-      <button type="button" data-view="b" aria-pressed="false"><b>B</b>Dohyoung Kim</button>
-    </nav>
-    <div class="bar-tools">
-      <div class="devices" role="group" aria-label="Preview size">
-        <button type="button" data-device="desktop" aria-pressed="true" aria-label="Desktop" title="Desktop (D)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="4" width="18.5" height="12.5" rx="1.5"/><path d="M9 20h6m-3-3.5V20"/></svg></button>
-        <button type="button" data-device="phone" aria-pressed="false" aria-label="iPhone 18 Pro" title="iPhone 18 Pro · 402 × 874 (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.75" y="2.75" width="10.5" height="18.5" rx="2.6"/><path d="M10.75 5.5h2.5"/></svg></button>
+<body data-mode="side" data-layout="duo" data-model="iphone" data-rot="port" data-chrome="shown">
+  <header class="bar" id="bar">
+    <div class="brand">
+      <img src="../../assets/clayco/clayco.svg" alt="Clayco" width="188" height="50">
+      <p class="brand-title"><b>Website refresh</b><span>Final review · 29 Oct</span></p>
+    </div>
+
+    <div class="controls">
+      <div class="seg seg-mode" role="group" aria-label="View" data-seg="mode">
+        <span class="seg-ind" aria-hidden="true"></span>
+        <button type="button" data-mode="option" aria-pressed="false" aria-keyshortcuts="1" title="Option (1)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.75" y="5.25" width="16.5" height="13.5" rx="2"/></svg>Option</button>
+        <button type="button" data-mode="side" aria-pressed="true" aria-keyshortcuts="2" title="Side by side (2)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="5.25" width="8" height="13.5" rx="1.6"/><rect x="13.25" y="5.25" width="8" height="13.5" rx="1.6"/></svg>Side by side</button>
+        <button type="button" data-mode="mobile" aria-pressed="false" aria-keyshortcuts="3" title="Mobile (3)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.6"/><path d="M10.75 5.75h2.5"/></svg>Mobile</button>
       </div>
-      <button type="button" class="fullscreen" id="fullscreen" title="Full screen (F)">Full screen <span aria-hidden="true">⤢</span></button>
+
+      <div class="ctx" data-ctx="option" hidden>
+        <div class="seg seg-sm" role="group" aria-label="Design" data-seg="solo">
+          <span class="seg-ind" aria-hidden="true"></span>
+          <button type="button" data-solo="a" aria-pressed="true" aria-keyshortcuts="A" aria-label="Design A, Sam Alcarez" title="Design A (A)"><b class="seg-letter">A</b><span class="seg-name">Sam Alcarez</span></button>
+          <button type="button" data-solo="b" aria-pressed="false" aria-keyshortcuts="B" aria-label="Design B, Dohyoung Kim" title="Design B (B)"><b class="seg-letter">B</b><span class="seg-name">Dohyoung Kim</span></button>
+        </div>
+      </div>
+
+      <div class="ctx" data-ctx="mobile" hidden>
+        <div class="menu-wrap">
+          <button type="button" class="tbtn field" id="device-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="device-menu" title="Device ([ and ])">
+            <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.6"/></svg>
+            <span id="device-name">iPhone 18 Pro</span>
+            <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </button>
+          <div class="menu" id="device-menu" role="menu" aria-label="Device">
+            <button type="button" role="menuitemradio" aria-checked="true" data-model="iphone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7.5" y="3.5" width="9" height="17" rx="2.4"/><path d="M11 5.75h2"/></svg><span>iPhone 18 Pro</span><span class="size num">402 × 874</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-model="iphonemax"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M11 4.75h2"/></svg><span>iPhone 18 Pro Max</span><span class="size num">440 × 956</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-model="galaxy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="1.2"/><circle cx="12" cy="5.4" r=".7"/></svg><span>Galaxy S Ultra</span><span class="size num">412 × 915</span></button>
+            <button type="button" role="menuitemradio" aria-checked="false" data-model="ipad"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="2.5" width="15" height="19" rx="2"/><circle cx="12" cy="4.4" r=".6"/></svg><span>iPad Pro 12.9″</span><span class="size num">1024 × 1366</span></button>
+            <p class="menu-foot" aria-hidden="true"><kbd>[</kbd><kbd>]</kbd> Previous / next device</p>
+          </div>
+        </div>
+        <div class="seg seg-sm" role="group" aria-label="Show" data-seg="show">
+          <span class="seg-ind" aria-hidden="true"></span>
+          <button type="button" data-show="a" aria-pressed="false" aria-label="Show design A" title="Design A (A)"><b class="seg-letter">A</b></button>
+          <button type="button" data-show="b" aria-pressed="false" aria-label="Show design B" title="Design B (B)"><b class="seg-letter">B</b></button>
+          <button type="button" data-show="both" aria-pressed="true" aria-label="Show both designs" title="Both designs">Both</button>
+        </div>
+        <button type="button" class="tbtn" id="rotate" aria-pressed="false" aria-label="Landscape" aria-keyshortcuts="R" title="Rotate (R)" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.25" y="9.25" width="12" height="9" rx="1.6"/><path d="M4.5 13.5V7.75a3 3 0 0 1 3-3h4.75"/><path d="m10.25 2.75 2 2-2 2"/></svg><span class="lbl">Rotate</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tools">
+      <button type="button" class="tbtn" id="keys-btn" aria-label="Keyboard shortcuts" aria-keyshortcuts="?" aria-expanded="false" aria-controls="legend" title="Keyboard shortcuts (?)"><span class="q" aria-hidden="true">?</span></button>
+      <button type="button" class="tbtn" id="hide-btn" aria-label="Hide header" aria-keyshortcuts="H" title="Hide header (H)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.75 4.75h16.5"/><path d="m7.5 14.25 4.5-4.5 4.5 4.5"/><path d="M12 10v9.25"/></svg><span class="lbl">Hide header</span></button>
+      <button type="button" class="tbtn" id="fullscreen" aria-pressed="false" aria-label="Full screen" aria-keyshortcuts="F" title="Full screen (F)"><svg class="fs-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.25 9V4.25H9M15 4.25h4.75V9M19.75 15v4.75H15M9 19.75H4.25V15"/></svg><svg class="fs-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.25V9H4.25M19.75 9H15V4.25M15 19.75V15h4.75M4.25 15H9v4.75"/></svg><span class="lbl">Full screen</span></button>
     </div>
   </header>
 
   <main class="stage" id="stage">
-    <section class="pane" id="pane-a" data-pane="a" aria-labelledby="pane-a-name">
+    <section class="pane" id="pane-a" data-pane="a" data-shown="true" aria-labelledby="pane-a-name">
       <div class="pane-head">
-        <span class="pane-letter" aria-hidden="true">A</span>
-        <h2 class="pane-name" id="pane-a-name">Sam Alcarez <b>Tweaked original</b></h2>
+        <span class="badge" aria-hidden="true">A</span>
+        <h2 class="pane-name" id="pane-a-name">Sam Alcarez <span>Tweaked original</span></h2>
         <span class="pane-note">Selected · 27 Oct version</span>
-        <span class="pane-tools"><button type="button" class="pane-home" hidden>↖ Home</button><button type="button" class="pane-solo" data-solo="a">Full screen <span aria-hidden="true">⤢</span></button><button type="button" class="pane-side">Side by side <span aria-hidden="true">⇆</span></button><a class="pane-open" href="designs/sam-alcarez-tweaked-1027/index.html" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></span>
+        <span class="pane-tools">
+          <button type="button" class="tbtn pane-home" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 11.25 12 5l7.25 6.25"/><path d="M6.75 9.75v9.5h10.5v-9.5"/></svg>Home</button>
+          <a class="tbtn pane-open" href="designs/sam-alcarez-tweaked-1027/index.html" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16.25 7.75M9.5 7.75h6.75v6.75"/></svg><span class="sr-only"> in a new tab</span></a>
+        </span>
       </div>
       <div class="pane-view">
         <div class="device">
-          <span class="device-button action" aria-hidden="true"></span><span class="device-button volume-up" aria-hidden="true"></span><span class="device-button volume-down" aria-hidden="true"></span><span class="device-button side" aria-hidden="true"></span><span class="device-button camera" aria-hidden="true"></span>
+          <span class="hw hw1" aria-hidden="true"></span><span class="hw hw2" aria-hidden="true"></span><span class="hw hw3" aria-hidden="true"></span><span class="hw hw4" aria-hidden="true"></span><span class="hw hw5" aria-hidden="true"></span>
+          <span class="device-glass" aria-hidden="true"><span class="cam"></span></span>
           <div class="device-screen">
-            <div class="device-status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
             <iframe title="Design A — Sam Alcarez, Tweaked original" src="about:blank"></iframe>
-            <span class="device-island" aria-hidden="true"></span><span class="device-home" aria-hidden="true"></span>
+            <div class="status status-ios" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <div class="status status-android" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.5 .4 3.9a10.8 10.8 0 0 1 15.2 0Z"/></svg><svg viewBox="0 0 14 14" width="13" height="13"><path d="M13.5 .5v13H.5Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 24 12" width="22" height="11"><rect x=".75" y=".75" width="20.5" height="10.5" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="2.75" width="16.5" height="6.5" rx="1.2"/><path d="M22.75 4v4a1.6 1.6 0 0 0 0-4Z"/></svg></span></div>
+            <div class="status status-ipad" aria-hidden="true"><span>9:41 <span class="day">Thu 29 Oct</span></span><span class="status-icons"><svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 27 13" width="25" height="12"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <span class="island" aria-hidden="true"></span><span class="punch" aria-hidden="true"></span><span class="gesture" aria-hidden="true"></span>
           </div>
         </div>
-        <p class="device-caption" aria-hidden="true">iPhone 18 Pro <span>402 × 874</span></p>
-        <div class="pane-loading" aria-hidden="true"><span></span></div>
+        <p class="device-caption" aria-hidden="true"><b class="cap-name">iPhone 18 Pro</b><span class="cap-dot">·</span><span class="cap-size num">402 × 874</span><span class="cap-vp num">402 × 812 viewport</span></p>
+        <span class="load" aria-hidden="true"></span>
       </div>
     </section>
 
-    <section class="pane" id="pane-b" data-pane="b" aria-labelledby="pane-b-name">
+    <section class="pane" id="pane-b" data-pane="b" data-shown="true" aria-labelledby="pane-b-name">
       <div class="pane-head">
-        <span class="pane-letter" aria-hidden="true">B</span>
-        <h2 class="pane-name" id="pane-b-name">Dohyoung Kim <b>Task-first</b></h2>
-        <span class="pane-note">Option 4 · refined 28 Oct</span>
-        <span class="pane-tools"><button type="button" class="pane-home" hidden>↖ Home</button><button type="button" class="pane-solo" data-solo="b">Full screen <span aria-hidden="true">⤢</span></button><button type="button" class="pane-side">Side by side <span aria-hidden="true">⇆</span></button><a class="pane-open" href="../../animated/clayco-b.html" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></span>
+        <span class="badge" aria-hidden="true">B</span>
+        <h2 class="pane-name" id="pane-b-name">Dohyoung Kim <span>Task-first</span></h2>
+        <span class="pane-note">Option 4 · Nordic refinement · 28 Oct</span>
+        <span class="pane-tools">
+          <button type="button" class="tbtn pane-home" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 11.25 12 5l7.25 6.25"/><path d="M6.75 9.75v9.5h10.5v-9.5"/></svg>Home</button>
+          <a class="tbtn pane-open" href="../../animated/clayco-b.html" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16.25 7.75M9.5 7.75h6.75v6.75"/></svg><span class="sr-only"> in a new tab</span></a>
+        </span>
       </div>
       <div class="pane-view">
         <div class="device">
-          <span class="device-button action" aria-hidden="true"></span><span class="device-button volume-up" aria-hidden="true"></span><span class="device-button volume-down" aria-hidden="true"></span><span class="device-button side" aria-hidden="true"></span><span class="device-button camera" aria-hidden="true"></span>
+          <span class="hw hw1" aria-hidden="true"></span><span class="hw hw2" aria-hidden="true"></span><span class="hw hw3" aria-hidden="true"></span><span class="hw hw4" aria-hidden="true"></span><span class="hw hw5" aria-hidden="true"></span>
+          <span class="device-glass" aria-hidden="true"><span class="cam"></span></span>
           <div class="device-screen">
-            <div class="device-status" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
             <iframe title="Design B — Dohyoung Kim, Task-first" src="about:blank"></iframe>
-            <span class="device-island" aria-hidden="true"></span><span class="device-home" aria-hidden="true"></span>
+            <div class="status status-ios" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 18 12" width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><svg viewBox="0 0 27 13" width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <div class="status status-android" aria-hidden="true"><span>9:41</span><span class="status-icons"><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.5 .4 3.9a10.8 10.8 0 0 1 15.2 0Z"/></svg><svg viewBox="0 0 14 14" width="13" height="13"><path d="M13.5 .5v13H.5Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 24 12" width="22" height="11"><rect x=".75" y=".75" width="20.5" height="10.5" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="2.75" width="16.5" height="6.5" rx="1.2"/><path d="M22.75 4v4a1.6 1.6 0 0 0 0-4Z"/></svg></span></div>
+            <div class="status status-ipad" aria-hidden="true"><span>9:41 <span class="day">Thu 29 Oct</span></span><span class="status-icons"><svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0Z"/><path d="M3.4 7a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0Z"/><path d="M1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0Z"/></svg><span class="pct">100%</span><svg viewBox="0 0 27 13" width="25" height="12"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg></span></div>
+            <span class="island" aria-hidden="true"></span><span class="punch" aria-hidden="true"></span><span class="gesture" aria-hidden="true"></span>
           </div>
         </div>
-        <p class="device-caption" aria-hidden="true">iPhone 18 Pro <span>402 × 874</span></p>
-        <div class="pane-loading" aria-hidden="true"><span></span></div>
+        <p class="device-caption" aria-hidden="true"><b class="cap-name">iPhone 18 Pro</b><span class="cap-dot">·</span><span class="cap-size num">402 × 874</span><span class="cap-vp num">402 × 812 viewport</span></p>
+        <span class="load" aria-hidden="true"></span>
       </div>
     </section>
+
   </main>
-  <p class="keys" aria-hidden="true">1 Side by side · 2 A · 3 B · D Desktop · M iPhone · F Full screen</p>
+
+  <div class="hot" aria-hidden="true"></div>
+  <button type="button" class="reveal" id="reveal" aria-label="Show header" aria-keyshortcuts="H" title="Show header (H)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg><span class="reveal-lbl" aria-hidden="true">Show header<kbd>H</kbd></span></button>
+
+  <div class="legend" id="legend" role="dialog" aria-labelledby="legend-title">
+    <div class="legend-head"><h2 id="legend-title">Keyboard shortcuts</h2><button type="button" class="tbtn" id="legend-close">Close<kbd>Esc</kbd></button></div>
+    <dl>
+      <div><dt><kbd>1</kbd></dt><dd>Option</dd></div>
+      <div><dt><kbd>2</kbd></dt><dd>Side by side</dd></div>
+      <div><dt><kbd>3</kbd></dt><dd>Mobile</dd></div>
+      <div><dt><kbd>A</kbd><kbd>B</kbd></dt><dd>Design A or B</dd></div>
+      <div><dt><kbd>[</kbd><kbd>]</kbd></dt><dd>Previous / next device</dd></div>
+      <div><dt><kbd>R</kbd></dt><dd>Rotate iPad</dd></div>
+      <div><dt><kbd>H</kbd></dt><dd>Hide or show header</dd></div>
+      <div><dt><kbd>F</kbd></dt><dd>Full screen</dd></div>
+      <div><dt><kbd>?</kbd></dt><dd>Show these keys</dd></div>
+    </dl>
+  </div>
+
+  <div class="sweep" aria-hidden="true"><i></i></div>
+  <p class="sr-only" id="announce" aria-live="polite"></p>
 </body>
 </html>
