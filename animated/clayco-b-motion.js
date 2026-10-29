@@ -81,7 +81,7 @@
     /* Rules: [data-n-rule] gets a drawn ::before (CSS). Adding .is-set draws it. */
     const RULES = [
       '.cb-door-list', '.cb-door-list > li', '.section-head', '.cb-flow-step', '.cb-ddb',
-      '.cb-ddb-item', '.news-card--story', '.cb-filters', '.cf-office',
+      '.news-card--story', '.cb-filters', '.cf-office',
     ].join(',');
     document.querySelectorAll(RULES).forEach(el => el.setAttribute('data-n-rule', ''));
     const setRule = (el, delay) => { el.style.setProperty('--n-d', `${delay}ms`); el.classList.add('is-set'); };
@@ -103,25 +103,27 @@
     release();
 
     /* M3. Photographs rise from the ground line, queued; captions follow. */
-    const PHOTOS = 'main :is(.cb-photo .media, .cb-market .media, .cb-proj .media, .news-card .media, .cp-photo--lead, .cp-related-card .media, .cc-cover)';
+    const PHOTOS = 'main :is(.cb-photo .media, .cb-market .media, .cb-proj .media, .news-card .media, .cb-ddb-item .media, .cp-photo--lead, .cp-related-card .media, .cc-cover)';
     // Captions are the photograph's siblings inside its card or figure; a project-page photo rises alone.
     const captionOf = media => media.parentElement.matches('a, figure') ? [...media.parentElement.children].filter(c => c !== media && !c.matches('.arrow, .sr-only')) : [];
     // A photograph rises once it can be drawn, so the move never plays on an empty box (cold cache,
     // slow link). It waits under its mask for at most 2.5s; hidden finder cards rise unseen, as before.
     const ready = img => !img || (img.complete && img.naturalWidth > 0);
-    const risePhoto = (media, delay) => {
+    const risePhoto = (media, delay, again = false) => {
       const img = media.querySelector('img');
-      if (ready(img) || !media.getClientRects().length) { risePhotoNow(media, delay); return; }
+      if (ready(img) || !media.getClientRects().length) { risePhotoNow(media, delay, again); return; }
       const t0 = performance.now();
       media.classList.add('n-wait'); captionOf(media).forEach(cap => cap.classList.add('n-wait'));
       Promise.race([img.decode().catch(() => {}), new Promise(done => setTimeout(done, 2500))])
-        .then(() => { if (media.classList.contains('n-wait')) risePhotoNow(media, Math.max(0, delay - (performance.now() - t0))); });
+        .then(() => { if (media.classList.contains('n-wait')) risePhotoNow(media, Math.max(0, delay - (performance.now() - t0)), again); });
     };
-    const risePhotoNow = (media, delay) => {
+    // Slow on purpose (Kim, 29 Oct): the photograph uncovers over 1.6s and settles over 2.4s.
+    const risePhotoNow = (media, delay, again = false) => {
       media.classList.remove('n-wait');
-      play(media, [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 1000, delay, easing: RISE });
-      play(media.querySelector('img'), [{ transform: 'translateY(4%) scale(1.06)' }, { transform: 'none' }], { duration: 1400, delay, easing: OUT });
-      captionOf(media).forEach((cap, i) => { cap.classList.remove('n-wait'); arrive(cap, delay + 220 + i * 50, 10); });
+      play(media, [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 1600, delay, easing: RISE });
+      play(media.querySelector('img'), [{ transform: 'translateY(6%) scale(1.1)' }, { transform: 'none' }], { duration: 2400, delay, easing: OUT });
+      if (again) return; // a replay moves the photograph only; its caption stays put
+      captionOf(media).forEach((cap, i) => { cap.classList.remove('n-wait'); arrive(cap, delay + 320 + i * 60, 10); });
     };
 
     /* M2 + M4. Section heads and ruled rows: rule draws, then label/title/content arrive. */
@@ -165,8 +167,21 @@
       // A clipped element has no visible area for the observer: watch its unclipped parent.
       queue(media, d => risePhoto(media, d), media.parentElement);
     });
-    document.querySelectorAll('main .section-head, main .cb-ddb, main .cb-flow-step, main .cb-ddb-item, main .news-card--story, main .cb-filters, .cf-office')
+    document.querySelectorAll('main .section-head, main .cb-ddb, main .cb-flow-step, main .news-card--story, main .cb-filters, .cf-office')
       .forEach(el => queue(el, d => setOut(el, d)));
+
+    // Photographs rise again each time they come back into view (Kim, 29 Oct). Once a revealed photograph
+    // has left the screen entirely it re-arms under its mask, unseen, and replays when it returns.
+    const photoHost = new Map(); // unclipped parent -> photograph
+    document.querySelectorAll(PHOTOS).forEach(media => photoHost.set(media.parentElement, media));
+    const rearm = new IntersectionObserver(entries => entries.forEach(entry => {
+      const media = photoHost.get(entry.target);
+      if (!media || entry.isIntersecting || media.classList.contains('n-wait') || !media.getClientRects().length) return;
+      [media, media.querySelector('img')].forEach(el => el?.getAnimations().forEach(a => a.cancel()));
+      media.classList.add('n-wait');
+      targets.set(entry.target, d => risePhoto(media, d, true)); watcher.observe(entry.target);
+    }), { threshold: 0 });
+    photoHost.forEach((media, host) => rearm.observe(host));
 
     /* Full-width photograph drifts 3% against the scroll (transform only, rAF-throttled). */
     const bandImg = document.querySelector('main .cb-photo img');
@@ -227,7 +242,7 @@
               if (Math.abs(dx) + Math.abs(dy) > 1) play(li, [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 700, delay: 60, easing: OUT });
             } else {
               const d = 140 + Math.min(fresh++, 12) * 35;
-              play(li.querySelector('.media'), [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 700, delay: d, easing: RISE });
+              play(li.querySelector('.media'), [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 1100, delay: d, easing: RISE });
               arrive(li.querySelector('.cb-proj-copy'), d + 160, 8);
             }
           });
@@ -261,7 +276,7 @@
       if (!off() || !root.classList.contains('cbm')) return;
       classWatch.disconnect();
       running.forEach(a => { try { a.finish(); } catch { a.cancel(); } });
-      watcher.disconnect(); targets.clear();
+      watcher.disconnect(); rearm.disconnect(); targets.clear();
       document.querySelectorAll('.n-wait').forEach(el => el.classList.remove('n-wait'));
       document.querySelectorAll('[data-n-rule]').forEach(el => el.classList.add('is-set'));
       document.getAnimations().forEach(a => { if (a instanceof CSSTransition && a.effect?.pseudoElement === '::before') a.finish(); });
