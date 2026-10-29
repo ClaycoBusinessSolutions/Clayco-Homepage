@@ -13,7 +13,7 @@ html body[data-theme="clayco-b"]{
 }
 html body[data-theme="clayco-b"] main{background:var(--n-paper)}
 /* No arrowheads anywhere, menu included (Sam's page uses none either); "(opens in a new tab)" stays for screen readers. */
-html body[data-theme="clayco-b"] .arrow{display:none !important}
+html body[data-theme="clayco-b"] .arrow{display:none}
 /* hero */
 html body[data-theme="clayco-b"] .cb-top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--n-gap);row-gap:40px;padding-block:48px var(--n-section);align-items:start}
 html body[data-theme="clayco-b"] .cb-hero{grid-column:1/span 8}
@@ -30,7 +30,6 @@ html body[data-theme="clayco-b"] .cb-door{grid-template-columns:2.6em minmax(0,1
 html body[data-theme="clayco-b"] .cb-door-num{font:500 15px/1.3 var(--font);padding-top:.5em;color:var(--n-muted);font-variant-numeric:tabular-nums}
 html body[data-theme="clayco-b"] .cb-door-label{font:400 clamp(24px,calc(21.7px + .58vw),32px)/1.12 var(--font);letter-spacing:-.01em}
 html body[data-theme="clayco-b"] .cb-door-sub{font-size:16px;line-height:1.4;color:var(--n-muted)}
-html body[data-theme="clayco-b"] .cb-door:hover .cb-door-label{color:inherit}
 /* Doors: no ink fill on hover; a red rule draws along the row and the label steps in. */
 html body[data-theme="clayco-b"] .cb-door::before{content:none}
 html body[data-theme="clayco-b"] .cb-door:is(:hover,:focus-visible){color:inherit;padding-left:0}
@@ -75,19 +74,17 @@ html body[data-theme="clayco-b"] .chip-face{padding:6px 0;font-size:16px;border:
 html body[data-theme="clayco-b"] .chip[aria-pressed="true"] .chip-face{color:var(--n-ink);border-color:var(--n-red)}
 html body[data-theme="clayco-b"] .cb-finder-count{font:400 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted);font-variant-numeric:tabular-nums}
 html body[data-theme="clayco-b"] .cb-finder-bar{margin-bottom:16px;min-height:0}
-html body[data-theme="clayco-b"] .cb-finder .cb-proj a{position:relative}
 html body[data-theme="clayco-b"] .cb-finder .cb-proj-copy{display:block;padding:10px 0 0}
-html body[data-theme="clayco-b"] .clayco-page .cb-finder .cb-proj-title, html body[data-theme="clayco-b"] .cb-finder .cb-proj-title{display:block;margin-bottom:4px;font:400 clamp(16px,calc(14.84px + .29vw),20px)/1.25 var(--font);letter-spacing:0}
+html body[data-theme="clayco-b"] .cb-finder .cb-proj-title{display:block;margin-bottom:4px;font:400 clamp(16px,calc(14.84px + .29vw),20px)/1.25 var(--font);letter-spacing:0}
 html body[data-theme="clayco-b"] .cb-finder :is(.cb-proj-loc,.cb-proj-market){display:inline;font-size:15px;line-height:1.4;color:var(--n-muted)}
 html body[data-theme="clayco-b"] .cb-finder .cb-proj-market::before{content:" · "}
 html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags{position:absolute;top:8px;left:8px;margin:0}
 html body[data-theme="clayco-b"] .cb-proj[data-current="false"] .cb-proj-tags, html body[data-theme="clayco-b"] .cb-proj .tag+.tag{display:none}
-html body[data-theme="clayco-b"] .cb-finder .cb-proj-tags .tag{padding:5px 7px 4px;background:var(--n-paper);color:var(--n-ink);font:500 11px/1 var(--font);letter-spacing:.08em;text-transform:uppercase}
 html body[data-theme="clayco-b"] .cb-finder-more{min-height:52px;padding:0 28px;border:1px solid var(--n-ink);border-radius:0;background:none;font:500 16px/1 var(--font)}
 /* integrated */
 html body[data-theme="clayco-b"] .section--panel{background:var(--n-panel)}
 html body[data-theme="clayco-b"] .cb-flow{border-top:0;gap:0 var(--n-gap)}
-html body[data-theme="clayco-b"] .cb-flow-step{padding:16px 0 0;border-top:1px solid var(--n-ink);border-left:0 !important;background:none;gap:12px}
+html body[data-theme="clayco-b"] .cb-flow-step{padding:16px 0 0;border-top:1px solid var(--n-ink);border-left:0;background:none;gap:12px}
 html body[data-theme="clayco-b"] .cb-flow-title{font:400 clamp(20px,calc(18.45px + .385vw),26px)/1.2 var(--font);letter-spacing:-.006em}
 html body[data-theme="clayco-b"] :is(.cb-flow-copy,.cb-flow-list li){font-size:17px;line-height:1.45;color:var(--n-ink)}
 html body[data-theme="clayco-b"] .cb-flow-list li{padding-block:6px;border-bottom:1px solid var(--n-line)}
@@ -99,7 +96,6 @@ html body[data-theme="clayco-b"] .cb-ddb-sub{font-size:16px;color:var(--n-muted)
 html body[data-theme="clayco-b"] .cb-ddb-list{gap:0 var(--n-gap)}
 html body[data-theme="clayco-b"] .cb-ddb-item a{grid-template-columns:112px minmax(0,1fr);gap:16px;padding-block:16px;border-top:1px solid var(--n-line);border-bottom:0}
 html body[data-theme="clayco-b"] .cb-ddb-copy{padding-right:0}
-html body[data-theme="clayco-b"] .cb-ddb-kind{font:500 12px/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--n-muted)}
 html body[data-theme="clayco-b"] .cb-ddb-name{font:400 19px/1.25 var(--font);letter-spacing:0}
 html body[data-theme="clayco-b"] .cb-ddb-loc{font-size:15px;color:var(--n-muted)}
 html body[data-theme="clayco-b"] .cb-ddb-roles{font-size:15px;margin-top:6px}
@@ -120,28 +116,18 @@ html body[data-theme="clayco-b"] .news-byline{margin-top:6px;font-size:15px;colo
 html body[data-theme="clayco-b"] .cf{padding-block:72px 28px}
 html body[data-theme="clayco-b"] .cf-sign{font:400 clamp(28px,calc(23.4px + 1.16vw),44px)/1.1 var(--font);letter-spacing:-.012em}
 html body[data-theme="clayco-b"] .cf-heading{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:#fff}
-html body[data-theme="clayco-b"] .cf-family-row{gap:1px;background:rgb(255 255 255 / .38);border:1px solid rgb(255 255 255 / .38)}
 html body[data-theme="clayco-b"] .cf-company{border:0;background:var(--n-red);min-height:120px}
-/* The family grid draws its rules with a 1px gap; fill the empty eighth slot so it does not show as a pale block. */
-html body[data-theme="clayco-b"] .cf-family-row::after{content:"";background:var(--n-red)}
-html body[data-theme="clayco-b"] .cf-company-desc{font-size:16px}
 @media (max-width:1099px){
  html body[data-theme="clayco-b"] :is(.cb-hero,.cb-doors){grid-column:1/-1}
 }
 @media (max-width:767px){
- html body[data-theme="clayco-b"] .cb-top{padding-block:28px 48px;row-gap:32px}
  html body[data-theme="clayco-b"] .cb-statement{line-height:1.08;letter-spacing:-.015em}
  html body[data-theme="clayco-b"] main .kicker, html body[data-theme="clayco-b"] .cb-doors-title{font-size:14px;margin-bottom:14px}
- html body[data-theme="clayco-b"] .cb-door{padding:14px 0 16px}
- html body[data-theme="clayco-b"] .cb-door-sub{font-size:15px}
- html body[data-theme="clayco-b"] .cb-photo figcaption{flex-wrap:wrap}
  html body[data-theme="clayco-b"] .cb-photo-link{margin-left:0}
  html body[data-theme="clayco-b"] .section-head{margin-bottom:24px}
  html body[data-theme="clayco-b"] .cb-market-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
  html body[data-theme="clayco-b"] .cb-market:last-child:nth-child(odd){grid-column:1/-1}
  html body[data-theme="clayco-b"] .cb-market:last-child:nth-child(odd) .media{aspect-ratio:2/1}
- html body[data-theme="clayco-b"] .cb-market a{display:flex;flex-direction:column;padding:0;gap:0}
- html body[data-theme="clayco-b"] .cb-market .media{aspect-ratio:3/2}
  html body[data-theme="clayco-b"] .cb-market-copy{padding-top:8px}
  html body[data-theme="clayco-b"] :is(.cb-market-line,.cb-market-children){font-size:14px}
  html body[data-theme="clayco-b"] .cb-market-children{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -153,7 +139,6 @@ html body[data-theme="clayco-b"] .cf-company-desc{font-size:16px}
  html body[data-theme="clayco-b"] .cb-finder :is(.cb-proj-loc,.cb-proj-market){font-size:13.5px}
  html body[data-theme="clayco-b"] .cb-finder .cb-proj-market{display:block}
  html body[data-theme="clayco-b"] .cb-finder .cb-proj-market::before{content:none}
- html body[data-theme="clayco-b"] .cb-flow{grid-template-columns:minmax(0,1fr);gap:28px}
  html body[data-theme="clayco-b"] .cb-ddb-item a{grid-template-columns:88px minmax(0,1fr)}
  html body[data-theme="clayco-b"] .news-grid--four{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}
  html body[data-theme="clayco-b"] .news-grid--four>li:not(.news-card--story){grid-row:auto}
@@ -253,7 +238,6 @@ html body[data-theme="clayco-b"] .news-card--story .news-byline{margin-top:8px}
 html body[data-theme="clayco-b"] .cb-market-line + .cb-market-children{display:none}
 /* Footer: the family of companies as one ruled row, quieter fine print, no outlined boxes. */
 html body[data-theme="clayco-b"] .cf-family-row{gap:0 var(--n-gap);background:none;border:0}
-html body[data-theme="clayco-b"] .cf-family-row::after{content:none}
 html body[data-theme="clayco-b"] .cf-company{min-height:0;padding:16px 0 20px;border:0;border-top:1px solid rgb(255 255 255/.38)}
 html body[data-theme="clayco-b"] .cf-company-desc{font-size:14px;line-height:1.4}
 html body[data-theme="clayco-b"] .cf-label{font-size:16px}
@@ -294,8 +278,7 @@ html body[data-theme="clayco-b"] .cp-milestone::before{content:none}
 }
 /* Leaving cards fade in place: the ghost copies are positioned against the grid. */
 html body[data-theme="clayco-b"] .cb-finder-grid{position:relative}
-/* Touch: the v1 cell hover box is gone, and the hover underline and zoom do not stick after a tap. */
-html body[data-theme="clayco-b"] :is(.cb-market,.cb-proj,.news-grid--four>li):hover{background:none}
+/* Touch: the hover underline and zoom do not stick after a tap. */
 @media (hover:none){
  html body[data-theme="clayco-b"] a:hover:not(:focus-visible) :is(.cb-market-name,.cb-proj-title,.news-title,.cb-ddb-name){text-decoration-color:transparent}
  html body[data-theme="clayco-b"] a:hover .media.zoom img{transform:none}
@@ -324,7 +307,6 @@ html body[data-theme="clayco-b"] .cp-gallery-row:has(.cp-thumbs > li:only-child)
    stays in view; the market tabs fit one row; the one tile that leaves says so; a visible skip ring. */
 @media (min-width:1100px){
  html body[data-theme="clayco-b"] .cb-top{padding-block:32px 40px}
- html body[data-theme="clayco-b"] .cb-statement{font-size:clamp(38px,calc(18px + 3.2vw),76px)}
  html body[data-theme="clayco-b"] .cb-hero-links{margin-top:24px}
  html body[data-theme="clayco-b"] .cb-door{padding:14px 0 16px}
 }
@@ -347,4 +329,84 @@ html body[data-theme="clayco-b"] .cb-market a[target="_blank"] .cb-market-copy::
 html body[data-theme="clayco-b"] .skip-link:focus-visible{outline-color:var(--n-red)}
 @media (max-width:767px){
  html body[data-theme="clayco-b"] .cb-market a[target="_blank"] .cb-market-copy::after{font-size:14px}
+}
+
+/* ---------- Skill-lens round (28 Oct, evening) ---------- */
+/* Bug: a 9 Oct rule removed the Design and Build rules whenever motion ran. */
+html body[data-theme="clayco-b"] .cb-flow-step + .cb-flow-step[data-n-rule]::before{content:""}
+/* The statement fills its columns on large screens (tracking unchanged: tight display type was the brief's complaint). */
+@media (min-width:1100px){html body[data-theme="clayco-b"] .cb-statement{font-size:clamp(52px,calc(5.2vw - 4px),96px);line-height:1.02}}
+/* Footer bookend: the page opens with red type on paper and closes with paper type on red. */
+html body[data-theme="clayco-b"] .cf-sign{max-width:none;text-wrap:balance}
+@media (min-width:768px){html body[data-theme="clayco-b"] .cf-sign{font-size:clamp(56px,7.4vw,144px);line-height:.98;letter-spacing:-.03em}}
+@media (min-width:1100px){
+ html body[data-theme="clayco-b"] .cf-brand{display:contents}
+ html body[data-theme="clayco-b"] .cf-top{row-gap:48px}
+ html body[data-theme="clayco-b"] .cf-sign{grid-column:1/-1;grid-row:1;margin:0}
+ html body[data-theme="clayco-b"] .cf-brand>.wordmark{grid-column:1;grid-row:2;align-self:start;margin-top:4px}
+ html body[data-theme="clayco-b"] .cf-contact{grid-column:2;grid-row:2}
+}
+@media (max-width:767px){html body[data-theme="clayco-b"] .cf-sign{font-size:clamp(28px,10.4vw,56px);line-height:1;letter-spacing:-.025em}}
+html body[data-theme="clayco-b"] :is(.cb-market-line,.cf-company-desc,.cb-ddb-sub){text-wrap:pretty}
+/* Markets: a descending 2-3-4 set on the 12-column grid instead of nine equal cells. */
+@media (min-width:1200px){
+ html body[data-theme="clayco-b"] .cb-market-grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+ html body[data-theme="clayco-b"] .cb-market{grid-column:span 3}
+ html body[data-theme="clayco-b"] .cb-market:nth-child(-n+2){grid-column:span 6}
+ html body[data-theme="clayco-b"] .cb-market:nth-child(-n+2) .media{aspect-ratio:16/9}
+ html body[data-theme="clayco-b"] .cb-market:nth-child(n+3):nth-child(-n+5){grid-column:span 4}
+ html body[data-theme="clayco-b"] .cb-market:nth-child(-n+2) .cb-market-name{font-size:clamp(26px,calc(21.7px + .58vw),32px);letter-spacing:-.012em}
+}
+/* Project pages carry the home page's numbered, ink-ruled sections. */
+html body[data-theme="clayco-b"] article.cp{counter-reset:cpsec}
+html body[data-theme="clayco-b"] .cp-section{counter-increment:cpsec;border-top:0}
+html body[data-theme="clayco-b"] .cp-section::before{content:counter(cpsec,decimal-leading-zero);content:counter(cpsec,decimal-leading-zero) / "";display:block;margin-bottom:20px;padding-top:14px;border-top:1px solid var(--n-ink);font:500 15px/1.3 var(--font);letter-spacing:0;color:var(--n-red-text);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cp-section:has(.kicker)::before{content:"";content:"" / "";margin-bottom:0}
+html body[data-theme="clayco-b"]:not(.clayco-home) .cp-section .kicker::before{content:counter(cpsec,decimal-leading-zero);content:counter(cpsec,decimal-leading-zero) / "";display:inline-block;width:2.6em;color:var(--n-red-text);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .cc-list.section{padding-top:0}
+/* Menu labels in the page's sentence-case voice (structure unchanged). */
+html body[data-theme="clayco-b"] .cb-mega-subhead{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-muted)}
+/* Touch: a designed press state instead of the browser's tap flash. */
+html body[data-theme="clayco-b"]{-webkit-tap-highlight-color:transparent}
+html body[data-theme="clayco-b"] :is(.cb-market a,.cb-proj a,.news-card a,.cb-ddb-item a,.cc-open):active .media img{opacity:.82}
+html body[data-theme="clayco-b"] :is(.cb-market a,.cb-proj a,.news-card a,.cb-ddb-item a):active :is(.cb-market-name,.cb-proj-title,.news-title,.cb-ddb-name){text-decoration-color:currentColor}
+html body[data-theme="clayco-b"] .cb-door-list>li:active::after{transform:scaleX(1);transform-origin:left;transition-duration:.2s}
+html body[data-theme="clayco-b"] :is(.chip,.cs-icon,.cb-finder-more,.text-link,.cf-link):active{opacity:.7}
+/* Header, closes, search and image hovers (tested set from the header/imagery audit). */
+/* F1 header drawing: one stroke for every icon, optically matched glyphs */
+html body[data-theme="clayco-b"] .cs-icon svg{stroke-width:1.5px}
+html body[data-theme="clayco-b"] .cs-icon .cs-x{opacity:0;transition:opacity .2s}
+html body[data-theme="clayco-b"] .cs-icon .cs-bars{transition:opacity .2s}
+html body[data-theme="clayco-b"] .js-mega-trigger[aria-expanded="true"] .cs-bars{opacity:0}
+html body[data-theme="clayco-b"] .js-mega-trigger[aria-expanded="true"] .cs-x{opacity:1}
+/* F2 closes: the drawn x, no grey disc, no typed glyph */
+html body[data-theme="clayco-b"] :is(.cb-mega-head,.search-head,.cb-results-head) .dialog-close{width:44px;height:44px;margin:-7px;border-radius:0;background:none;color:var(--n-ink);font-size:0}
+html body[data-theme="clayco-b"] :is(.cb-mega-head,.search-head,.cb-results-head) .dialog-close > span{display:none}
+html body[data-theme="clayco-b"] :is(.cb-mega-head,.search-head,.cb-results-head) .dialog-close::before{content:"";width:30px;height:30px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M5 6l18 18M23 6L5 24' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M5 6l18 18M23 6L5 24' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") center/contain no-repeat}
+html body[data-theme="clayco-b"] :is(.cb-mega-head,.search-head,.cb-results-head) .dialog-close:hover{background:none;transform:none;color:var(--n-red)}
+@media (max-width:1099px){
+ /* The phone sheet head is the header itself: same padding, wordmark size and icon place, so nothing jumps. */
+ html body[data-theme="clayco-b"] .cb-mega--live .cb-mega-head{min-height:0;padding-block:40px 20px}
+ html body[data-theme="clayco-b"] .cb-mega--live .cb-mega-head .wordmark{width:clamp(136px,12.59vw,326px);height:auto}
+}
+html body[data-theme="clayco-b"] .cb-mega-close{border-radius:0;border-color:var(--n-ink);padding:0 24px;font:500 16px/1 var(--font)}
+html body[data-theme="clayco-b"] .cb-mega-close > span{display:none}
+/* F3 search dialog in the Nordic v2 voice: a paper sheet, square, one family at 400, sentence-case label */
+html body[data-theme="clayco-b"] .ca-search{border-radius:0;background:var(--n-paper);box-shadow:0 1px 0 var(--n-line)}
+html body[data-theme="clayco-b"] .ca-search::backdrop{background:rgb(27 31 30 / .45);-webkit-backdrop-filter:none;backdrop-filter:none}
+html body[data-theme="clayco-b"] .search-label{font:500 15px/1.3 var(--font);color:var(--n-ink)}
+html body[data-theme="clayco-b"] .search-field{border-bottom-width:1px}
+html body[data-theme="clayco-b"] .ca-search .search-field input{font:400 clamp(38px,calc(18px + 3.2vw),76px)/1.08 var(--font);letter-spacing:-.02em}
+html body[data-theme="clayco-b"] .search-icon{color:var(--n-ink)}
+html body[data-theme="clayco-b"] .search-icon :is(circle,path){stroke-width:1.5px}
+html body[data-theme="clayco-b"] .search-hint{font-size:16px;color:var(--n-muted)}
+html body[data-theme="clayco-b"] .search-start-label{font:500 15px/1.3 var(--font);letter-spacing:0;text-transform:none;color:var(--n-ink)}
+html body[data-theme="clayco-b"] .search-suggestion{grid-template-columns:2.6em minmax(0,1fr);font:400 clamp(20px,calc(18.45px + .385vw),26px)/1.2 var(--font);letter-spacing:-.006em}
+html body[data-theme="clayco-b"] .search-suggestion .index{font:500 15px/1.3 var(--font);color:var(--n-muted);font-variant-numeric:tabular-nums}
+html body[data-theme="clayco-b"] .search-suggestion:hover{color:inherit;border-color:var(--n-red)}
+/* F5 one image hover across pages, and no arrow disc */
+html body[data-theme="clayco-b"] .cp-photo-zoom{display:none}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ html:not(.motion-off) body[data-theme="clayco-b"] :is(.cp-photo img,.cb-ddb-thumb img,.cc-cover img){transition:transform .9s cubic-bezier(.16,1,.3,1)}
+ html:not(.motion-off) body[data-theme="clayco-b"] :is(.cp-photo:hover img,.cb-ddb-item a:hover .cb-ddb-thumb img,.cc-open:is(:hover,:focus-visible) .cc-cover img){transform:scale(1.035)}
 }

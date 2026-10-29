@@ -24,7 +24,7 @@
   root.classList.add('cbm');
   // Lines are measured and masked once the display face is in, so the rise never swaps fonts mid-motion
   // (cold cache on the public link). The head's cbm-pending hold covers the wait; 700 ms at most.
-  const fontReady = document.fonts?.load ? Promise.race([document.fonts.load('400 1em "Clayco Haas"'), new Promise(done => setTimeout(done, 700))]) : Promise.resolve();
+  const fontReady = document.fonts?.load ? Promise.race([Promise.all([document.fonts.load('400 1em "Clayco Haas"'), document.fonts.load('500 1em "Clayco Haas"')]), new Promise(done => setTimeout(done, 700))]) : Promise.resolve();
   fontReady.then(start, start);
   function start() {
 
@@ -106,7 +106,18 @@
     const PHOTOS = 'main :is(.cb-photo .media, .cb-market .media, .cb-proj .media, .news-card .media, .cp-photo--lead, .cp-related-card .media, .cc-cover)';
     // Captions are the photograph's siblings inside its card or figure; a project-page photo rises alone.
     const captionOf = media => media.parentElement.matches('a, figure') ? [...media.parentElement.children].filter(c => c !== media && !c.matches('.arrow, .sr-only')) : [];
+    // A photograph rises once it can be drawn, so the move never plays on an empty box (cold cache,
+    // slow link). It waits under its mask for at most 2.5s; hidden finder cards rise unseen, as before.
+    const ready = img => !img || (img.complete && img.naturalWidth > 0);
     const risePhoto = (media, delay) => {
+      const img = media.querySelector('img');
+      if (ready(img) || !media.getClientRects().length) { risePhotoNow(media, delay); return; }
+      const t0 = performance.now();
+      media.classList.add('n-wait'); captionOf(media).forEach(cap => cap.classList.add('n-wait'));
+      Promise.race([img.decode().catch(() => {}), new Promise(done => setTimeout(done, 2500))])
+        .then(() => { if (media.classList.contains('n-wait')) risePhotoNow(media, Math.max(0, delay - (performance.now() - t0))); });
+    };
+    const risePhotoNow = (media, delay) => {
       media.classList.remove('n-wait');
       play(media, [{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 1000, delay, easing: RISE });
       play(media.querySelector('img'), [{ transform: 'translateY(4%) scale(1.06)' }, { transform: 'none' }], { duration: 1400, delay, easing: OUT });
@@ -191,7 +202,7 @@
           bar.style.width = `${f.width}px`; bar.style.transform = `translate(${f.left - r.left + row.scrollLeft}px, ${f.bottom - r.top - 2}px)`;
         };
         place(); new ResizeObserver(place).observe(row);
-        row.addEventListener('click', () => requestAnimationFrame(place));
+        finder.addEventListener('click', () => requestAnimationFrame(place)); // any finder control (Reset too) can move the pressed tab
       });
       const visible = () => [...grid.children].filter(li => !li.hidden);
       finder.addEventListener('click', event => {

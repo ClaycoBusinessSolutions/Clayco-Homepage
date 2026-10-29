@@ -19,7 +19,6 @@ html:has(.cs-header) :is(.section, [id]) { scroll-margin-top: 0; }
 .cs-header .brand { display: block; width: clamp(136px, 12.59vw, 326px); color: var(--red); }
 /* The wordmark link is #home, the hero below the header: land at the very top instead. */
 html:has(.cs-header) #home { scroll-margin-top: 100vh; }
-.cs-header .brand .wordmark { display: block; width: 100%; height: auto; }
 .clayco-project .cp-facts { top: 24px; }
 /* Phone menu sheet: keep the wordmark centred as in the header, with × where the menu icon was. */
 @media (max-width: 1099px) {
@@ -30,9 +29,7 @@ html:has(.cs-header) #home { scroll-margin-top: 100vh; }
 .search-field input::placeholder { color: #7a7a75; }
 
 /* ---------- Integrated approach: develop · design · build case studies ---------- */
-.cb-ddb { margin-top: clamp(48px, 5vw, 80px); border-top: 2px solid var(--ink); }
 .cb-ddb-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; padding-block: 22px 18px; border-bottom: 1px solid var(--line); }
-.cb-ddb-title { margin: 0; font: 500 clamp(28px, 2.1vw, 34px)/1.1 var(--display); letter-spacing: -.02em; }
 .cb-ddb-sub { flex: 1 1 360px; margin: 0; font-size: 20px; color: var(--muted); }
 .cb-ddb-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 2.4vw, 40px); }
 .cb-ddb-item a { position: relative; display: grid; grid-template-columns: clamp(96px, 7vw, 128px) minmax(0, 1fr); gap: 18px; align-items: start; height: 100%; padding-block: 22px; border-bottom: 1px solid var(--line); }
@@ -41,52 +38,24 @@ html:has(.cs-header) #home { scroll-margin-top: 100vh; }
 .cb-ddb-item a:hover .cb-ddb-thumb img { transform: scale(1.04); }
 .cb-ddb-copy { display: grid; gap: 4px; padding-right: 30px; }
 .cb-ddb-num { display: none; }
-.cb-ddb-kind { font-size: 16px; letter-spacing: .1em; text-transform: uppercase; color: var(--red); }
-.cb-ddb-name { margin: 0; font: 500 clamp(22px, 1.5vw, 24px)/1.2 var(--display); letter-spacing: -.012em; transition: color .25s; }
-.cb-ddb-item a:hover .cb-ddb-name { color: var(--red); }
-.cb-ddb-loc { font-size: 18px; color: var(--muted); }
 .cb-ddb-roles { display: grid; gap: 2px; margin-top: 8px; font-size: 16px; color: var(--ink); }
 .cb-ddb-roles b { font-weight: 500; }
-.cb-ddb-item a > .arrow { position: absolute; right: 0; top: 24px; margin: 0; }
 @media (max-width: 1099px) { .cb-ddb-list { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Project finder: smaller tiles, more projects in view ---------- */
 .cb-finder-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px clamp(14px, 1.4vw, 22px); }
 .cb-finder .cb-proj .media { aspect-ratio: 4 / 3; }
-.cb-finder .cb-proj a { gap: 12px; }
 .cb-finder .cb-proj-copy { gap: 3px; padding-right: 20px; }
-.clayco-page .cb-finder .cb-proj-title { font-size: 20px; line-height: 1.2; }
-.cb-finder :is(.cb-proj-loc, .cb-proj-market) { font-size: 16px; }
-.cb-finder .cb-proj-tags .tag { font-size: 13px; }
 @media (max-width: 1099px) { .cb-finder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 /* 15 projects fill whole rows: 5 per row down to 1100px, 3 per row on tablets. */
 /* Phones: two small tiles per row, so a screen shows several projects. */
 @media (max-width: 767px) {
   .cb-finder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
-  .cb-finder .cb-proj { border-top: 0; }
-  .cb-finder .cb-proj a { display: flex; flex-direction: column; gap: 8px; padding-block: 0; }
-  .cb-finder .cb-proj .media { aspect-ratio: 4 / 3; }
-  .clayco-page .cb-finder .cb-proj-title { font-size: 16px; }
-  .cb-finder :is(.cb-proj-loc, .cb-proj-market) { font-size: 13px; }
-  .cb-finder .cb-proj-copy { padding-right: 0; }
-  .cb-finder .cb-proj-tags .tag { font-size: 11px; padding: 3px 8px; }
-  .cb-finder .cb-proj a > .arrow { display: none; }
-  .cf--final .cf-family-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .cf--final .cf-company { min-height: 0; padding: 14px; }
-  .cf--final .cf-company-desc { font-size: 14px; }
 }
 
-/* ---------- News: four items — two newsroom cards, one voice, one innovation story ---------- */
-.news-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.news-grid--four .news-title { font-size: clamp(22px, 1.5vw, 26px); }
-.news-card--story a { padding-top: 22px; border-top: 2px solid var(--ink); }
-.news-byline { font-size: 18px; color: var(--muted); }
-@media (max-width: 1099px) { .news-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 767px) { .news-grid--four { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Footer: family of companies higher, office list instead of photos ---------- */
 .cf--final .cf-family { border-bottom: 0; }
-@media (min-width: 1100px) { .cf--final .cf-family-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .cf-offices--list { padding-block: 40px; border-top: 1px solid var(--line-dark); }
 .cf-office-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px clamp(20px, 3vw, 48px); }
 .cf-office { padding-top: 16px; border-top: 1px solid rgb(255 255 255 / .35); }
@@ -95,7 +64,6 @@ html:has(.cs-header) #home { scroll-margin-top: 100vh; }
 .cf-office-phone { display: inline-block; margin-top: 6px; font-size: 18px; font-weight: 500; }
 .cf-office-phone:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 1099px) { .cf-office-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 599px) { .cf-office-list { grid-template-columns: minmax(0, 1fr); } }
 .news-grid--four .news-meta { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 15px; letter-spacing: .08em; }
 .news-grid--four .news-meta > * + *::before { content: none; }
 @media (max-width: 899px) { .news-grid--four > li:first-child { grid-column: auto; } }
